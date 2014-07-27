@@ -1,0 +1,18 @@
+
+
+set lines=60 columns=220
+"set cursorcolumn                    " 高亮显示列
+set textwidth=80                    " 插入文本的最大宽度
+set cc=+1                           " 是否显示标尺
+set scrolloff=15                    " 光标上下两侧最少保留的屏幕行数
+
+
+let SCHEMES = [
+            \ "desertEx_256",
+            \ "BusyBee",
+            \ "darkerdesert_modified",
+            \ "dw_cyan",
+            \ "maroloccio3_modified"
+            \ ]
+
+exec "colorscheme " . SCHEMES[getpid() % len(SCHEMES)]

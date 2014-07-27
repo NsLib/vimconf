@@ -1,0 +1,99 @@
+"{{{ 映射F1~F12
+" <F3>  搜索光标所在单词
+nnoremap        <silent> <F3>           :Grep<CR>
+" <F4>  C++切换头文件
+map             <F4>                    :A<CR>
+" <F5>  生成tags文件
+autocmd FileType cpp            map <F5>            :call NsLibMakeTags()<CR>
+autocmd FileType c              map <F5>            :call NsLibMakeTags()<CR>
+autocmd FileType python         map <F5>            :call NsLibMakeTags()<CR>
+autocmd FileType javascript     map <F5>            :call NsLibMakeTags()<CR>
+
+" 语法检查
+autocmd FileType *          map <buffer> <F7>    :SyntasticCheck<ESC>:Errors<CR>
+" 关闭NerdTree和行号以及鼠标，用于复制代码
+nnoremap <S-F7>             :call ToggleLineNumberAndNerdTree()<CR>
+
+" <F9>
+if hostname() == "localhost"
+    autocmd FileType python     map <F9> :!python "%"<CR>
+else
+    autocmd FileType python     map <F9> :!q-python27 "%"<CR>
+endif
+autocmd FileType cpp        map <F9> :call Do_OneFileMake()<CR>
+autocmd FileType c          map <F9> :call Do_OneFileMake()<CR>
+autocmd FileType perl       map <F9> :!perl -w "%"<CR>
+autocmd FileType lua        map <F9> :!lua "%"<CR>
+autocmd FileType erlang     map <F9> :!erlc "%"<CR>
+autocmd FileType sh         map <F9> :!bash "%"<CR>
+autocmd FileType vim        map <F9> :source %<CR>
+
+map             <F12>                               :NERDTreeToggle<CR>
+"}}}
+
+" {{{映射快捷键
+" vim 开发
+nnoremap    ,sv                 :source $MYVIMRC<cr>
+nnoremap    ,ev                 :vsplit $MYVIMRC<cr>
+" 编辑相关
+inoremap    jk                  <esc>
+nnoremap    Q                   :q<CR>
+cmap w!! %!sudo tee > /dev/null %   " 忘记sudo时，强制保存
+
+" 窗口移动
+inoremap    <C-y>               <Up>
+inoremap    <C-e>               <Down>
+nnoremap    <C-j>               <C-W>j
+nnoremap    <C-k>               <C-W>k
+nnoremap    <C-h>               <C-W>h
+nnoremap    <C-l>               <C-W>l
+
+" 插入模式下移动光标
+inoremap    <c-h>               <left>
+inoremap    <c-l>               <right>
+inoremap    <c-j>               <c-o>gj
+inoremap    <c-k>               <c-o>gk
+
+" DoxygenToolkit快捷键
+nnoremap    ,da                 :DoxAuthor<cr>
+nnoremap    ,df                 :Dox<cr>
+nnoremap    ,db                 :DoxBlock<cr>
+
+" 高亮当前列
+nnoremap    ,hc                 :call SetColorColumn()<CR>
+
+" Tabbar切换选项卡 \0-30
+nnoremap    ,tc                 :TbBufferClose<CR>
+nnoremap    ,c                  :TbBufferClose<CR>
+
+nnoremap    ,tl                 :TlistToggle<CR>
+nnoremap    ,tb                 :TagbarToggle<CR>
+nnoremap    ,td                 :TaskList<CR>
+
+" 对齐插件
+nnoremap    ,a=                 :Tabularize /=<CR>
+vnoremap    ,a=                 :Tabularize /=<CR>
+nnoremap    ,a#                 :Tabularize /#<CR>
+vnoremap    ,a#                 :Tabularize /#<CR>
+nnoremap    ,a"                 :Tabularize /"<CR>
+vnoremap    ,a"                 :Tabularize /"<CR>
+nnoremap    ,a:                 :Tabularize /:\zs<CR>
+vnoremap    ,a:                 :Tabularize /:\zs<CR>
+
+nnoremap    ,gn                 <Plug>GitGutterNextHunk
+nnoremap    ,gp                 <Plug>GitGutterPrevHunk
+nnoremap    ,gs                 <Plug>GitGutterStageHunk
+nnoremap    ,gr                 <Plug>GitGutterRevertHunk
+
+" 调整窗口大小
+nnoremap <silent> ,=            :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
+nnoremap <silent> ,-            :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
+nnoremap <silent> ,h=           :exe "resize " . (winheight(0) * 6/5)<CR>
+nnoremap <silent> ,h-           :exe "resize " . (winheight(0) * 4/5)<CR>
+nnoremap <silent> ,v=           :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
+nnoremap <silent> ,v-           :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
+
+nnoremap    <Leader>wb          :Vimwiki2HTMLBrowse<CR>
+nnoremap    <Leader>wa          :VimwikiAll2HTML<CR>
+nnoremap    <Leader>wh          :Vimwiki2HTML<CR>
+"}}}
