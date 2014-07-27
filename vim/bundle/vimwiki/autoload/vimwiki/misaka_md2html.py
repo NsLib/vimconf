@@ -99,10 +99,9 @@ import houdini as h
 # A basic default template to use until the vimwiki template settings are
 # fully integrated.
 template = Template("""
-
+    <!DOCTYPE html>
     <html>
     <head>
-    <!-- START HEADER -->
         {% if title %}
             <title>{{ title }}</title>
         {% endif %}
@@ -112,71 +111,47 @@ template = Template("""
         {% endif %}
 
         <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-        <script type="text/javascript" src="js/sticky-pagination-fixer.js"></script>
+        <!-- <script type="text/javascript" src="js/sticky-pagination-fixer.js"></script> -->
         <script type="text/javascript" src="js/run_prettify.js"></script>
 
-        <!-- GCHART hosted GOOGLE.COM -->
-        {% if gChartFile %}
-            <script type="text/javascript" src="js/jsapi.js"></script>
-            <script type="text/javascript" src="js/gChart.js"></script>
-        {% endif %}
-
-        <!-- MATHJAX hosted CDN.MATHJAX.ORG -->
         <script type='text/javascript' src='js/MathJax.js'> MathJax.Hub.Config({ extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"], ["\\(","\\)"]], skipTags: ["script","noscript","style","textarea","pre"], processEnvironments: true}, TeX: { extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"] } }); </script>
         <script type='text/javascript' src='js/TeX-AMS_HTML.js'></script>
 
-        <script language="javascript">//<![CDATA[
-            $(document).ready(function(){
-              $("button#home").click(function(){
-                window.location.href="index.html";
-              });
-              $("button#hdrcontents").click(function(){
-                $("div.hdrcontents").toggle();
-              });
-              $("button#hdrrelated").click(function(){
-                $("div.hdrrelated").toggle();
-              });
-              $("button#back").click(function(){
-                history.go(-1);
-              });
-              $("button#next").click(function(){
-                history.go(1);
-              });
-            });
-        //]]></script>
-
-    <!-- END HEADER  -->
+        <script type='text/javascript' src='js/nslib.js'></script>
     </head>
-    <body style="padding: 10px 20px 20px 20px;">
-    <!-- START BODY -->
-        <header id="sticky-header">
-            <div class="mynav">
-                <button id="home">主页</button>
-                <button id="hdrcontents">目录</button>
-                <button id="hdrrelated">相关</button>
-                <button id="back">后退</button>
-                <button id="next">前进</button>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a id="home">主页</a></li>
+                            <li><a id="toggle-toc">目录</a></li>
+                            <li><a id="hdrrelated">相关</a></li>
+                            <li><a id="top">顶部</a></li>
+                            <li><a id="back">后退</a></li>
+                            <li><a id="next">前进</a></li>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </header>
-        <div class="container">
-            <!-- <hr style="padding: 0px 0px 0px 0px; margin: 10px 0px 0px 0px;"> -->
-            <!-- TABLE OF CONTENTS -->
-            <div class="hdrcontents">
-            <h3>目录</h3>
-            {% if toc_content %}
-            {{ toc_content }}
-            {% endif %}
-            </div>
-            <!-- CONTENTS -->
-            {{ main_content }}
         </div>
-    <!-- END BODY -->
+        <div class="container">
+            <div class="row">
+                <div id="left-span" class="span2">
+                    {% if toc_content %}
+                    {{ toc_content }}
+                    {% endif %}
+                </div>
+                <div id="right-span" class="span10">
+                    {{ main_content }}
+                </div>
+            </div>
+        </div>
     </body>
     </html>
 
 """)
-
-
 
 
 if __name__ == '__main__':
