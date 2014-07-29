@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 
+'''
+Modify from:
+https://github.com/tub78/misaka-bootstrap/blob/master/bin/misaka_md2html.py
+'''
+
 """
 ## REQUIREMENTS
 
@@ -155,7 +160,7 @@ template = Template("""
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser( description="Convert vimwiki markdown files to html.")
+    parser = argparse.ArgumentParser(description="Convert vimwiki markdown files to html.")
     parser.add_argument("force", type=int, help="Overwrite any previously " "existing html file.  0 = no, 1 = yes")
     parser.add_argument("syntax", help="The syntax of the file to be " "converted.  The only format  currently supported is markdown. " "So this argument should always be markdown.", choices=["markdown"])
     parser.add_argument("extension", help="The extension of the input file. " "For example: wiki, txt, or md")
@@ -247,8 +252,12 @@ if __name__ == '__main__':
                 toc_text = '^\s*(?P<toc>\[toc\])\s*'
                 # %nohtml
                 nohtml_text = '^\s*(?P<nohtml>%nohtml)\s*'
-                patterns = {'title':title_text, 'toc':toc_text,
-                        'no_html':nohtml_text, 'template':template_text}
+                patterns = {
+                    'title': title_text,
+                    'toc': toc_text,
+                    'no_html': nohtml_text,
+                    'template': template_text
+                }
                 text = self.process_percent_codes(text, patterns)
                 return text
 
@@ -257,37 +266,44 @@ if __name__ == '__main__':
 
         class VimwikiHtmlRenderer(HtmlRenderer, LinkPreprocessor):
             def block_code(self, text, lang):
-                return '\n<pre><code class="prettyprint linenums">%s</code></pre>\n' % \
-                        h.escape_html(text.strip())
-            # 使用run_prettify.js自动识别及高亮
+                # 使用run_prettify.js自动识别及高亮
+                content = h.escape_html(text.strip())
+                style = ' class="prettyprint linenums"'
+                if lang is not None:
+                    if lang.lower() == 'plan':
+                        style = ''
+                return '\n<pre><code%s>%s</code></pre>\n' % (style, content)
 
         renderer = VimwikiHtmlRenderer(HTML_TOC)
-        to_html = Markdown(renderer, extensions= EXT_NO_INTRA_EMPHASIS |
-            EXT_TABLES | EXT_FENCED_CODE | EXT_AUTOLINK |
-            EXT_STRIKETHROUGH | EXT_SUPERSCRIPT)
+        to_html = Markdown(renderer, extensions=EXT_NO_INTRA_EMPHASIS |
+                           EXT_TABLES | EXT_FENCED_CODE | EXT_AUTOLINK |
+                           EXT_STRIKETHROUGH | EXT_SUPERSCRIPT)
         main_content = to_html.render(input_file)
         if renderer.percent_codes['no_html']:
             print(output_file_path + " not converted due to presence of "
-                    "'%nohtml' in the file.")
+                  "'%nohtml' in the file.")
         else:
             if renderer.percent_codes['toc']:
                 toc_renderer = VimwikiTocRenderer()
                 to_toc = Markdown(toc_renderer,
-                        extensions = EXT_NO_INTRA_EMPHASIS | EXT_AUTOLINK | EXT_SPACE_HEADERS)
+                                  extensions=EXT_FENCED_CODE |
+                                  EXT_NO_INTRA_EMPHASIS |
+                                  EXT_AUTOLINK |
+                                  EXT_SPACE_HEADERS)
                 toc_content = to_toc.render(input_file)
             else:
                 toc_content = None
 
             out = open(output_file_path, 'w')
-            out.write(template.render({'toc_content':toc_content,
-                'main_content':main_content, 'cssfile':ns.cssfile,
-                'gChartFile':os.path.join(os.path.dirname(ns.cssfile), 'gChart.js'),
-                'title':renderer.percent_codes['title']}))
+            out.write(template.render({
+                'toc_content': toc_content,
+                'main_content': main_content, 'cssfile': ns.cssfile,
+                'gChartFile': os.path.join(
+                    os.path.dirname(ns.cssfile), 'gChart.js'),
+                'title': renderer.percent_codes['title']
+            }))
             out.close()
             print("Converted file to: " + output_file_path)
-
-
-
     else:
         # File exists, do not render
         print("The file already exists and the force argument is not 1.")
