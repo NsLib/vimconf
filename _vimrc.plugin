@@ -21,6 +21,10 @@ let g:vim_markdown_folding_disabled     = 1
 
 "{{{ 效率插件
 
+"{{{ easymotion
+map <Leader><leader> <Plug>(easymotion-prefix)
+"}}}
+
 "{{{ vimwiki
 let g:vimwiki_use_mouse         = 1
 let g:vimwiki_camel_case        = 0
