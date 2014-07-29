@@ -110,8 +110,8 @@ template = Template("""
             <link href="{{ cssfile }}" rel="stylesheet">
         {% endif %}
 
-        <script type="text/javascript" src="js/jquery-1.4.2.min.js"></script>
-        <!-- <script type="text/javascript" src="js/sticky-pagination-fixer.js"></script> -->
+        <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="js/CollapsibleLists.js"></script>
         <script type="text/javascript" src="js/run_prettify.js"></script>
 
         <script type='text/javascript' src='js/MathJax.js'> MathJax.Hub.Config({ extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"], ["\\(","\\)"]], skipTags: ["script","noscript","style","textarea","pre"], processEnvironments: true}, TeX: { extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"] } }); </script>
