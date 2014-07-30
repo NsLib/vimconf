@@ -26,6 +26,7 @@ autocmd FileType perl       map <F9> :!perl -w "%"<CR>
 autocmd FileType lua        map <F9> :!lua "%"<CR>
 autocmd FileType erlang     map <F9> :!erlc "%"<CR>
 autocmd FileType sh         map <F9> :!bash "%"<CR>
+autocmd FileType go         map <F9> :!go run "%"<CR>
 autocmd FileType vim        map <F9> :source %<CR>
 
 map             <F12>                               :NERDTreeToggle<CR>
@@ -92,6 +93,9 @@ nnoremap <silent> ,h=           :exe "resize " . (winheight(0) * 6/5)<CR>
 nnoremap <silent> ,h-           :exe "resize " . (winheight(0) * 4/5)<CR>
 nnoremap <silent> ,v=           :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
 nnoremap <silent> ,v-           :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
+
+nnoremap    ,np                 :set nopaste<CR>
+nnoremap    ,sp                 :set paste<CR>
 
 nnoremap    <Leader>wb          :Vimwiki2HTMLBrowse<CR>
 nnoremap    <Leader>wa          :VimwikiAll2HTML<CR>
