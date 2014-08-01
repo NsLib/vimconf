@@ -8,6 +8,7 @@ autocmd FileType cpp            map <F5>            :call NsLibMakeTags()<CR>
 autocmd FileType c              map <F5>            :call NsLibMakeTags()<CR>
 autocmd FileType python         map <F5>            :call NsLibMakeTags()<CR>
 autocmd FileType javascript     map <F5>            :call NsLibMakeTags()<CR>
+autocmd FileType go             map <F5>            :call NsLibMakeTags()<CR>
 
 " 语法检查
 autocmd FileType *          map <buffer> <F7>    :SyntasticCheck<ESC>:Errors<CR>

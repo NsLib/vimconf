@@ -121,14 +121,14 @@ let g:python_highlight_string_formatting    = 1
 "}}}
 
 " 加载非通用的设置
-if filereadable(expand("~/.vimrc.keybind"))
-  source ~/.vimrc.keybind
-endif
 if filereadable(expand("~/.vimrc.plugin"))
   source ~/.vimrc.plugin
 endif
 if filereadable(expand("~/.vimrc.plugin.local"))
   source ~/.vimrc.plugin.local
+endif
+if filereadable(expand("~/.vimrc.keybind"))
+  source ~/.vimrc.keybind
 endif
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
