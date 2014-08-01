@@ -101,4 +101,8 @@ nnoremap    ,sp                 :set paste<CR>
 nnoremap    <Leader>wb          :Vimwiki2HTMLBrowse<CR>
 nnoremap    <Leader>wa          :VimwikiAll2HTML<CR>
 nnoremap    <Leader>wh          :Vimwiki2HTML<CR>
+
+nnoremap    zvf                 :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap    zsf                 :split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap    zf                  :split<CR>:exec("tag ".expand("<cword>"))<CR>
 "}}}
