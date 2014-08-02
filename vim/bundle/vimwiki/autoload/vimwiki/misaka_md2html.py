@@ -119,8 +119,11 @@ template = Template("""
         <script type="text/javascript" src="js/CollapsibleLists.js"></script>
         <script type="text/javascript" src="js/run_prettify.js"></script>
 
-        <script type='text/javascript' src='js/MathJax.js'> MathJax.Hub.Config({ extensions: ["tex2jax.js","MathMenu.js","MathZoom.js"], jax: ["input/TeX","output/HTML-CSS"], tex2jax: {inlineMath: [["$","$"], ["\\(","\\)"]], skipTags: ["script","noscript","style","textarea","pre"], processEnvironments: true}, TeX: { extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"] } }); </script>
+        <script type='text/javascript' src='js/MathJax.js'></script>
         <script type='text/javascript' src='js/TeX-AMS_HTML.js'></script>
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true }, messageStyle: "none"});
+        </script>
 
         <script type='text/javascript' src='js/nslib.js'></script>
     </head>
