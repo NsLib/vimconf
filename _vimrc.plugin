@@ -80,6 +80,10 @@ let g:ctrlp_custom_ignore = {
             \ }
 "}}}
 
+"{{{ vim-ctrlp-tjump
+let g:ctrlp_tjump_only_silent = 1
+"}}}
+
 "{{{ tabbar
 let g:Tb_MoreThanOne            = 0
 let g:Tb_SplitBelow             = 0
@@ -143,6 +147,11 @@ highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
 "}}}
 
 "{{{ 编程通用插件
+"{{{
+if has('mac')
+    let g:Cscope_ctags_cmd    = '/usr/local/bin/ctags'
+endif
+"}}}
 
 "{{{ gitgutter  用于git托管项目的diff插件,显示文件变化
 let g:gitgutter_realtime    = 0
