@@ -109,4 +109,6 @@ nnoremap    zf                  :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap    <c-]>               :CtrlPtjump<cr>
 vnoremap    <c-]>               :CtrlPtjumpVisual<cr>
+
+nnoremap    ,gu                 :GundoToggle<CR>
 "}}}

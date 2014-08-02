@@ -1,5 +1,11 @@
 
 "{{{ 通用编辑插件
+"{{{
+let g:gundo_width               = 60
+let g:gundo_preview_height      = winheight(0) / 3 * 2
+let g:gundo_right               = 1
+"}}}
+
 "{{{ rainbow 对于不同的括号，渲染成不同颜色
 let g:rainbow_active = 1
 let g:rainbow_conf = {
