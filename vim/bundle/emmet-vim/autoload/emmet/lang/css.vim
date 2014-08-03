@@ -19,9 +19,9 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
   " emmet
   let tokens = split(abbr, '+\ze[^+)!]')
   let block = emmet#util#searchRegion("{", "}")
-  if type == 'css' && block[0] == [0,0] && block[1] == [0,0]
+  if abbr !~ '^@' && emmet#getBaseType(type) == 'css' && block[0] == [0,0] && block[1] == [0,0]
     let current = emmet#newNode()
-    let current.snippet = abbr . " {\n\t${cursor}\n}"
+    let current.snippet = abbr . " {\n" . indent . "${cursor}\n}"
     let current.name = ''
     call add(root.child, deepcopy(current))
   else
@@ -57,7 +57,7 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
           endif
         endfor
       endif
-  
+
       let tag_name = token
       if tag_name =~ '.!$'
         let tag_name = tag_name[:-2]
@@ -69,12 +69,12 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
       let current = emmet#newNode()
       let current.important = important
       let current.name = tag_name
-  
+
       " aliases
       if has_key(aliases, tag_name)
         let current.name = aliases[tag_name]
       endif
-  
+
       " snippets
       if !empty(snippets)
         let snippet_name = tag_name
@@ -86,6 +86,10 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
           else
             let pat = '^' . join(split(tag_name, '\zs'), '\%(\|[^:-]\+-*\)')
             let vv = filter(sort(keys(snippets)), 'snippets[v:val] =~ pat')
+            if len(vv) == 0
+              let pat = '^' . join(split(tag_name, '\zs'), '[^:]\{-}')
+              let vv = filter(sort(keys(snippets)), 'snippets[v:val] =~ pat')
+            endif
             let minl = -1
             for vk in vv
               let vvs = snippets[vk]
@@ -114,7 +118,7 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
           endif
         endif
       endif
-  
+
       let current.pos = 0
       let lg = matchlist(token, '^\%(linear-gradient\|lg\)(\s*\(\S\+\)\s*,\s*\([^,]\+\)\s*,\s*\([^)]\+\)\s*)$')
       if len(lg) == 0
@@ -146,12 +150,13 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
       elseif token =~ '^c#\([0-9a-fA-F]\{3}\|[0-9a-fA-F]\{6}\)\(\.[0-9]\+\)\?'
         let cs = split(token, '\.')
         let current.name = ''
+        let [r,g,b] = [0,0,0]
         if len(cs[0]) == 5
           let rgb = matchlist(cs[0], 'c#\(.\)\(.\)\(.\)')
           let r = eval('0x'.rgb[1].rgb[1])
           let g = eval('0x'.rgb[2].rgb[2])
           let b = eval('0x'.rgb[3].rgb[3])
-        elseif len(cs[0]) == 7
+        elseif len(cs[0]) == 8
           let rgb = matchlist(cs[0], 'c#\(..\)\(..\)\(..\)')
           let r = eval('0x'.rgb[1])
           let g = eval('0x'.rgb[2])
@@ -162,6 +167,10 @@ function! emmet#lang#css#parseIntoTree(abbr, type)
         else
           let current.snippet = printf('color:rgb(%d, %d, %d, %s);', r, g, b, string(str2float('0.'.cs[1])))
         endif
+        call add(root.child, current)
+      elseif token =~ '^c#'
+        let current.name = ''
+        let current.snippet = 'color:\${cursor};'
         call add(root.child, current)
       else
         call add(root.child, current)

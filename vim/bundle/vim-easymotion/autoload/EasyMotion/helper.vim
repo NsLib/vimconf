@@ -1,7 +1,7 @@
 "=============================================================================
 " FILE: autoload/EasyMotion/helper.vim
 " AUTHOR: haya14busa
-" Last Change: 22 Feb 2014.
+" Last Change: 17 Mar 2014.
 " License: MIT license  {{{
 "     Permission is hereby granted, free of charge, to any person obtaining
 "     a copy of this software and associated documentation files (the
@@ -31,6 +31,17 @@ set cpo&vim
 
 function! EasyMotion#helper#mode(flag) "{{{
     return mode(a:flag) == "\<C-v>" ? "C-v" : mode(a:flag)
+endfunction "}}}
+
+function! EasyMotion#helper#get_char_by_coord(coord) "{{{
+    " @param coord: [lnum, col] or [bufnum, lnum, col, off]
+    if len(a:coord) == 4
+        let [line_num, col_num] = [a:coord[1], a:coord[2]]
+    else
+        let [line_num, col_num] = a:coord
+    endif
+    let target_col_regexp = '\%' . (col_num) . 'c.'
+    return matchstr(getline(line_num), target_col_regexp)
 endfunction "}}}
 
 function! EasyMotion#helper#is_greater_coords(coords1, coords2) "{{{
@@ -105,8 +116,8 @@ function! EasyMotion#helper#VarReset(var, ...) "{{{
 
     if a:0 == 0 && has_key(s:var_reset, a:var)
         " Reset var to original value
-        " setbufbar( or bufname): '' or '%' can be used for the current buffer
-        call setbufvar("", a:var, s:var_reset[a:var])
+        " setbufvar( or bufname): '' or '%' can be used for the current buffer
+        call setbufvar('%', a:var, s:var_reset[a:var])
     elseif a:0 == 1
         " Save original value and set new var value
 
@@ -116,7 +127,7 @@ function! EasyMotion#helper#VarReset(var, ...) "{{{
         let s:var_reset[a:var] = getbufvar("", a:var)
 
         " Set new var value
-        call setbufvar("", a:var, new_value)
+        call setbufvar('%', a:var, new_value)
     endif
 endfunction "}}}
 

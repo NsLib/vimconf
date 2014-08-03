@@ -175,7 +175,7 @@ function! s:do_tests(...)
   endtry
 endfunction
 
-function! g:emmet_unittest_complete(arglead, cmdline, cmdpos)
+function! s:emmet_unittest_complete(arglead, cmdline, cmdpos)
   let args = split(a:cmdline, '\s\+', 1)
   let testgroups = eval(join(filter(split(substitute(join(readfile(s:sfile), "\n"), '.*\nfinish\n', '', ''), '\n', 1), "v:val !~ '^\"'")))
   try
@@ -189,7 +189,7 @@ function! g:emmet_unittest_complete(arglead, cmdline, cmdpos)
   return []
 endfunction
 
-command! -nargs=* -complete=customlist,g:emmet_unittest_complete EmmetUnitTest call s:do_tests(<f-args>)
+command! -nargs=* -complete=customlist,<SID>emmet_unittest_complete EmmetUnitTest call s:do_tests(<f-args>)
 if s:sfile == expand('%:p')
   EmmetUnitTest
 endif
@@ -492,6 +492,10 @@ finish
           'result': "<div id=\"id-1\">\n\t<div id=\"id2-1\"></div>\n</div>\n<div id=\"id-2\">\n\t<div id=\"id2-2\"></div>\n</div>\n<div id=\"id-3\">\n\t<div id=\"id2-3\"></div>\n</div>\n<div id=\"id-4\">\n\t<div id=\"id2-4\"></div>\n</div>\n<div id=\"id-5\">\n\t<div id=\"id2-5\"></div>\n</div>\n",
         },
         {
+          'query': ".foo>[bar=2]>.baz",
+          'result': "<div class=\"foo\">\n\t<div bar=\"2\">\n\t\t<div class=\"baz\"></div>\n\t</div>\n</div>\n",
+        },
+        {
           'query': "{test case $ }*3",
           'result': "test case 1 test case 2 test case 3 ",
         },
@@ -556,7 +560,7 @@ finish
       'tests': [
         {
           'query': "img[src=http://mattn.kaoriya.net/images/logo.png]$$$$\\<c-y>,\\<c-y>i$$$$",
-          'result': "<img src=\"http://mattn.kaoriya.net/images/logo.png\" alt=\"\" width=\"96\" height=\"96\">",
+          'result': "<img src=\"http://mattn.kaoriya.net/images/logo.png\" alt=\"\" width=\"113\" height=\"113\">",
         },
         {
           'query': "img[src=/logo.png]$$$$\\<c-y>,\\<c-y>i$$$$",
@@ -564,7 +568,7 @@ finish
         },
         {
           'query': "img[src=http://mattn.kaoriya.net/images/logo.png width=foo height=bar]$$$$\\<c-y>,\\<c-y>i$$$$",
-          'result': "<img src=\"http://mattn.kaoriya.net/images/logo.png\" alt=\"\" width=\"96\" height=\"96\">",
+          'result': "<img src=\"http://mattn.kaoriya.net/images/logo.png\" alt=\"\" width=\"113\" height=\"113\">",
         },
       ],
     },
@@ -899,76 +903,76 @@ finish
           'result': "@import url()",
         },
         {
-          'query': "fs:n",
-          'result': "font-style: normal",
+          'query': "{fs:n$$$$}",
+          'result': "{font-style: normal}",
         },
         {
-          'query': "fl:l|fc",
-          'result': "float: left",
+          'query': "{fl:l|fc$$$$}",
+          'result': "{float: left}",
         },
         {
-          'query': "bg+$$$$",
-          'result': "background: #FFF url($$$$) 0 0 no-repeat",
+          'query': "{bg+$$$$}",
+          'result': "{background: #FFF url($$$$) 0 0 no-repeat}",
         },
         {
-          'query': "bg+!$$$$",
-          'result': "background: #FFF url($$$$) 0 0 no-repeat !important",
+          'query': "{bg+!$$$$}",
+          'result': "{background: #FFF url($$$$) 0 0 no-repeat !important}",
         },
         {
-          'query': "m$$$$",
-          'result': "margin: $$$$",
+          'query': "{m$$$$}",
+          'result': "{margin: $$$$}",
         },
         {
-          'query': "m0.1p$$$$",
-          'result': "margin: 0.1%",
+          'query': "{m0.1p$$$$}",
+          'result': "{margin: 0.1%}",
         },
         {
-          'query': "m1.0$$$$",
-          'result': "margin: 1.0em",
+          'query': "{m1.0$$$$}",
+          'result': "{margin: 1.0em}",
         },
         {
-          'query': "m2$$$$",
-          'result': "margin: 2px",
+          'query': "{m2$$$$}",
+          'result': "{margin: 2px}",
         },
         {
-          'query': "bdrs10$$$$",
-          'result': "border-radius: 10px",
+          'query': "{bdrs10$$$$}",
+          'result': "{border-radius: 10px}",
         },
         {
-          'query': "-bdrs20$$$$",
-          'result': "-webkit-border-radius: 20px\n-moz-border-radius: 20px\nborder-radius: 20px",
+          'query': "{-bdrs20$$$$}",
+          'result': "{-webkit-border-radius: 20px\n-moz-border-radius: 20px\nborder-radius: 20px}",
         },
         {
-          'query': "lg(top,#fff,#000)$$$$",
-          'result': "background-image: -webkit-gradient(top, 0 0, 0 100, from(#fff), to(#000))\nbackground-image: -webkit-linear-gradient(#fff, #000)\nbackground-image: -moz-linear-gradient(#fff, #000)\nbackground-image: -o-linear-gradient(#fff, #000)\nbackground-image: linear-gradient(#fff, #000)\n",
+          'query': "{lg(top,#fff,#000)$$$$}",
+          'result': "{background-image: -webkit-gradient(top, 0 0, 0 100, from(#fff), to(#000))\nbackground-image: -webkit-linear-gradient(#fff, #000)\nbackground-image: -moz-linear-gradient(#fff, #000)\nbackground-image: -o-linear-gradient(#fff, #000)\nbackground-image: linear-gradient(#fff, #000)\n}",
         },
         {
-          'query': "m10-5-0$$$$",
-          'result': "margin: 10px 5px 0",
+          'query': "{m10-5-0$$$$}",
+          'result': "{margin: 10px 5px 0}",
         },
         {
-          'query': "m-10--5$$$$",
-          'result': "margin: -10px -5px",
+          'query': "{m-10--5$$$$}",
+          'result': "{margin: -10px -5px}",
         },
         {
-          'query': "m10-auto$$$$",
-          'result': "margin: 10px auto",
+          'query': "{m10-auto$$$$}",
+          'result': "{margin: 10px auto}",
         },
         {
-          'query': "w100p$$$$",
-          'result': "width: 100%",
+          'query': "{w100p$$$$}",
+          'result': "{width: 100%}",
         },
         {
-          'query': "h50e$$$$",
-          'result': "height: 50em",
+          'query': "{h50e$$$$}",
+          'result': "{height: 50em}",
         },
         {
-          'query': "(bg+)+c$$$$",
-          'result': "background: #FFF url($$$$) 0 0 no-repeat\ncolor: #000",
+          'query': "{(bg+)+c$$$$}",
+          'result': "{background: #FFF url($$$$) 0 0 no-repeat\ncolor: #000}",
         },
         {
-          'query': ".first>.second>.third$$$$",
-          'result': "div.first\n\tdiv.second\n\t\tdiv.third$$$$",
+          'query': "{.first>.second>.third$$$$}",
+          'result': "{div.first\n\tdiv.second\n\t\tdiv.third$$$$}",
         },
       ],
     },

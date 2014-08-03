@@ -1,4 +1,4 @@
-*easymotion.txt*	Version 2.0  Last change:24 Feb 2014.
+*easymotion.txt*	Version 2.0  Last change:21 Mar 2014.
 
 
             ______                  __  ___       __  _
@@ -152,7 +152,7 @@ EasyMotion <Plug> table                                *easymotion-plug-table*
     <Plug>(easymotion-jumptoanywhere) | See |<Plug>(easymotion-jumptoanywhere)|
     <Plug>(easymotion-repeat)         | See |<Plug>(easymotion-repeat)|
     <Plug>(easymotion-next)           | See |<Plug>(easymotion-next)|
-    <Plug>(easymotion-previous)       | See |<Plug>(easymotion-previous)|
+    <Plug>(easymotion-prev)           | See |<Plug>(easymotion-prev)|
     <Plug>(easymotion-sol-j)          | See |<Plug>(easymotion-sol-j)|
     <Plug>(easymotion-sol-k)          | See |<Plug>(easymotion-sol-k)|
     <Plug>(easymotion-eol-j)          | See |<Plug>(easymotion-eol-j)|
@@ -163,6 +163,8 @@ EasyMotion <Plug> table                                *easymotion-plug-table*
     <Plug>(easymotion-iskeyword-e)    | See |<Plug>(easymotion-iskeyword-e)|
     <Plug>(easymotion-iskeyword-ge)   | See |<Plug>(easymotion-iskeyword-ge)|
     <Plug>(easymotion-iskeyword-bd-e) | See |<Plug>(easymotion-iskeyword-bd-e)|
+    <Plug>(easymotion-vim-n)          | See |<Plug>(easymotion-vim-n)|
+    <Plug>(easymotion-vim-N)          | See |<Plug>(easymotion-vim-N)|
                                       |
     Within Line Motion                | See |easymotion-within-line|
     ----------------------------------|---------------------------------
@@ -303,8 +305,8 @@ Repeat ~
             nmap <Leader>; <Plug>(easymotion-next)
             nmap <Leader>, <Plug>(easymotion-prev)
 <
-        This feature is partly inspired by and based on vim-sneak. vim-sneak
-        can be downloaded here: https://github.com/justinmk/vim-sneak
+        This feature is inspired by and based on vim-sneak. vim-sneak can be
+        downloaded here: https://github.com/justinmk/vim-sneak
 
 EasyMotion dot repeat~
                                     *easymotion-dotrepeat* *easymotion-textobjct*
@@ -390,6 +392,15 @@ iskeyword compatible word motions           *<Plug>(easymotion-iskeyword-w)*
         map <Leader>b <Plug>(easymotion-iskeyword-b)
 <
         NOTE: Within line motions are compatible with |iskeyword| by default.
+
+Search motion respect previous direction
+
+    <Plug>(easymotion-vim-n)                         *<Plug>(easymotion-vim-n)*
+    <Plug>(easymotion-vim-N)                         *<Plug>(easymotion-vim-N)*
+
+    This is vim compatible |n| & |N| easymotion. Unlike |<Plug>(easymotion-n)|
+    and |<Plug>(easymotion-N)| 's direction is always forward or backward,
+    these motions consider previous search direction. 
 
 Within line motion ~
                                                        *easymotion-within-line*
@@ -508,7 +519,9 @@ keymapping,
 
     <Leader>s{char}{char}{char}...<CR>
 
-    You can use <C-h> to delete while typing.
+    You can use <C-h> to delete while typing, and Vim's default |n| & |N|
+    keymappings works after this motion(|<Plug>(easymotion-sn)|) to move next or
+    previous matches.
 
     Note: the 'n' key motion provides incremental highlighting. If you don't
           want to highlight incrementally, set |g:EasyMotion_inc_highlight|
@@ -930,8 +943,8 @@ EasyMotion_add_search_history                 *g:EasyMotion_add_search_history*
     inputted pattern to vim default search history. If you want to disable
     this feature, set this value to 0.
 >
-    let g:EasyMotion_add_search_history = 0 
-< 
+    let g:EasyMotion_add_search_history = 0
+<
     Default: 1
 
 EasyMotion_off_screen_search                   *g:EasyMotion_off_screen_search*

@@ -107,7 +107,7 @@ function! emmet#expandAbbrIntelligent(feedkey)
   if !emmet#isExpandable()
     return a:feedkey
   endif 
-  return "\<plug>(EmmetExpandAbbr)"
+  return "\<plug>(emmet-expand-abbr)"
 endfunction
 
 function! emmet#isExpandable()
@@ -533,7 +533,9 @@ function! emmet#expandAbbr(mode, abbr) range
             let str .= lpart . "\n"
           endif
         endfor
-        let leader .= (str =~ "\n" ? ">{\n" : "{") . str . "}"
+        if stridx(leader, '{$#}') == -1
+          let leader .= '{$#}'
+        endif
         let items = emmet#parseIntoTree(leader, type).child
       else
         let save_regcont = @"
@@ -541,7 +543,10 @@ function! emmet#expandAbbr(mode, abbr) range
         silent! normal! gvygv
         let str = @"
         call setreg('"', save_regcont, save_regtype)
-        let items = emmet#parseIntoTree(leader . "{".str."}", type).child
+        if stridx(leader, '{$#}') == -1
+          let leader .= '{$#}'
+        endif
+        let items = emmet#parseIntoTree(leader, type).child
       endif
       for item in items
         let expand .= emmet#toString(item, rtype, 0, filters, 0, '')
@@ -550,6 +555,9 @@ function! emmet#expandAbbr(mode, abbr) range
         let expand = substitute(expand, '&', '\&amp;', 'g')
         let expand = substitute(expand, '<', '\&lt;', 'g')
         let expand = substitute(expand, '>', '\&gt;', 'g')
+      endif
+      if stridx(leader, '{$#}') != -1
+        let expand = substitute(expand, '\$#', '\="\n" . str', 'g')
       endif
     endif
   elseif a:mode == 4
@@ -1477,6 +1485,7 @@ let s:emmet_settings = {
 \            'link:rss': [{'rel': 'alternate'}, {'type': 'application/rss+xml'}, {'title': 'RSS'}, {'href': '|rss.xml'}],
 \            'link:atom': [{'rel': 'alternate'}, {'type': 'application/atom+xml'}, {'title': 'Atom'}, {'href': 'atom.xml'}],
 \            'meta:utf': [{'http-equiv': 'Content-Type'}, {'content': 'text/html;charset=UTF-8'}],
+\            'meta:vp': [{'name': 'viewport'}, {'content': 'width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0'}],
 \            'meta:win': [{'http-equiv': 'Content-Type'}, {'content': 'text/html;charset=Win-1251'}],
 \            'meta:compat': [{'http-equiv': 'X-UA-Compatible'}, {'content': 'IE=7'}],
 \            'style': g:emmet_html5 ? {} : {'type': 'text/css'},
@@ -1662,6 +1671,7 @@ let s:emmet_settings = {
 \                    ."\t%body\n"
 \                    ."\t\t${child}|\n",
 \        },
+\        'attribute_style': 'hash',
 \    },
 \    'slim': {
 \        'indentation': '  ',
