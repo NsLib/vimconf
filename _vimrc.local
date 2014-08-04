@@ -16,3 +16,5 @@ let SCHEMES = [
             \ ]
 
 exec "colorscheme " . SCHEMES[getpid() % len(SCHEMES)]
+
+hi ColorColumn          ctermfg=White           ctermbg=Grey  

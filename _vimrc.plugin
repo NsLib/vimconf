@@ -8,11 +8,12 @@ let g:gundo_right               = 1
 
 "{{{ rainbow 对于不同的括号，渲染成不同颜色
 let g:rainbow_active = 1
+let g:rainbow_operators=2
 let g:rainbow_conf = {
             \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
             \   'ctermfgs': ['lightgray', 'lightblue', 'lightmagenta', 'lightcyan'],
             \   'operators': '_,_',
-            \   'parentheses': [['(',')'], ['\[','\]'], ['{','}']],
+            \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
             \   'separately': {
             \       '*': {},
             \       'lisp': {
