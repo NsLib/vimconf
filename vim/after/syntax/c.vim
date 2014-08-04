@@ -277,3 +277,4 @@ hi def link cDelimiter Delimiter
 hi def link cBraces Delimiter
 hi def link cBoolean Boolean
 
+syn region cMyFold start="#if" end="#end" transparent fold
