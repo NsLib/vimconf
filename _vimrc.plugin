@@ -65,9 +65,9 @@ let g:vimwiki_valid_html_tags   ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
         
  let g:vimwiki_list = [
              \{
-             \   "path": "~/Dropbox/vimwiki", "path_html": "~/Dropbox/vimwiki/html",  
-             \   "html_footer": "~/Dropbox/vimwiki/template/footer.tpl",
-             \   "html_header": "~/Dropbox/vimwiki/template/header.tpl",
+             \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",  
+             \   "html_footer": "~/vimwiki/template/footer.tpl",
+             \   "html_header": "~/vimwiki/template/header.tpl",
              \   "syntax": "markdown",
              \   "ext": ".md",
              \   "css_name": "main.css",
