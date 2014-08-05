@@ -19,3 +19,17 @@ let SCHEMES = [
 colorscheme jellyx
 
 hi ColorColumn          ctermfg=White           ctermbg=Grey  
+
+"{{{ DoxygenToolkit.vim  文档插件
+let g:DoxygenToolkit_authorName             = "dongliang.ma"
+let g:DoxygenToolkit_licenseTag             = "BSD\<enter>"
+"}}}
+
+"{{{ tags
+autocmd FileType cpp        set tags+=~/.vim/tags/linux_all_in_one_tags
+autocmd FileType c          set tags+=~/.vim/tags/linux_all_in_one_tags
+autocmd FileType c          set tags+=~/.vim/tags/kernel_src_tags
+autocmd FileType python　   set tags+=~/.vim/python27_tags 
+"}}}
+
+"set clipboard=unnamed               " 共用系统剪贴板
