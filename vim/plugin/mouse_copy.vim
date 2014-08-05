@@ -11,6 +11,7 @@ function! ToggleLineNumberAndNerdTree()
             set mouse=
             GitGutterDisable
             :CloseSyntasticQuickFixWindow
+            :NumbersToggle
         else
             let s:toggle_line_bumber_and_nerd_tree_flag = 1
             NERDTree
@@ -19,6 +20,7 @@ function! ToggleLineNumberAndNerdTree()
             set mouse=a
             GitGutterEnable
             :OpenSyntasticQuickFixWindow
+            :NumbersToggle
         endif
     catch
     endtry
