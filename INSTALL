@@ -7,18 +7,12 @@ function init_vim_file()
 {
     rm -rf ~/.vim
     rm -f ~/.vimrc
-    rm -f ~/.vimrc.keybind
     rm -f ~/.vimrc.local
-    rm -f ~/.vimrc.plugin
-    rm -f ~/.vimrc.plugin.local
     rm -f ~/.tmux.conf
 
     ln -s "${CURRENT_PATH}/vim" ~/.vim
     ln -s "${CURRENT_PATH}/_vimrc" ~/.vimrc
-    ln -s "${CURRENT_PATH}/_vimrc.keybind" ~/.vimrc.keybind
     ln -s "${CURRENT_PATH}/_vimrc.local" ~/.vimrc.local
-    ln -s "${CURRENT_PATH}/_vimrc.plugin" ~/.vimrc.plugin
-    ln -s "${CURRENT_PATH}/_vimrc.plugin.local" ~/.vimrc.plugin.local
     ln -s "${CURRENT_PATH}/tmux.conf" ~/.tmux.conf
 }
 
