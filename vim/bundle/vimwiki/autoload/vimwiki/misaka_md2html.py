@@ -140,6 +140,8 @@ template = Template("""
                             <li><a id="back">后退</a></li>
                             <li><a id="next">前进</a></li>
                         </div>
+                        <input id="search-text" class="pull-right" type="text" placeholder="Search">
+                        <button id="search" class="btn pull-right">Search</button>
                     </div>
                 </div>
             </div>
