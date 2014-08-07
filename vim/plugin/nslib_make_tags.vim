@@ -9,6 +9,6 @@ endif
 let loaded_nslib_make_tags = 1
 
 function NsLibMakeTags()
-    :CscopeClear
+    ":CscopeClear
     :CscopeGen .
 endfunction
