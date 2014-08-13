@@ -276,7 +276,8 @@ if __name__ == '__main__':
         class VimwikiHtmlRenderer(HtmlRenderer, LinkPreprocessor):
             def block_code(self, text, lang):
                 # 使用run_prettify.js自动识别及高亮
-                content = h.escape_html(text.strip())
+                #content = h.escape_html(text.strip())
+                content = text.strip()
                 style = ' class="prettyprint linenums"'
                 if lang is not None:
                     if lang.lower() == 'plan':
@@ -289,6 +290,20 @@ if __name__ == '__main__':
                         style = ' class="ns-seq-chart"'
 
                 return '\n<pre><code%s>%s</code></pre>\n' % (style, content)
+
+            def list_item(self, text, is_ordered):
+                unchecked_list = ['[]', '[ ]']
+                checked_list = ['[x]', '[X]', '[*]', '[-]', '[=]']
+                content = text.strip()
+                for x in unchecked_list:
+                    if text.startswith(x):
+                        content = content[len(x):]
+                        return '<li><input type="checkbox">%s</li>' % content
+                for x in checked_list:
+                    if text.startswith(x):
+                        content = content[len(x):]
+                        return '<li><input checked="checked" type="checkbox">%s</li>' % content
+                return '<li>%s</li>' % content
 
         renderer = VimwikiHtmlRenderer(HTML_TOC)
         to_html = Markdown(renderer, extensions=EXT_NO_INTRA_EMPHASIS |
