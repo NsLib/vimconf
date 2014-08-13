@@ -116,11 +116,13 @@ template = Template("""
         {% endif %}
 
         <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+        <script type="text/javascript" src="js/underscore-min.js"></script>
         <script type="text/javascript" src="js/CollapsibleLists.js"></script>
         <script type="text/javascript" src="js/run_prettify.js"></script>
 
         <script type="text/javascript" src="js/raphael-min.js"></script>
         <script type='text/javascript' src="js/flowchart-1.3.2.min.js"></script>
+        <script type='text/javascript' src="js/sequence-diagram-min.js"></script>
         <script type='text/javascript' src='js/MathJax.js'></script>
         <script type='text/javascript' src='js/TeX-AMS_HTML.js'></script>
         <script type="text/x-mathjax-config">
