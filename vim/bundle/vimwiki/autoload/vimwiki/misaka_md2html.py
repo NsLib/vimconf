@@ -119,6 +119,8 @@ template = Template("""
         <script type="text/javascript" src="js/CollapsibleLists.js"></script>
         <script type="text/javascript" src="js/run_prettify.js"></script>
 
+        <script type="text/javascript" src="js/raphael-min.js"></script>
+        <script type='text/javascript' src="js/flowchart-1.3.2.min.js"></script>
         <script type='text/javascript' src='js/MathJax.js'></script>
         <script type='text/javascript' src='js/TeX-AMS_HTML.js'></script>
         <script type="text/x-mathjax-config">
@@ -277,6 +279,13 @@ if __name__ == '__main__':
                 if lang is not None:
                     if lang.lower() == 'plan':
                         style = ''
+                    elif lang.lower() == 'flow':
+                        content = text.strip()
+                        style = ' class="ns-flow-chart"'
+                    elif lang.lower() == 'seq':
+                        content = text.strip()
+                        style = ' class="ns-seq-chart"'
+
                 return '\n<pre><code%s>%s</code></pre>\n' % (style, content)
 
         renderer = VimwikiHtmlRenderer(HTML_TOC)
