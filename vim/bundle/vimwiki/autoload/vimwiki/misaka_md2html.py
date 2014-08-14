@@ -276,8 +276,7 @@ if __name__ == '__main__':
         class VimwikiHtmlRenderer(HtmlRenderer, LinkPreprocessor):
             def block_code(self, text, lang):
                 # 使用run_prettify.js自动识别及高亮
-                #content = h.escape_html(text.strip())
-                content = text.strip()
+                content = h.escape_html(text.strip())
                 style = ' class="prettyprint linenums"'
                 if lang is not None:
                     if lang.lower() == 'plan':

@@ -301,6 +301,8 @@ let g:UltiSnipsEditSplit            = "vertical"
 "}}}
 
 "{{{ TagList        大纲 
+let g:tlist_markdown_settings   = 'markdown;h:TOC'
+let g:tlist_vimwiki_settings    = 'vimwiki;h:TOC'
 let Tlist_Auto_Open             = 0
 let Tlist_Auto_Update           = 1
 let Tlist_Show_One_File         = 1
