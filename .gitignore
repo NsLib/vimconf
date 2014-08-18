@@ -1,4 +1,3 @@
 *.pyc
 *.pyo
-tags
-vim/tags/*
+vim/doc/tags

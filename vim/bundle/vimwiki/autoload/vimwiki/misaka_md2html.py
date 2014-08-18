@@ -301,7 +301,7 @@ if __name__ == '__main__':
                 for x in checked_list:
                     if text.startswith(x):
                         content = content[len(x):]
-                        return '<li><input checked="checked" type="checkbox">%s</li>' % content
+                        return '<li><input checked="checked" type="checkbox"><s>%s</s></li>' % content
                 return '<li>%s</li>' % content
 
         renderer = VimwikiHtmlRenderer(HTML_TOC)
