@@ -279,7 +279,7 @@ if __name__ == '__main__':
                 content = h.escape_html(text.strip())
                 style = ' class="prettyprint linenums"'
                 if lang is not None:
-                    if lang.lower() == 'plan':
+                    if lang.lower() == 'plain':
                         style = ''
                     elif lang.lower() == 'flow':
                         content = text.strip()
