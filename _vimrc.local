@@ -15,8 +15,11 @@ let SCHEMES = [
             \ "maroloccio3_modified"
             \ ]
 
+
 "exec "colorscheme " . SCHEMES[getpid() % len(SCHEMES)]
-colorscheme jellyx
+"colorscheme jellyx
+"colorscheme dw_cyan
+colorscheme desertEx_256
 
 hi ColorColumn          ctermfg=White           ctermbg=Grey  
 

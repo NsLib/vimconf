@@ -209,7 +209,7 @@ let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdo
 "}}}
 
 "{{{ ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git)$',
             \ 'file': '\v\.(log|jpg|png|jpeg)$',
