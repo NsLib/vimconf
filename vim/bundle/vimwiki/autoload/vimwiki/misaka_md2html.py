@@ -281,12 +281,16 @@ if __name__ == '__main__':
                 if lang is not None:
                     if lang.lower() == 'plain':
                         style = ''
+                    elif lang.lower() == 'code':
+                        style = ' class="prettyprint linenums"'
                     elif lang.lower() == 'flow':
                         content = text.strip()
                         style = ' class="ns-flow-chart"'
                     elif lang.lower() == 'seq':
                         content = text.strip()
                         style = ' class="ns-seq-chart"'
+                else:
+                    style = ''
 
                 return '\n<pre><code%s>%s</code></pre>\n' % (style, content)
 
