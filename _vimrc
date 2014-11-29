@@ -372,6 +372,7 @@ let g:syntastic_c_checkers                  = ['gcc', 'make']
 let g:syntastic_c_check_header              = 1
 let g:syntastic_c_no_include_search         = 1
 let g:syntastic_python_checkers             = ['pylint', 'flake8', 'pep8', 'pyflakes']
+let g:syntastic_c_checkers                  = ['gcc', 'make']
 let g:syntastic_python_pylint_args          = "-disable-msg=C0103 --max-line-length=79"
 let g:syntastic_python_pep8_args            = "--max-line-length=79"
 let g:syntastic_python_flake8_args          = "--max-line-length=79 --max-complexity=15"
