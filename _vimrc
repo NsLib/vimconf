@@ -490,6 +490,8 @@ else
 endif
 autocmd FileType cpp        map <F9> :call Do_OneFileMake()<CR>
 autocmd FileType c          map <F9> :call Do_OneFileMake()<CR>
+autocmd FileType cpp        map <S-F9> :call Do_make()<CR>
+autocmd FileType c          map <S-F9> :call Do_make()<CR>
 autocmd FileType perl       map <F9> :!perl -w "%"<CR>
 autocmd FileType lua        map <F9> :!lua "%"<CR>
 autocmd FileType erlang     map <F9> :!erlc "%"<CR>
