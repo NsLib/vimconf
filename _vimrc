@@ -368,6 +368,9 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
 let g:syntastic_check_on_open               = 0
 let g:syntastic_echo_current_error          = 1
 let g:syntastic_loc_list_height             = 10
+let g:syntastic_c_checkers                  = ['gcc', 'make']
+let g:syntastic_c_check_header              = 1
+let g:syntastic_c_no_include_search         = 1
 let g:syntastic_python_checkers             = ['pylint', 'flake8', 'pep8', 'pyflakes']
 let g:syntastic_c_checkers                  = ['gcc', 'make']
 let g:syntastic_python_pylint_args          = "-disable-msg=C0103 --max-line-length=79"
@@ -487,6 +490,8 @@ else
 endif
 autocmd FileType cpp        map <F9> :call Do_OneFileMake()<CR>
 autocmd FileType c          map <F9> :call Do_OneFileMake()<CR>
+autocmd FileType cpp        map <S-F9> :call Do_make()<CR>
+autocmd FileType c          map <S-F9> :call Do_make()<CR>
 autocmd FileType perl       map <F9> :!perl -w "%"<CR>
 autocmd FileType lua        map <F9> :!lua "%"<CR>
 autocmd FileType erlang     map <F9> :!erlc "%"<CR>

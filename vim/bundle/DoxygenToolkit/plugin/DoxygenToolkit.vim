@@ -799,8 +799,10 @@ function! <SID>DoxygenCommentFunc()
     endfor
   else
     " Add '@exception' tag for python
-    exec "normal o".s:interCommentNoneTag
-    exec "normal o".s:interCommentTag.g:DoxygenToolkit_throwTag_pre
+    if( s:CheckFileType() == "python" )
+        exec "normal o".s:interCommentNoneTag
+        exec "normal o".s:interCommentTag.g:DoxygenToolkit_throwTag_pre
+    endif
   endif
 
   " End (if any) of documentation block.
