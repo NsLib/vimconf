@@ -492,6 +492,7 @@ autocmd FileType lua        map <F9> :!lua "%"<CR>
 autocmd FileType erlang     map <F9> :!erlc "%"<CR>
 autocmd FileType sh         map <F9> :!bash "%"<CR>
 autocmd FileType go         map <F9> :!go run "%"<CR>
+autocmd FileType lisp       map <F9> :!clisp "%"<CR>
 autocmd FileType dot        map <F9> :!dot % -Tjpg -o a.jpg && open a.jpg<CR>
 autocmd FileType vim        map <F9> :source %<CR>
 
