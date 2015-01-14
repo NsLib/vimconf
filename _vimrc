@@ -500,6 +500,7 @@ autocmd FileType go         map <F9> :!go run "%"<CR>
 autocmd FileType lisp       map <F9> :!clisp "%"<CR>
 autocmd FileType dot        map <F9> :!dot % -Tjpg -o a.jpg && open a.jpg<CR>
 autocmd FileType vim        map <F9> :source %<CR>
+autocmd FileType html       map <F9> :!open %<CR>
 
 map             <F12>                               :NERDTreeToggle<CR>
 "}}}
