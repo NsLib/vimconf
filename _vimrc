@@ -24,6 +24,7 @@ syntax      on                      " 开启语法高亮
 syntax      enable                  " 激活语法高亮
 filetype    plugin on               " 允许特定的文件类型载入插件文件
 filetype    indent on               " 允许特定的文件类型载入缩进文件
+" 一些文件类型的自动检测 & 设定
 autocmd     BufRead,BufNewFile      *.go                    set filetype=go
 autocmd     BufRead,BufNewFile      *.{md,mkd,mkdn,mark*}   set filetype=markdown
 autocmd     BufRead,BufNewFile      *.tex                   set filetype=tex
@@ -507,22 +508,23 @@ map             <F12>                               :NERDTreeToggle<CR>
 
 " {{{映射快捷键
 " vim 开发
-nnoremap    ,sv                 :source $MYVIMRC<cr>
-nnoremap    ,ev                 :vsplit $MYVIMRC<cr>
-" 编辑相关
-inoremap    jk                  <esc>
-nnoremap    Q                   :q<CR>
-cmap w!! %!sudo tee > /dev/null %   " 忘记sudo时，强制保存
+nnoremap    ,sv                 :source $MYVIMRC<cr>        " 刷新vim配置
+nnoremap    ,ev                 :vsplit $MYVIMRC<cr>        " 分割窗口打开vim配置
 
-" 窗口移动
-inoremap    <C-y>               <Up>
-inoremap    <C-e>               <Down>
+" 编辑相关
+inoremap    jk                  <esc>           " 编辑模式下按jk等价于按ESC键, 非常高效
+nnoremap    Q                   :q<CR>          " 命令模式下，输入Q，退出Vim
+cmap w!! %!sudo tee > /dev/null %               " 忘记sudo时，强制保存
+
+" 窗口间移动
 nnoremap    <C-j>               <C-W>j
 nnoremap    <C-k>               <C-W>k
 nnoremap    <C-h>               <C-W>h
 nnoremap    <C-l>               <C-W>l
 
 " 插入模式下移动光标
+inoremap    <C-y>               <Up>            " 输入模式下，按Ctrl+y移动光标到上一行
+inoremap    <C-e>               <Down>          " 输入模式下，按Ctrl+e移动光标到下一行
 inoremap    <c-h>               <left>
 inoremap    <c-l>               <right>
 inoremap    <c-j>               <c-o>gj
