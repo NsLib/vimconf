@@ -204,7 +204,8 @@ function! s:_CreateCscopeDB(dir,id)
         let g:Cscope_ctags_cmd    = '/usr/local/bin/ctags'
       silent! execute "!" . g:Cscope_ctags_cmd . " -R --c-types=+p --fields=+laS -f " . a:dir . "/tags "  . a:dir
     else
-      silent! execute "!ctags -R --c-types=+p --fields=+laS -f " . a:dir . "/tags "  . a:dir
+      "silent! execute "!ctags -R --c-types=+p --fields=+laS -f " . a:dir . "/tags "  . a:dir
+      silent! execute "!ctags --languages=-Javascript -R --c-types=+p --fields=+laS -f " . a:dir . "/tags "  . a:dir
     endif
   endif
 endfunction
