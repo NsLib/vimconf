@@ -126,5 +126,15 @@ setlocal comments=b:*,b:+,b:-
 
 let b:current_syntax = "mkd"
 
+" NsLib patch begin
+" For soft wrap
+set wrap
+set linebreak
+set textwidth=0
+set wrapmargin=0
+set formatoptions+=l
+set showbreak=--->
+" NsLib patch end
+
 delcommand HtmlHiLink
 " vim: ts=8
