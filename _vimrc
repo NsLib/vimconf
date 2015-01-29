@@ -142,21 +142,6 @@ let g:gundo_right               = 1
 let g:instant_markdown_autostart = 0    " 手动触发预览
 "}}}
 
-"{{{ YouCompleteMe 自动补全神器
-let g:ycm_filetype_blacklist = {
-            \ 'tagbar' : 1,
-            \ 'qf' : 1,
-            \ 'notes' : 1,
-            \ 'markdown' : 1,
-            \ 'unite' : 1,
-            \ 'text' : 1,
-            \ 'vimwiki' : 1,
-            \ 'pandoc' : 1,
-            \ 'infolog' : 1,
-            \ 'mail' : 1
-            \}
-"}}}
-
 "{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
 let g:ctrlsf_open_left          = 0
 "}}}
