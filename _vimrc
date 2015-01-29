@@ -515,6 +515,8 @@ nnoremap    ,ev                 :vsplit $MYVIMRC<cr>        " 分割窗口打开
 inoremap    jk                  <esc>           " 编辑模式下按jk等价于按ESC键, 非常高效
 nnoremap    Q                   :q<CR>          " 命令模式下，输入Q，退出Vim
 cmap w!! %!sudo tee > /dev/null %               " 忘记sudo时，强制保存
+vnoremap    ,y                  "+y             " 选中元素复制到系统剪贴板
+nnoremap    ,p                  "+p             " 系统剪贴板内容粘贴到当前位置
 
 " 窗口间移动
 nnoremap    <C-j>               <C-W>j
