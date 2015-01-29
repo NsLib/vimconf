@@ -138,6 +138,10 @@ let g:gundo_preview_height      = winheight(0) / 3 * 2
 let g:gundo_right               = 1
 "}}}
 
+"{{{ vim-instant-markdown Markdown实时预览
+let g:instant_markdown_autostart = 0    " 手动触发预览
+"}}}
+
 "{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
 let g:ctrlsf_open_left          = 0
 "}}}
