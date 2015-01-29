@@ -438,17 +438,6 @@ set omnifunc=syntaxcomplete#Complete
 set tags=tags;/
 "}}}
 
-"{{{ omnicppcomplete  自动提示插件
-autocmd FileType python　   set omnifunc=pythoncomplete#Complete
-autocmd FileType python     runtime! $HOME/.vim/bundle/pythoncomplete/autoload/pythoncomplete.vim
-"}}}
-
-"{{{ pydiction  python补全插件
-" 快捷键<C-L>
-let g:pydiction_location                = $HOME."/.vim/bundle/pydiction/complete-dict"
-let g:pydiction_menu_height             = 10
-"}}}
-
 "{{{ Emmet(zen-coding)      前端插件
 " <C-Z>A       从URL地址生成引用文本
 " <C-Z>a       生成URL标记
