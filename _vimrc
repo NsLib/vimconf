@@ -138,6 +138,10 @@ let g:gundo_preview_height      = winheight(0) / 3 * 2
 let g:gundo_right               = 1
 "}}}
 
+"{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
+let g:ctrlsf_open_left          = 0
+"}}}
+
 "{{{ rainbow 对于不同的括号，渲染成不同颜色
 let g:rainbow_active = 1
 let g:rainbow_operators=2
@@ -468,7 +472,7 @@ let g:lightline = {
 
 "{{{ 映射F1~F12
 " <F3>  搜索光标所在单词
-nnoremap        <silent> <F3>           :Grep<CR>
+nnoremap        <silent> <F3>           :Ack  
 " <F4>  C++切换头文件
 map             <F4>                    :A<CR>
 " <F5>  生成tags文件
