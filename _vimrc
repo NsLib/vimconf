@@ -509,7 +509,8 @@ nnoremap    ,sv                 :source $MYVIMRC<cr>        " 刷新vim配置
 nnoremap    ,ev                 :vsplit $MYVIMRC<cr>        " 分割窗口打开vim配置
 
 " 编辑相关
-inoremap    jk                  <esc>           " 编辑模式下按jk等价于按ESC键, 非常高效
+" 编辑模式下按jk等价于按ESC键, 非常高效
+inoremap    jk                  <esc>
 nnoremap    Q                   :q<CR>          " 命令模式下，输入Q，退出Vim
 cmap w!! %!sudo tee > /dev/null %               " 忘记sudo时，强制保存
 vnoremap    ,y                  "+y             " 选中元素复制到系统剪贴板
