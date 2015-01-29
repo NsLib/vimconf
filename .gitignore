@@ -1,3 +1,7 @@
 *.pyc
 *.pyo
 vim/doc/tags
+*.dll
+*.so
+*.a
+*.pyd
