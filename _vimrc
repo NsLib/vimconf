@@ -136,6 +136,17 @@ let g:python_highlight_string_formatting    = 1
 let g:ConqueTerm_StartMessages = 0
 "}}}
 
+"{{{ numbers.vim 更好的行号显示
+" 不开启numbers.vim的窗口(:echo &ft)
+let g:numbers_exclude = ['unite', 
+            \ 'tagbar', 
+            \ 'startify',
+            \ 'gundo',
+            \ 'vimshell',
+            \ 'conque_term',
+            \ 'w3m']
+"}}}
+
 "{{{
 let g:gundo_width               = 60
 let g:gundo_preview_height      = winheight(0) / 3 * 2
