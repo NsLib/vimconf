@@ -132,6 +132,10 @@ let g:python_highlight_string_formatting    = 1
 " Plugins
 "===============================================================================
 
+"{{{ ConqueTerm Vim中运行终端
+let g:ConqueTerm_StartMessages = 0
+"}}}
+
 "{{{
 let g:gundo_width               = 60
 let g:gundo_preview_height      = winheight(0) / 3 * 2
@@ -596,6 +600,9 @@ nnoremap    <c-]>               :CtrlPtjump<cr>
 vnoremap    <c-]>               :CtrlPtjumpVisual<cr>
 
 nnoremap    ,gu                 :GundoToggle<CR>
+
+nnoremap    <C-\>b              :ConqueTermSplit bash<CR>
+nnoremap    <C-\>vb             :ConqueTermVSplit bash<CR>
 "}}}
 
 "===============================================================================
