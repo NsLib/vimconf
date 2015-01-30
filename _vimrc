@@ -138,6 +138,17 @@ let g:gundo_preview_height      = winheight(0) / 3 * 2
 let g:gundo_right               = 1
 "}}}
 
+"{{{ calendar.vim 日历插件
+" 日期格式 year-month-day
+let g:calendar_date_endian      = "big"
+" 日期分隔符
+let g:calendar_date_separator   = "-"
+" 打开日历时的视图
+let g:calendar_view             = "day"
+" 设置View布局
+let g:calendar_views            = ['year', 'day', 'month', 'week', 'clock', 'days']
+"}}}
+
 "{{{ vim-instant-markdown Markdown实时预览
 let g:instant_markdown_autostart = 0    " 手动触发预览
 "}}}
