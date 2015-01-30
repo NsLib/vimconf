@@ -9,6 +9,7 @@ let g:ycm_min_num_of_chars_for_completion                   = 1
 let g:ycm_complete_in_comments                              = 1
 " 开启 YCM 标签补全引擎
 let g:ycm_collect_identifiers_from_tags_files               = 1
+let g:ycm_confirm_extra_conf                                = 0
 let g:ycm_filetype_blacklist = {
             \ 'tagbar' : 1,
             \ 'qf' : 1,
@@ -19,6 +20,7 @@ let g:ycm_filetype_blacklist = {
             \ 'vimwiki' : 1,
             \ 'pandoc' : 1,
             \ 'infolog' : 1,
+            \ 'vim' : 1,
             \ 'mail' : 1
             \}
 "}}}
@@ -41,8 +43,12 @@ let SCHEMES = [
 
 "exec "colorscheme " . SCHEMES[getpid() % len(SCHEMES)]
 "colorscheme jellyx
-"colorscheme dw_cyan
-colorscheme desertEx_256
+"colorscheme desertEx_256
+"set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
+colorscheme BusyBee
+"colorscheme jellybeans
 
 hi ColorColumn          ctermfg=White           ctermbg=Grey  
 
