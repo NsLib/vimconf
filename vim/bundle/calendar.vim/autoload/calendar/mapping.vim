@@ -2,7 +2,7 @@
 " Filename: autoload/calendar/mapping.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/02/02 17:29:55.
+" Last Change: 2014/12/07 19:47:53.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -12,12 +12,19 @@ set cpo&vim
 
 function! calendar#mapping#new()
 
+  let save_cpo = &cpo
+  set cpo&vim
+
   if &l:filetype ==# 'calendar'
     if has_key(get(b:, 'calendar', {}), 'view')
       let v = b:calendar.view
       if maparg('<ESC>', 'n') !=# '<Plug>(calendar_escape)'
         if v._help || v._event || v._task || b:calendar.visual_mode()
-          nmap <buffer> <ESC> <Plug>(calendar_escape)
+          if v:version > 703
+            nmap <buffer><nowait> <ESC> <Plug>(calendar_escape)
+          else
+            nmap <buffer>         <ESC> <Plug>(calendar_escape)
+          endif
         endif
       else
         if !(v._help || v._event || v._task || b:calendar.visual_mode())
@@ -25,11 +32,12 @@ function! calendar#mapping#new()
         endif
       endif
     endif
+    let &cpo = save_cpo
     return
   endif
 
   " normal mode mapping
-  let actions = ['left', 'right', 'down', 'up', 'prev', 'next',
+  let actions = ['left', 'right', 'down', 'up', 'prev', 'next', 'move_down', 'move_up',
         \ 'down_big', 'up_big', 'down_large', 'up_large',
         \ 'line_head', 'line_middle', 'line_last', 'bar',
         \ 'first_line', 'last_line', 'first_line_head', 'last_line_last', 'space',
@@ -91,7 +99,12 @@ function! calendar#mapping#new()
   nmap <buffer> g<Up> <Up>
   nmap <buffer> <S-Down> <Down>
   nmap <buffer> <S-Up> <Up>
-  nmap <buffer> <C-j> j
+  nmap <buffer> <C-j> <Plug>(calendar_move_down)
+  nmap <buffer> <C-k> <Plug>(calendar_move_up)
+  nmap <buffer> <C-S-Down> <Plug>(calendar_move_down)
+  nmap <buffer> <C-S-Up> <Plug>(calendar_move_up)
+  nmap <buffer> <C-e> <Down>
+  nmap <buffer> <C-y> <Up>
   nmap <buffer> w <Plug>(calendar_next)
   nmap <buffer> W w
   nmap <buffer> e w
@@ -108,9 +121,7 @@ function! calendar#mapping#new()
   nmap <buffer> <C-n> <Plug>(calendar_down)
   nmap <buffer> <C-p> <Plug>(calendar_up)
   nmap <buffer> <C-d> <Plug>(calendar_down_big)
-  nmap <buffer> <C-e> <C-d>
   nmap <buffer> <C-u> <Plug>(calendar_up_big)
-  nmap <buffer> <C-y> <C-u>
   nmap <buffer> <C-f> <Plug>(calendar_down_large)
   nmap <buffer> <C-b> <Plug>(calendar_up_large)
   nmap <buffer> <PageDown> <C-f>
@@ -220,6 +231,8 @@ function! calendar#mapping#new()
   " mouse wheel
   map <buffer> <ScrollWheelUp> <Plug>(calendar_prev)
   map <buffer> <ScrollWheelDown> <Plug>(calendar_next)
+
+  let &cpo = save_cpo
 
 endfunction
 

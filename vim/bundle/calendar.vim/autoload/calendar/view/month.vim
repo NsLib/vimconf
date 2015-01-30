@@ -2,7 +2,7 @@
 " Filename: autoload/calendar/view/month.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/02/11 20:07:03.
+" Last Change: 2014/10/12 07:48:28.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -270,6 +270,11 @@ function! s:self.set_contents() dict
       let s[v.offset + h * i + j] .= f.vertical
     endfor
     let s[v.offset + h * i + h - 1 - (v.heightincr && i == 5)] .= (i + 1 == v.week_count ? f.bottomright : f.right)
+    if calendar#setting#get('week_number')
+      let p = 7 * (i + 1) - 1
+      let d = p < wn ? prev_days[-wn + p] : p < ld ? days[p - wn] : next_days[p - ld]
+      let s[v.offset + h * i] .= calendar#week#week_number_year(d)
+    endif
   endfor
   let self._month = month.get_ym()
   let self._today = today.get_ymd()
@@ -391,15 +396,15 @@ function! s:self.timerange() dict
   endif
   if x.sub(y) >= 0
     if x.get_year() == y.get_year()
-      return printf('%d/%d-%d/%d ', y.get_month(), y.get_day(), x.get_month(), x.get_day()) . recurrence
+      return printf('%d/%d - %d/%d ', y.get_month(), y.get_day(), x.get_month(), x.get_day()) . recurrence
     else
-      return printf('%d/%d/%d-%d/%d/%d ', y.get_year(), y.get_month(), y.get_day(), x.get_year(), x.get_month(), x.get_day()) . recurrence
+      return printf('%d/%d/%d - %d/%d/%d ', y.get_year(), y.get_month(), y.get_day(), x.get_year(), x.get_month(), x.get_day()) . recurrence
     endif
   else
     if x.get_year() == y.get_year()
-      return printf('%d/%d-%d/%d ', x.get_month(), x.get_day(), y.get_month(), y.get_day()) . recurrence
+      return printf('%d/%d - %d/%d ', x.get_month(), x.get_day(), y.get_month(), y.get_day()) . recurrence
     else
-      return printf('%d/%d/%d-%d/%d/%d ', x.get_year(), x.get_month(), x.get_day(), y.get_year(), y.get_month(), y.get_day()) . recurrence
+      return printf('%d/%d/%d - %d/%d/%d ', x.get_year(), x.get_month(), x.get_day(), y.get_year(), y.get_month(), y.get_day()) . recurrence
     endif
   endif
 endfunction

@@ -2,7 +2,7 @@
 " Filename: autoload/calendar/color.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/02/05 00:06:22.
+" Last Change: 2014/12/14 15:23:54.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -108,7 +108,9 @@ function! calendar#color#convert(rgb)
     return newrgb[0] + newrgb[1] + newrgb[2] + (rgb[0] > 196 || rgb[1] > 196 || rgb[2] > 196) * 8
   elseif (rgb[0] == 0x80 || rgb[0] == 0x00) && (rgb[1] == 0x80 || rgb[1] == 0x00) && (rgb[2] == 0x80 || rgb[2] == 0x00)
     return (rgb[0] / 0x80) + (rgb[1] / 0x80) * 2 + (rgb[1] / 0x80) * 4
-  elseif abs(rgb[0]-rgb[1]) < 3 && abs(rgb[1]-rgb[2]) < 3 && abs(rgb[2]-rgb[0]) < 3
+  elseif (rgb[0]-rgb[1] >= 0 ? rgb[0]-rgb[1] : -(rgb[0]-rgb[1])) < 3 
+    \ && (rgb[1]-rgb[2] >= 0 ? rgb[1]-rgb[2] : -(rgb[1]-rgb[2])) < 3
+    \ && (rgb[2]-rgb[0] >= 0 ? rgb[2]-rgb[0] : -(rgb[2]-rgb[0])) < 3
     return s:black((rgb[0] + rgb[1] + rgb[2]) / 3)
   else
     return 16 + ((s:nr(rgb[0]) * 6) + s:nr(rgb[1])) * 6 + s:nr(rgb[2])
@@ -212,12 +214,12 @@ endfunction
 
 function! calendar#color#fg_color(syntax_name)
   let color = synIDattr(synIDtrans(hlID(a:syntax_name)), 'fg', s:term)
-  return s:is_gui ? color : calendar#color#to_256color(color + 0, 1)
+  return s:is_gui ? color : calendar#color#to_256color((len(color) == 0 ? -1 : color) + 0, 1)
 endfunction
 
 function! calendar#color#bg_color(syntax_name)
   let color = synIDattr(synIDtrans(hlID(a:syntax_name)), 'bg', s:term)
-  return s:is_gui ? color : calendar#color#to_256color(color + 0, 0)
+  return s:is_gui ? color : calendar#color#to_256color((len(color) == 0 ? -1 : color) + 0, 0)
 endfunction
 
 function! calendar#color#is_dark()

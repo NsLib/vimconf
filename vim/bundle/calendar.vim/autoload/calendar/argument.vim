@@ -2,7 +2,7 @@
 " Filename: autoload/calendar/argument.vim
 " Author: itchyny
 " License: MIT License
-" Last Change: 2014/05/11 14:14:35.
+" Last Change: 2015/01/18 08:31:24.
 " =============================================================================
 
 let s:save_cpo = &cpo
@@ -32,10 +32,7 @@ let s:all_value_options = {
       \ '-height': [],
       \ '-message_prefix': [],
       \ }
-let s:all_novalue_options = [ '-google_calendar', '-google_task', '-date_month_name', '-clock_12hour', '-debug' ]
-if len(split(globpath(&rtp, 'autoload/calendar.vim'), '\n')) > 1
-  call add(s:all_novalue_options, '-mattn')
-endif
+let s:all_novalue_options = [ '-google_calendar', '-google_task', '-date_month_name', '-clock_12hour', '-week_number', '-debug' ]
 let s:value_options = deepcopy(s:all_value_options)
 let s:novalue_options = deepcopy(s:all_novalue_options)
 if has_key(g:, 'calendar_hide_options') && type(g:calendar_hide_options) == type([]) && len(g:calendar_hide_options)
@@ -69,7 +66,9 @@ function! calendar#argument#complete(arglead, cmdline, cursorpos)
     for key in keys(s:value_options)
       if a:cmdline =~# key
         if a:cmdline =~# key . '=$'
-          return copy(s:value_options[key])
+          return &wildmode =~# 'full'
+                \ ? map(copy(s:value_options[key]), 'key . "=" . v:val')
+                \ : copy(s:value_options[key])
         elseif a:cmdline =~# key . '=\S\+$'
           let lead = '^' . substitute(a:cmdline, '.*=', '', '')
           let list = filter(copy(s:value_options[key]), 'v:val =~# lead')
@@ -82,6 +81,8 @@ function! calendar#argument#complete(arglead, cmdline, cursorpos)
         endif
       endif
     endfor
+    let s:options = copy(s:novalue_options)
+          \ + map(keys(deepcopy(s:value_options)), &wildmode =~# 'full' ? 'v:val' : 'v:val . "="')
     let options = copy(s:options)
     if a:arglead != ''
       let options = sort(filter(copy(s:options), 'stridx(v:val, a:arglead) != -1'))

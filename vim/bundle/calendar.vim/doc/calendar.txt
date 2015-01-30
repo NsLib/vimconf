@@ -4,7 +4,7 @@ Version: 0.0
 Author: itchyny (https://github.com/itchyny)
 License: MIT License
 Repository: https://github.com/itchyny/calendar.vim
-Last Change: 2014/06/14 01:29:19.
+Last Change: 2014/10/12 12:20:34.
 
 CONTENTS					*calendar-contents*
 
@@ -16,7 +16,7 @@ Options					|calendar-options|
 View					|calendar-view|
 Key Mappings				|calendar-key-mappings|
 Marks					|calendar-marks|
-Syntax					|calendar-syntax|
+Input Format				|calendar-input-format|
 Troubleshooting				|calendar-troubleshooting|
 Changelog				|calendar-changelog|
 
@@ -246,6 +246,14 @@ The following options change the appearance of the calendar.
 		this option from the argument, add the trailing '!'.
 		The default value is 0.
 
+						*calendar-options-week_number*
+						*g:calendar_week_number*
+		-week_number[!]
+		let g:calendar_week_number={0/1}
+		If on, it shows the week numbers. In order to disable
+		this option from the argument, add the trailing '!'.
+		The default value is 0.
+
 						*calendar-options-clock_12hour*
 						*g:calendar_clock_12hour*
 		-clock_12hour[!]
@@ -425,6 +433,8 @@ Mappings for moving around.
 <Plug>(calendar_up)				*<Plug>(calendar_up)*
 <Plug>(calendar_prev)				*<Plug>(calendar_prev)*
 <Plug>(calendar_next)				*<Plug>(calendar_next)*
+<Plug>(calendar_move_down)			*<Plug>(calendar_move_down)*
+<Plug>(calendar_move_up)			*<Plug>(calendar_move_up)*
 <Plug>(calendar_down_big)			*<Plug>(calendar_down_big)*
 <Plug>(calendar_up_big)				*<Plug>(calendar_up_big)*
 <Plug>(calendar_down_large)			*<Plug>(calendar_down_large)*
@@ -514,7 +524,10 @@ g<Down>		same as <Down>
 g<Up>		same as <Up>
 <S-Down>	same as <Down>
 <S-Up>		same as <Up>
-<C-j>		same as j
+<C-j>		|<Plug>(calendar_move_down)|
+<C-k>		|<Plug>(calendar_move_up)|
+<C-S-Down>	|<Plug>(calendar_move_down)|
+<C-S-Up>	|<Plug>(calendar_move_up)|
 w		|<Plug>(calendar_next)|
 W		same as w
 e		same as w
@@ -624,6 +637,74 @@ g'{a-z}  g`{a-z}	Jump to the mark {a-z}.
 :delm[arks]!		Delete all the marks.
 
 ------------------------------------------------------------------------------
+INPUT FORMAT					*calendar-input-format*
+This application has some special format for user's input of events and tasks.
+
+Calendar:
+	Day event:
+		EVENT: [event-title]
+
+	Few hours event:
+		EVENT: HH:MM - HH:MM [event-title]
+		EVENT: HH:MM:ss - HH:MM:ss [event-title]
+
+		Example:
+		EVENT: 12:00 - 14:00 [event-title]
+		EVENT: 12:00:30 - 14:00:20 [event-title]
+
+	Few days event:
+		EVENT: mm/dd - mm/dd [event-title]
+		EVENT: yyyy/mm/dd - yyyy/mm/dd [event-title] (big endian)
+		EVENT: mm/dd/yyyy - mm/dd/yyyy [event-title] (middle endian)
+		EVENT: dd/mm/yyyy - dd/mm/yyyy [event-title] (little endian)
+		EVENT: yyyy-mm-dd - yyyy-mm-dd [event-title] (big endian, "-" separator)
+
+		Example:
+		EVENT: 10/10 - 10/12 [event-title]
+		EVENT: 2014/10/10 - 2014/10/12 [event-title] (big endian)
+		EVENT: 10/10/2014 - 10/12/2014 [event-title] (middle endian)
+		EVENT: 10/10/2014 - 12/10/2014 [event-title] (little endian)
+		EVENT: 2014-10-10 - 2014-10-12 [event-title] (big endian, "-" separator)
+
+	Days and hours event:
+		EVENT: mm/dd HH:MM - mm/dd HH:MM [event-title]
+		EVENT: yyyy/mm/dd HH:MM - yyyy/mm/dd HH:MM [event-title]
+		EVENT: dd/mm/yyyy HH:MM - dd/mm/yyyy HH:MM [event-title] (little endian)
+		EVENT: dd-mm-yyyy HH:MM - dd-mm-yyyy HH:MM [event-title] (little endian, "-" separator)
+
+		Example:
+		EVENT: 10/10 19:00 - 10/11 21:00 [event-title]
+		EVENT: 2014/10/10 19:00 - 2014/10/11 21:00 [event-title]
+		EVENT: 10-10-2014 10:00 - 12-10-2014 21:00 [event-title] (little endian, "-" separator)
+
+Task:
+	Simple task:
+		TASK: [task-title]
+
+	Task with note:
+		TASK: [task-title] note: [task-note]
+
+	Task with due date:
+		TASK: mm/dd [task-title]
+		TASK: mm-dd [task-title]
+		TASK: yyyy/mm/dd [task-title]
+		TASK: yyyy-mm-dd [task-title]
+
+		Example:
+		TASK: 10/30 [task-title]
+		TASK: 10-30 [task-title]
+		TASK: 2014/10/30 [task-title]
+		TASK: 2014-10-30 [task-title]
+
+	Task with due date and note:
+		TASK: yyyy/mm/dd [task-title] note: [task-note]
+		TASK: yyyy-mm-dd [task-title] note: [task-note]
+
+		Example:
+		TASK: 2014/10/30 [task-title] note: [task-note]
+		TASK: 2014-10-30 [task-title] note: [task-note]
+
+------------------------------------------------------------------------------
 TROUBLESHOOTING					*calendar-troubleshooting*
 
 Problem 1:				|calendar-problem-1|
@@ -642,7 +723,7 @@ Problem 5:				|calendar-problem-5|
 	The frame collapses (on Ubuntu).
 
 Problem 6:				|calendar-problem-6|
-	The clock is invisible.
+	The clock is invisible / The calendar is not colorful.
 
 Problem 7:				|calendar-problem-7|
 	How to change the cache directory.
@@ -655,9 +736,12 @@ Problem 9:				|calendar-problem-9|
 	How to disconnect my Google account.
 
 Problem 10:				|calendar-problem-10|
-	Which should we use, arguments or global variables.
+	Authorization to Google fails again and again.
 
 Problem 11:				|calendar-problem-11|
+	Which should we use, arguments or global variables.
+
+Problem 12:				|calendar-problem-12|
 	Found a bug of this application.
 	Got many errors while using this application.
 	Vim hangs up while using this application.
@@ -757,10 +841,14 @@ Problem 5:					*calendar-problem-5*
 		let g:calendar_frame = 'default'
 
 Problem 6:					*calendar-problem-6*
-	The clock is invisible.
+	The clock is invisible / The calendar is not colorful.
 
-		Add the following configuration to your *shrc (e.g. zshrc). >
+		Add the following configuration to your *shrc (e.g. zshrc) >
 			export TERM=xterm-256color
+<		and add the following configuration to your vimrc. >
+			if !has('gui_running')
+			  set t_Co=256
+			endif
 <
 Problem 7:					*calendar-problem-7*
 	How to change the cache directory.
@@ -772,7 +860,7 @@ Problem 7:					*calendar-problem-7*
 Problem 8:					*calendar-problem-8*
 	The clock stops to update after the cursor gets out of the window.
 
-		It is feature. Updating a specific buffer from other windows
+		It is feature. Updating a specific buffer from other window
 		causes many problems.
 
 Problem 9:					*calendar-problem-9*
@@ -791,6 +879,13 @@ Problem 9:					*calendar-problem-9*
 <		See |g:calendar_cache_directory|.
 
 Problem 10:					*calendar-problem-10*
+	Authorization to Google fails again and again.
+
+		Remove the cache directory and reauthorize to Google. >
+		rm -rf ~/.cache/calendar.vim/google/
+<		See |g:calendar_cache_directory|.
+
+Problem 11:					*calendar-problem-11*
 	Which should we use, arguments or global variables.
 
 		Arguments have priority over global variables. For example, if
@@ -803,7 +898,7 @@ Problem 10:					*calendar-problem-10*
 		settings in your vimrc file and give the arguments in order to
 		overwrite the settings.
 
-Problem 11:					*calendar-problem-11*
+Problem 12:					*calendar-problem-12*
 	Found a bug of this application.
 	Got many errors while using this application.
 	Vim hangs up while using this application.
