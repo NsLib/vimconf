@@ -136,6 +136,21 @@ let g:python_highlight_string_formatting    = 1
 let g:ConqueTerm_StartMessages = 0
 "}}}
 
+"{{{ startify Vim起始页
+let g:startify_skiplist = [
+            \ '\.vimgolf',
+            \ '^/tmp',
+            \ '/project/.*/documentation',
+            \ $HOME . '/.zshrc',
+            \ $HOME . '/.vimrc',
+            \ $HOME . '/.vimrc.local',
+            \ $HOME . '/vimwiki/index.md',
+            \ $HOME . '/tools/*',
+            \ ]
+
+let g:startify_custom_header = ['   1.01^365 = 37.78, 1.02^365 = 1377.40']
+"}}}
+
 "{{{ numbers.vim 更好的行号显示
 " 不开启numbers.vim的窗口(:echo &ft)
 let g:numbers_exclude = ['unite', 
