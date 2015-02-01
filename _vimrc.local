@@ -64,4 +64,11 @@ autocmd FileType c          set tags+=~/.vim/tags/kernel_src_tags
 autocmd FileType python　   set tags+=~/.vim/python27_tags 
 "}}}
 
+"{{{ startify
+let g:startify_bookmarks            = [
+            \ '~/vimwiki/Python基础教程.md',
+            \ '~/vimwiki/POSA vol1.md'
+            \]
+"}}}
+
 "set clipboard=unnamed               " 共用系统剪贴板

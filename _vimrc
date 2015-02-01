@@ -137,6 +137,14 @@ let g:ConqueTerm_StartMessages = 0
 "}}}
 
 "{{{ startify Vim起始页
+let g:startify_list_order = [
+            \ ['   Bookmarks:'],
+            \ 'bookmarks',
+            \ ['   MRU:'],
+            \ 'files',
+            \ ['   MRU in dir'],
+            \ 'dir',
+            \ ]
 let g:startify_skiplist = [
             \ '\.vimgolf',
             \ '^/tmp',
