@@ -1,30 +1,6 @@
 
 "set lines=60 columns=220
 
-"{{{ YouCompleteMe 补全神器
-" 不是所有机器都有安装，因此不放到 ~/.vimrc 中
-" 输入一个字母就开始自动提示
-let g:ycm_min_num_of_chars_for_completion                   = 1
-" 补全功能在注释中同样有效
-let g:ycm_complete_in_comments                              = 1
-" 开启 YCM 标签补全引擎
-let g:ycm_collect_identifiers_from_tags_files               = 1
-let g:ycm_confirm_extra_conf                                = 0
-let g:ycm_filetype_blacklist = {
-            \ 'tagbar' : 1,
-            \ 'qf' : 1,
-            \ 'notes' : 1,
-            \ 'markdown' : 1,
-            \ 'unite' : 1,
-            \ 'text' : 1,
-            \ 'vimwiki' : 1,
-            \ 'pandoc' : 1,
-            \ 'infolog' : 1,
-            \ 'vim' : 1,
-            \ 'mail' : 1
-            \}
-"}}}
-
 "{{{标尺相关
 "set cursorcolumn                    " 高亮显示列
 set textwidth=80                    " 插入文本的最大宽度
@@ -67,6 +43,7 @@ autocmd FileType python　   set tags+=~/.vim/python27_tags
 "{{{ startify
 let g:startify_bookmarks            = [
             \ '~/vimwiki/Python基础教程.md',
+            \ '~/vimwiki/Python源码剖析.md',
             \ '~/vimwiki/POSA vol1.md'
             \]
 "}}}
