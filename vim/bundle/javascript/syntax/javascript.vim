@@ -165,7 +165,7 @@ if exists("b:javascript_fold")
       " only if the entire buffer is JavaScript, but not if JavaScript syntax
       " is embedded in another syntax (e.g. HTML).
       setlocal foldmethod=syntax
-      setlocal foldlevel=5
+      setlocal foldlevel=10
     endif
 else
     syntax keyword javaScriptFunction       function

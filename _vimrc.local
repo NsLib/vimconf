@@ -48,4 +48,5 @@ let g:startify_bookmarks            = [
             \]
 "}}}
 
+autocmd     BufRead,BufNewFile      *.string   set filetype=html
 "set clipboard=unnamed               " 共用系统剪贴板
