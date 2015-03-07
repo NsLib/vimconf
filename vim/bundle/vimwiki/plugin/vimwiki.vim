@@ -495,9 +495,9 @@ if !hasmapto('<Plug>VimwikiTabIndex')
 endif
 nnoremap <unique><script> <Plug>VimwikiTabIndex :VimwikiTabIndex<CR>
 
-if !hasmapto('<Plug>VimwikiUISelect')
-  nmap <silent><unique> <Leader>ws <Plug>VimwikiUISelect
-endif
+"if !hasmapto('<Plug>VimwikiUISelect')
+  "nmap <silent><unique> <Leader>ws <Plug>VimwikiUISelect
+"endif
 nnoremap <unique><script> <Plug>VimwikiUISelect :VimwikiUISelect<CR>
 
 if !hasmapto('<Plug>VimwikiDiaryIndex')

@@ -272,6 +272,8 @@ let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git)$',
             \ 'file': '\v\.(log|jpg|png|jpeg)$',
             \ }
+let g:ctrlp_by_filename = 1
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
 "}}}
 
 "{{{ vim-ctrlp-tjump
@@ -637,6 +639,12 @@ nnoremap    ,gu                 :GundoToggle<CR>
 
 nnoremap    <C-\>b              :ConqueTermSplit bash<CR>
 nnoremap    <C-\>vb             :ConqueTermVSplit bash<CR>
+
+nnoremap    <Leader>ws          :call VMS()<CR>
+function! VMS()
+    execute ":VimwikiSearch " . input("VimwikiSearch:")
+    :lopen
+endfunction
 "}}}
 
 "===============================================================================
