@@ -268,6 +268,7 @@ let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdo
 
 "{{{ ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
+let g:ctrlp_key_loop = 1
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git)$',
             \ 'file': '\v\.(log|jpg|png|jpeg)$',
@@ -533,6 +534,10 @@ nnoremap <S-F7>             :call ToggleLineNumberAndNerdTree()<CR>
 
 " <F9>
 if hostname() == "localhost"
+    autocmd FileType python     map <F9> :!python "%"<CR>
+elseif hostname() == "NsLibRMBP.lan"
+    autocmd FileType python     map <F9> :!python "%"<CR>
+elseif hostname() == "qunarzz.com"
     autocmd FileType python     map <F9> :!python "%"<CR>
 else
     autocmd FileType python     map <F9> :!q-python27 "%"<CR>
