@@ -499,7 +499,6 @@ autocmd FileType javascript set         omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript set         makeprg=/usr/bin/jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -conf\ '/usr/bin/jsl.conf'\ -process\ %
 autocmd FileType javascript set         errorformat=%f(%l):\ %m
 autocmd FileType javascript inoremap    <silent> <F9> <C-O>:make<CR> :copen<CR>
-autocmd FileType javascript map         <silent> <F9> :make<CR> :copen<CR>
 "}}}
 
 "{{{ lightline
@@ -555,6 +554,7 @@ autocmd FileType lisp       map <F9> :!clisp "%"<CR>
 autocmd FileType dot        map <F9> :!dot % -Tjpg -o a.jpg && open a.jpg<CR>
 autocmd FileType vim        map <F9> :source %<CR>
 autocmd FileType html       map <F9> :!open %<CR>
+autocmd FileType javascript map <F9> :!node %<CR>
 
 map             <F12>                               :NERDTreeToggle<CR>
 "}}}
