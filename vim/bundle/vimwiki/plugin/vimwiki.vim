@@ -486,7 +486,8 @@ command! VimwikiDiaryGenerateLinks
 
 " MAPPINGS {{{
 if !hasmapto('<Plug>VimwikiIndex')
-  nmap <silent><unique> <Leader>ww <Plug>VimwikiIndex
+  "nmap <silent><unique> <Leader>ww <Plug>VimwikiIndex
+  nmap <silent><unique> <Leader>ww :cd /Users/mdl/vimwiki \| VimwikiIndex<CR>
 endif
 nnoremap <unique><script> <Plug>VimwikiIndex :VimwikiIndex<CR>
 

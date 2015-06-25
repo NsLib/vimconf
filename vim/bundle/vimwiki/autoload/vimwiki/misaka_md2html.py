@@ -11,6 +11,7 @@ https://github.com/tub78/misaka-bootstrap/blob/master/bin/misaka_md2html.py
  * python 3            built-in unicode support helps avoid text processing errors
  * misaka              http://misaka.61924.nl/
  * jinja2              http://jinja.pocoo.org/
+ * houdini.py
 
 
 ## INSTALLATION (note the use of the python 3 specific pip)

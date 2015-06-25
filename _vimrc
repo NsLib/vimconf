@@ -268,6 +268,7 @@ let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdo
 
 "{{{ ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
+let g:ctrlp_key_loop = 1
 let g:ctrlp_custom_ignore = {
             \ 'dir':  '\v[\/]\.(git)$',
             \ 'file': '\v\.(log|jpg|png|jpeg)$',
@@ -498,7 +499,6 @@ autocmd FileType javascript set         omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript set         makeprg=/usr/bin/jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -conf\ '/usr/bin/jsl.conf'\ -process\ %
 autocmd FileType javascript set         errorformat=%f(%l):\ %m
 autocmd FileType javascript inoremap    <silent> <F9> <C-O>:make<CR> :copen<CR>
-autocmd FileType javascript map         <silent> <F9> :make<CR> :copen<CR>
 "}}}
 
 "{{{ lightline
@@ -534,6 +534,10 @@ nnoremap <S-F7>             :call ToggleLineNumberAndNerdTree()<CR>
 " <F9>
 if hostname() == "localhost"
     autocmd FileType python     map <F9> :!python "%"<CR>
+elseif hostname() == "NsLibRMBP.lan"
+    autocmd FileType python     map <F9> :!python "%"<CR>
+elseif hostname() == "qunarzz.com"
+    autocmd FileType python     map <F9> :!python "%"<CR>
 else
     autocmd FileType python     map <F9> :!python "%"<CR>
 endif
@@ -550,6 +554,7 @@ autocmd FileType lisp       map <F9> :!clisp "%"<CR>
 autocmd FileType dot        map <F9> :!dot % -Tjpg -o a.jpg && open a.jpg<CR>
 autocmd FileType vim        map <F9> :source %<CR>
 autocmd FileType html       map <F9> :!open %<CR>
+autocmd FileType javascript map <F9> :!node %<CR>
 
 map             <F12>                               :NERDTreeToggle<CR>
 "}}}
