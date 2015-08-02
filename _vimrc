@@ -539,7 +539,7 @@ elseif hostname() == "NsLibRMBP.lan"
 elseif hostname() == "qunarzz.com"
     autocmd FileType python     map <F9> :!python "%"<CR>
 else
-    autocmd FileType python     map <F9> :!q-python27 "%"<CR>
+    autocmd FileType python     map <F9> :!python "%"<CR>
 endif
 autocmd FileType cpp        map <F9> :call Do_OneFileMake()<CR>
 autocmd FileType c          map <F9> :call Do_OneFileMake()<CR>
