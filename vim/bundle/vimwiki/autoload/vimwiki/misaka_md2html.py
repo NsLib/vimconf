@@ -88,7 +88,7 @@ To load templates for your application with Jinja2 ...
 import os.path
 import re
 import argparse
-from misaka import Markdown, HtmlRenderer, HtmlTocRenderer, SmartyPants, \
+from misaka import Markdown, HtmlRenderer, HtmlTocRenderer, \
     EXT_NO_INTRA_EMPHASIS, EXT_TABLES, EXT_FENCED_CODE, EXT_AUTOLINK, \
     EXT_STRIKETHROUGH, EXT_SPACE_HEADERS, \
     EXT_SUPERSCRIPT, \
