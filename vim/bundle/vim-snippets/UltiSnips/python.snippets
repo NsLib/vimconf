@@ -51,8 +51,15 @@ snippet #! "coding: utf-8" b
 endsnippet
 
 snippet main "ifmain" b
+$0
+
+
+def main():
+	pass
+
+
 if __name__ == '__main__':
-	${1:main()}$0
+	main()
 endsnippet
 
 snippet ifmain "ifmain" b
