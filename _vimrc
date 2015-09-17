@@ -311,11 +311,6 @@ let NERDTreeWinSize             = 25
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
-autocmd FileType markdown :NERDTreeClose
-"autocmd FileType markdown :execute 'try | :VoomQuitAll | catch | | endtry'
-"autocmd FileType markdown :silent! VoomQuitAll
-"autocmd FileType markdown :Voom markdown
-
 function! s:CloseIfOnlyNerdTreeLeft()
     if exists("t:NERDTreeBufName")
         if bufwinnr(t:NERDTreeBufName) != -1
@@ -508,15 +503,6 @@ autocmd FileType javascript set         omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType javascript set         makeprg=/usr/bin/jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -conf\ '/usr/bin/jsl.conf'\ -process\ %
 autocmd FileType javascript set         errorformat=%f(%l):\ %m
 autocmd FileType javascript inoremap    <silent> <F9> <C-O>:make<CR> :copen<CR>
-"}}}
-
-"{{{ lightline
-let g:lightline = {
-            \ 'colorscheme': 'wombat',
-            \ 'component': {
-            \   'readonly': '%{&readonly?"⭤":""}',
-            \ },
-            \ }
 "}}}
 
 "{{{ airline
