@@ -39,3 +39,6 @@ vim/bundle/vim-startify/
 vim/bundle/vim-surround/
 vim/bundle/vim-trailing-whitespace/
 vim/bundle/vim-DoxygenToolkit-mod/
+vim/bundle/unite.vim/
+vim/bundle/neomru.vim/
+vim/bundle/vimproc.vim/

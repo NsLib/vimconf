@@ -22,10 +22,9 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim'
 Plugin 'VOoM'
 Plugin 'dyng/ctrlsf.vim'
-Plugin 'kien/ctrlp.vim'
+"Plugin 'kien/ctrlp.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'matchit.zip'
 Plugin 'terryma/vim-multiple-cursors'
@@ -37,7 +36,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'TaskList.vim'
 Plugin 'bling/vim-airline'
 Plugin 'bling/vim-bufferline'
-Plugin 'ivalkeen/vim-ctrlp-tjump'
+"Plugin 'ivalkeen/vim-ctrlp-tjump'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
@@ -54,6 +53,9 @@ Plugin 'NsLib/vim-fold-mod'
 Plugin 'scrooloose/NERDCommenter'
 Plugin 'a.vim'
 Plugin 'NsLib/vim-DoxygenToolkit-mod'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neomru.vim'
 
 call vundle#end()
 "}}}
@@ -526,7 +528,7 @@ let g:bufferline_rotate = 2
 
 "{{{ 映射F1~F12
 " <F3>  搜索光标所在单词
-nnoremap        <silent> <F3>           :Ack  
+nnoremap        <silent> <F3>           :Unite grep:.<cr>
 " <F4>  C++切换头文件
 map             <F4>                    :A<CR>
 " <F5>  生成tags文件
@@ -657,6 +659,36 @@ function! VMS()
     execute ":VimwikiSearch " . input("VimwikiSearch:")
     :lopen
 endfunction
+
+"nnoremap    <C-p>               :Unite file_rec/async<cr>
+nnoremap    ,u/                 :Unite grep:.<cr>
+let         g:unite_source_history_yank_enable      = 1
+nnoremap    ,uy                 :Unite history/yank<cr>
+nnoremap    ,us                 :Unite -quick-match buffer<cr>
+nnoremap    <silent><c-p>       :Unite -auto-resize file file_mru file_rec<cr>
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('default', 'context', {
+            \ 'start_insert': 1
+            \ })
+
+"call unite#custom#source('file_rec/async','sorters','sorter_rank', )
+" replacing unite with ctrl-p
+let g:unite_data_directory                  = '~/.cache/unite'
+let g:unite_source_history_yank_enable      = 1
+let g:unite_prompt                          = '» '
+let g:unite_split_rule                      = 'botright'
+
+if executable('ack')
+    let g:unite_source_grep_command         = 'ack'
+    let g:unite_source_grep_default_opts    = '--no-heading --no-color -C4'
+    let g:unite_source_grep_recursive_opt   = ''
+elseif executable('ag')
+    let g:unite_source_grep_command         = 'ag'
+    let g:unite_source_grep_default_opts    = '--nocolor --line-numbers --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt   = ''
+endif
 "}}}
 
 "===============================================================================
