@@ -50,6 +50,7 @@ Plugin 'NsLib/vim-fold-mod'
 Plugin 'scrooloose/NERDCommenter'
 Plugin 'a.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'NsLib/vim-DoxygenToolkit-mod'
 
 call vundle#end()
 "}}}
