@@ -13,6 +13,10 @@
 set nocompatible
 "}}}
 
+"{{{
+execute pathogen#infect()
+"}}}
+
 "{{{ Vundle插件管理
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -280,8 +284,7 @@ let g:vimwiki_hl_cb_checked     = 1
 let g:vimwiki_folding           = 0
 let g:vimwiki_CJK_length        = 1
 let g:vimwiki_valid_html_tags   ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
-        
- let g:vimwiki_list = [
+let g:vimwiki_list = [
              \{
              \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",  
              \   "html_footer": "~/vimwiki/template/footer.tpl",
@@ -292,7 +295,6 @@ let g:vimwiki_valid_html_tags   ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
              \   "custom_wiki2html": "~/.vim/bundle/vimwiki/autoload/vimwiki/misaka_md2html.py",
              \   "auto_export": 0
              \}]
-            
 let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 "}}}
 
