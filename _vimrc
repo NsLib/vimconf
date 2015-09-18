@@ -49,6 +49,7 @@ Plugin 'SirVer/ultisnips'
 Plugin 'NsLib/vim-fold-mod'
 Plugin 'scrooloose/NERDCommenter'
 Plugin 'a.vim'
+Plugin 'Valloric/YouCompleteMe'
 
 call vundle#end()
 "}}}
