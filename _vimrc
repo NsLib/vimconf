@@ -21,7 +21,6 @@ execute pathogen#infect()
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'VOoM'
 Plugin 'dyng/ctrlsf.vim'
 "Plugin 'kien/ctrlp.vim'
