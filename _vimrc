@@ -9,16 +9,52 @@
 " Vim Settings
 "===============================================================================
 
-"{{{ start pathogen
-call pathogen#incubate()
-execute pathogen#infect()
-"}}}
-
 "{{{ 基本设置
 set nocompatible
 "}}}
 
-"{{{语法检测设定
+"{{{ Vundle插件管理
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'VOoM'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'matchit.zip'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'scrooloose/nerdtree'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'luochen1990/rainbow'
+Plugin 'tpope/vim-surround'
+Plugin 'godlygeek/tabular'
+Plugin 'TaskList.vim'
+Plugin 'bling/vim-airline'
+Plugin 'bling/vim-bufferline'
+Plugin 'ivalkeen/vim-ctrlp-tjump'
+Plugin 'easymotion/vim-easymotion'
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'mhinz/vim-startify'
+Plugin 'bronson/vim-trailing-whitespace'
+Plugin 'shime/vim-livedown'
+Plugin 'scrooloose/syntastic'
+Plugin 'taglist.vim'
+Plugin 'MattesGroeger/vim-bookmarks'
+Plugin 'mattn/emmet-vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'NsLib/vim-fold-mod'
+Plugin 'scrooloose/NERDCommenter'
+Plugin 'a.vim'
+
+call vundle#end()
+"}}}
+
+
+"{{{ 语法检测设定
 filetype    on                      " 检测打开文件的类型
 syntax      on                      " 开启语法高亮
 syntax      enable                  " 激活语法高亮
@@ -118,6 +154,9 @@ set splitright                      " 竖直新分割的窗口在右侧
 set splitbelow                      " 水平新分割的窗口在下面
 " 打开上次编辑位置
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+" 默认加载tags
+set tags=tags;/
 "}}}
 
 "{{{ python的基础设定
@@ -131,10 +170,6 @@ let g:python_highlight_string_formatting    = 1
 "===============================================================================
 " Plugins
 "===============================================================================
-
-"{{{ ConqueTerm Vim中运行终端
-let g:ConqueTerm_StartMessages = 0
-"}}}
 
 "{{{ startify Vim起始页
 let g:startify_list_order = [
@@ -174,17 +209,6 @@ let g:numbers_exclude = ['unite',
 let g:gundo_width               = 60
 let g:gundo_preview_height      = winheight(0) / 3 * 2
 let g:gundo_right               = 1
-"}}}
-
-"{{{ calendar.vim 日历插件
-" 日期格式 year-month-day
-let g:calendar_date_endian      = "big"
-" 日期分隔符
-let g:calendar_date_separator   = "-"
-" 打开日历时的视图
-let g:calendar_view             = "day"
-" 设置View布局
-let g:calendar_views            = ['year', 'day', 'month', 'week', 'clock', 'days']
 "}}}
 
 "{{{ vim-instant-markdown Markdown实时预览
@@ -285,13 +309,6 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
 let g:ctrlp_tjump_only_silent = 1
 "}}}
 
-"{{{ tabbar
-let g:Tb_MoreThanOne            = 0
-let g:Tb_SplitBelow             = 0
-let g:Tb_TabWrap                = 1
-let g:Tb_MaxSize                = 3
-"}}}
-
 "{{{ ctrlp 模糊文件跳转插件
 " <C-P> 打开文件
 let g:ctrlp_working_path_mode = 'ra'
@@ -379,16 +396,6 @@ let Tlist_File_Fold_Auto_Close  = 0
 let Tlist_Sort_Type             = "name"
 "}}}
 
-"{{{ TagBar        适合OOP的大纲 
-if has('mac')
-    let Tlist_Ctags_Cmd         = '/usr/local/bin/ctags'
-endif
-let g:tagbar_ctags_bin          = 'ctags'
-let g:tagbar_width              = 40
-let g:tagbar_expand             = 2
-let g:tagbar_zoomwidth          = 0
-"}}}
-
 "{{{ NERD_commenter.vim    注释插件
 " \cc                   注释当前行
 " \c<space>             注释掉所选块
@@ -444,13 +451,6 @@ let g:syntastic_python_flake8_args          = "--max-line-length=79 --max-comple
 let g:syntastic_always_populate_loc_list    = 1
 "}}}
 
-"{{{ whitespace     去除文件的行尾空白
-autocmd BufWritePre     *.py        call WhitespaceStripTrailing()
-autocmd BufWritePre     *.h         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.c         call WhitespaceStripTrailing()
-autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
-"}}}
-
 "}}}
 
 "{{{ a.vim  快速切换头文件与实现文件插件
@@ -459,24 +459,6 @@ autocmd BufWritePre     *.cpp       call WhitespaceStripTrailing()
 " :AS    打开.cpp对应的.h并且水平分屏
 " :AV    打开.cpp对应的.h并且竖直分屏
 " \ih    打开光标所在的文件
-"}}}
-
-"{{{ omnicppcomplete  自动提示插件
-let OmniCpp_ShowScopeInAbbr             = 0     " 函数命名空间显示[0]：右侧 [1]：左侧
-let OmniCpp_ShowPrototypeInAbbr         = 1     " 是否显示函数原型
-let OmniCpp_SelectFirstItem             = 2     " 弹出菜单 [0]：不选中 [1]：选中并插入 [2]：选中不插入
-set completeopt=longest,menu
-set omnifunc=syntaxcomplete#Complete
-
-" 用于一般的生成
-" ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ .
-" 将生成tags文件拷贝到~/tags/   并改名为xxx_tags
-" 解决__THROW等宏导致的问题
-" 忽略列表见~/.vim/tags/filter
-" ctags -R -I ./filter --file-scope=yes --langmap=c:+.h --languages=c,c++ --links=yes --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q .
-
-" 默认加载tags
-set tags=tags;/
 "}}}
 
 "{{{ Emmet(zen-coding)      前端插件
@@ -666,9 +648,6 @@ nnoremap    <c-]>               :CtrlPtjump<cr>
 vnoremap    <c-]>               :CtrlPtjumpVisual<cr>
 
 nnoremap    ,gu                 :GundoToggle<CR>
-
-nnoremap    <C-\>b              :ConqueTermSplit bash<CR>
-nnoremap    <C-\>vb             :ConqueTermVSplit bash<CR>
 
 nnoremap    <Leader>ws          :call VMS()<CR>
 function! VMS()
