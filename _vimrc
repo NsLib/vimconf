@@ -55,6 +55,7 @@ Plugin 'NsLib/vim-DoxygenToolkit-mod'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
+Plugin 'Shougo/unite-outline'
 
 call vundle#end()
 "}}}
@@ -388,7 +389,7 @@ let g:UltiSnipsEditSplit            = "vertical"
 
 "{{{ TagList        大纲 
 let g:tlist_markdown_settings   = 'markdown;h:TOC'
-let g:tlist_vimwiki_settings    = 'vimwiki;h:TOC'
+let g:tlist_vimwiki_settings    = 'markdown;h:TOC'
 let Tlist_Auto_Open             = 0
 let Tlist_Auto_Update           = 1
 let Tlist_Show_One_File         = 1
@@ -528,6 +529,7 @@ let g:bufferline_rotate = 2
 "{{{ 映射F1~F12
 " <F3>  搜索光标所在单词
 nnoremap        <silent> <F3>           :Unite grep:.<cr>
+nnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
 " <F4>  C++切换头文件
 map             <F4>                    :A<CR>
 " <F5>  生成tags文件
@@ -605,12 +607,7 @@ nnoremap    ,db                 :DoxBlock<cr>
 " 高亮当前列
 nnoremap    ,hc                 :call SetColorColumn()<CR>
 
-" Tabbar切换选项卡 \0-30
-nnoremap    ,tc                 :TbBufferClose<CR>
-nnoremap    ,c                  :TbBufferClose<CR>
-
 nnoremap    ,tl                 :TlistToggle<CR>
-nnoremap    ,tb                 :TagbarToggle<CR>
 nnoremap    ,td                 :TaskList<CR>
 
 " 对齐插件
@@ -647,29 +644,40 @@ nnoremap    zvf                 :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap    zsf                 :split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap    zf                  :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
-
-nnoremap    <c-]>               :CtrlPtjump<cr>
-vnoremap    <c-]>               :CtrlPtjumpVisual<cr>
-
-nnoremap    ,gu                 :GundoToggle<CR>
-
 nnoremap    <Leader>ws          :call VMS()<CR>
 function! VMS()
     execute ":VimwikiSearch " . input("VimwikiSearch:")
     :lopen
 endfunction
 
-"nnoremap    <C-p>               :Unite file_rec/async<cr>
 nnoremap    ,u/                 :Unite grep:.<cr>
 let         g:unite_source_history_yank_enable      = 1
-nnoremap    ,uy                 :Unite history/yank<cr>
+nnoremap    ,uy                 :Unite -buffer-name=yanks   history/yank<cr>
+nnoremap    ,uo                 :Unite -buffer-name=outline -vertical outline<cr>
+nnoremap    ,um                 :Unite -buffer-name=mru file_mru
 nnoremap    ,us                 :Unite -quick-match buffer<cr>
-nnoremap    <silent><c-p>       :Unite -auto-resize file file_mru file_rec<cr>
+nnoremap    ,ub                 :Unite -buffer-name=buffer buffer<CR>
+nnoremap    ,uf                 :Unite -buffer-name=files file_rec/async<CR>
+nnoremap    <silent><c-p>       :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+            \ 'ignore_pattern', join([
+            \ '\.git/',
+            \ 'tmp/',
+            \ 'node_modules/',
+            \ 'vendor/',
+            \ 'Vendor/',
+            \ 'bower_components/',
+            \ '.sass-cache',
+            \ ], '\|'))
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
-            \ 'start_insert': 1
+            \   'marked_icon': '✓',
+            \   'start_insert': 1,
+            \   'winheight': 10,
+            \   'direction': 'botright',
+            \   'unite-options-direction': 'botright'
             \ })
 
 "call unite#custom#source('file_rec/async','sorters','sorter_rank', )
@@ -677,7 +685,7 @@ call unite#custom#profile('default', 'context', {
 let g:unite_data_directory                  = '~/.cache/unite'
 let g:unite_source_history_yank_enable      = 1
 let g:unite_prompt                          = '» '
-let g:unite_split_rule                      = 'botright'
+"let g:unite_split_rule                      = 'botright'
 
 if executable('ack')
     let g:unite_source_grep_command         = 'ack'
