@@ -2,7 +2,7 @@
 " 作者:     凝霜
 " E-mail:   mdl2009@vip.qq.com
 " GitHub:   https://github.com/NsLib
-" Blog:     http://blog.csdn.net/MDL13412 
+" Blog:     http://blog.csdn.net/MDL13412
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "===============================================================================
@@ -23,7 +23,6 @@ call vundle#begin()
 
 Plugin 'VOoM'
 Plugin 'dyng/ctrlsf.vim'
-"Plugin 'kien/ctrlp.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'matchit.zip'
 Plugin 'terryma/vim-multiple-cursors'
@@ -35,7 +34,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'TaskList.vim'
 Plugin 'bling/vim-airline'
 Plugin 'bling/vim-bufferline'
-"Plugin 'ivalkeen/vim-ctrlp-tjump'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
@@ -56,6 +54,9 @@ Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
 Plugin 'Shougo/unite-outline'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-dispatch'
+Plugin 'janko-m/vim-test'
 
 call vundle#end()
 "}}}
@@ -212,16 +213,6 @@ let g:numbers_exclude = ['unite',
             \ 'w3m']
 "}}}
 
-"{{{
-let g:gundo_width               = 60
-let g:gundo_preview_height      = winheight(0) / 3 * 2
-let g:gundo_right               = 1
-"}}}
-
-"{{{ vim-instant-markdown Markdown实时预览
-let g:instant_markdown_autostart = 0    " 手动触发预览
-"}}}
-
 "{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
 let g:ctrlsf_open_left          = 0
 "}}}
@@ -299,32 +290,6 @@ let g:vimwiki_list = [
 let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 "}}}
 
-"{{{ ctrlp
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
-let g:ctrlp_key_loop = 1
-let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\v[\/]\.(git)$',
-            \ 'file': '\v\.(log|jpg|png|jpeg)$',
-            \ }
-let g:ctrlp_by_filename = 1
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:30,results:100'
-"}}}
-
-"{{{ vim-ctrlp-tjump
-let g:ctrlp_tjump_only_silent = 1
-"}}}
-
-"{{{ ctrlp 模糊文件跳转插件
-" <C-P> 打开文件
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj  " 补全时忽略的文件类型
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-"}}}
-
 "{{{ NERDTree      文件浏览器
 let NERDChristmasTree           = 1
 let NERDTreeWinPos              = 'left'
@@ -353,7 +318,6 @@ autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
 " z}    打开所有函数
 "}}}
 
-
 "{{{ tasklist.vim  任务列表插件
 " \td           开启任务列表
 let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY"]
@@ -366,7 +330,6 @@ highlight BookmarkLine ctermbg=237 ctermfg=NONE
 highlight BookmarkAnnotationSign ctermbg=NONE ctermfg=blue
 highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
 "}}}
-
 
 "{{{ 编程通用插件
 "{{{
@@ -387,7 +350,7 @@ let g:UltiSnipsUsePythonVersion     = 2
 let g:UltiSnipsEditSplit            = "vertical"
 "}}}
 
-"{{{ TagList        大纲 
+"{{{ TagList        大纲
 let g:tlist_markdown_settings   = 'markdown;h:TOC'
 let g:tlist_vimwiki_settings    = 'markdown;h:TOC'
 let Tlist_Auto_Open             = 0
@@ -409,13 +372,6 @@ let Tlist_Sort_Type             = "name"
 "                        */
 " \cu                   取消注释
 let NERDShutUp=1
-"}}}
-
-"{{{ echofunc 函数原型提示
-"
-" ( 触发, 使用<Alt-n>查看下一个原型, <Alt-p>查看上一个原型
-let g:EchoFuncKeyNext   =   '˜'     " <Alt-n>
-let g:EchoFuncKeyPrev   =   'π'     " <Alt-p>
 "}}}
 
 "{{{ DoxygenToolkit.vim  文档插件
@@ -522,14 +478,19 @@ nmap <leader>9 <Plug>AirlineSelectTab9
 let g:bufferline_rotate = 2
 "}}}
 
+"{{{
+let test#python#runner = 'pytest'
+"}}}
+
 "===============================================================================
 " Key Binding
 "===============================================================================
 
 "{{{ 映射F1~F12
 " <F3>  搜索光标所在单词
-nnoremap        <silent> <F3>           :Unite grep:.<cr>
+"nnoremap        <silent> <F3>           :Unite grep:.<cr>
 nnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
+vnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
 " <F4>  C++切换头文件
 map             <F4>                    :A<CR>
 " <F5>  生成tags文件
@@ -598,6 +559,16 @@ inoremap    <c-h>               <left>
 inoremap    <c-l>               <right>
 inoremap    <c-j>               <c-o>gj
 inoremap    <c-k>               <c-o>gk
+
+" vim命令行Emacs风格快捷键绑定
+:cnoremap   <C-a>               <Home>
+:cnoremap   <C-b>               <Left>
+:cnoremap   <C-f>               <Right>
+:cnoremap   <C-d>               <Delete>
+:cnoremap   <Esc>b              <S-Left>
+:cnoremap   <Esc>f              <S-Right>
+:cnoremap   <Esc>d              <S-right><Delete>
+:cnoremap   <C-g>               <C-c>
 
 " DoxygenToolkit快捷键
 nnoremap    ,da                 :DoxAuthor<cr>
@@ -668,7 +639,28 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'Vendor/',
             \ 'bower_components/',
             \ '.sass-cache',
+            \ '\.venv',
+            \ '**\.png',
+            \ '**\.jpeg',
+            \ '**\.jpg',
+            \ '**\.gif',
+            \ '**\.bpm',
+            \ '**\.svg',
+            \ '**\.gliffy',
+            \ 'vimwiki/html/images/',
+            \ 'vimwiki/html/*\.html',
             \ ], '\|'))
+
+"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
+            "\ 'dir':  '\v[\/]\.(git)$',
+            "\ 'file': '\v\.(log|jpg|png|jpeg)$',
+
+"set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj  " 补全时忽略的文件类型
+"let g:ctrlp_custom_ignore = {
+  "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  "\ 'file': '\v\.(exe|so|dll)$',
+  "\ 'link': 'some_bad_symbolic_links',
+  "\ }
 
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])

@@ -43,3 +43,6 @@ vim/bundle/unite.vim/
 vim/bundle/neomru.vim/
 vim/bundle/vimproc.vim/
 vim/bundle/unite-outline/
+vim/bundle/vim-dispatch/
+vim/bundle/vim-projectionist/
+vim/bundle/vim-test/
