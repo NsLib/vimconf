@@ -57,8 +57,6 @@ Plugin 'Shougo/unite-outline'
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-dispatch'
 Plugin 'janko-m/vim-test'
-Plugin 'xolox/vim-notes'
-Plugin 'xolox/vim-misc'
 
 call vundle#end()
 "}}}
@@ -482,12 +480,6 @@ let g:bufferline_rotate = 2
 
 "{{{
 let test#python#runner = 'pytest'
-"}}}
-
-"{{{
-let g:notes_directories = [
-            \   '~/vimnote',
-            \]
 "}}}
 
 "===============================================================================
