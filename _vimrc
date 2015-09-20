@@ -205,12 +205,10 @@ let g:startify_custom_header = ['   1.01^365 = 37.78, 1.02^365 = 1377.40']
 
 "{{{ numbers.vim 更好的行号显示
 " 不开启numbers.vim的窗口(:echo &ft)
-let g:numbers_exclude = ['unite', 
-            \ 'tagbar', 
+let g:numbers_exclude = [
             \ 'startify',
             \ 'gundo',
             \ 'vimshell',
-            \ 'conque_term',
             \ 'w3m']
 "}}}
 
