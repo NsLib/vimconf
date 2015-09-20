@@ -57,6 +57,7 @@ Plugin 'Shougo/unite-outline'
 Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-dispatch'
 Plugin 'janko-m/vim-test'
+Plugin 'thinca/vim-quickrun'
 
 call vundle#end()
 "}}}
@@ -438,16 +439,6 @@ autocmd FileType xhtml,html,css EmmetInstall
 let g:user_emmet_leader_key         = '<C-Z>'
 "}}}
 
-"{{{ javascript
-let b:javascript_fold               = 'false'         " 打开javascript折叠
-let javascript_enable_domhtmlcss    = 1         " 打开javascript对dom、html和css的支持
-autocmd BufRead,BufNewFile  *.js set syntax=jquery
-autocmd FileType javascript set         omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType javascript set         makeprg=/usr/bin/jsl\ -nologo\ -nofilelisting\ -nosummary\ -nocontext\ -conf\ '/usr/bin/jsl.conf'\ -process\ %
-autocmd FileType javascript set         errorformat=%f(%l):\ %m
-autocmd FileType javascript inoremap    <silent> <F9> <C-O>:make<CR> :copen<CR>
-"}}}
-
 "{{{ airline
 let g:airline_left_sep                                          = ''
 let g:airline_right_sep                                         = ''
@@ -482,6 +473,11 @@ let g:bufferline_rotate = 2
 let test#python#runner = 'pytest'
 "}}}
 
+"{{{ quickrun
+let g:quickrun_config = {}
+let g:quickrun_config.html = {'command' : 'open'}
+"}}}
+
 "===============================================================================
 " Key Binding
 "===============================================================================
@@ -506,29 +502,7 @@ autocmd FileType *          map <buffer> <F7>    :SyntasticCheck<ESC>:Errors<CR>
 nnoremap <S-F7>             :call ToggleLineNumberAndNerdTree()<CR>
 
 " <F9>
-if hostname() == "localhost"
-    autocmd FileType python     map <F9> :!python "%"<CR>
-elseif hostname() == "NsLibRMBP.lan"
-    autocmd FileType python     map <F9> :!python "%"<CR>
-elseif hostname() == "qunarzz.com"
-    autocmd FileType python     map <F9> :!python "%"<CR>
-else
-    autocmd FileType python     map <F9> :!python "%"<CR>
-endif
-autocmd FileType cpp        map <F9> :call Do_OneFileMake()<CR>
-autocmd FileType c          map <F9> :call Do_OneFileMake()<CR>
-autocmd FileType cpp        map <S-F9> :call Do_make()<CR>
-autocmd FileType c          map <S-F9> :call Do_make()<CR>
-autocmd FileType perl       map <F9> :!perl -w "%"<CR>
-autocmd FileType lua        map <F9> :!lua "%"<CR>
-autocmd FileType erlang     map <F9> :!erlc "%"<CR>
-autocmd FileType sh         map <F9> :!bash "%"<CR>
-autocmd FileType go         map <F9> :!go run "%"<CR>
-autocmd FileType lisp       map <F9> :!clisp "%"<CR>
-autocmd FileType dot        map <F9> :!dot % -Tjpg -o a.jpg && open a.jpg<CR>
-autocmd FileType vim        map <F9> :source %<CR>
-autocmd FileType html       map <F9> :!open %<CR>
-autocmd FileType javascript map <F9> :!node %<CR>
+nnoremap <F9>                   :QuickRun
 
 map             <F12>                               :NERDTreeToggle<CR>
 "}}}
