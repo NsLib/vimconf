@@ -161,8 +161,12 @@ set mouse=a                         " 所有模式下，开启鼠标支持
 set wildmenu                        " 命令行补全以增强模式运行
 set splitright                      " 竖直新分割的窗口在右侧
 set splitbelow                      " 水平新分割的窗口在下面
+
 " 打开上次编辑位置
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufReadPost *
+            \ if line("'\"") > 1 && line("'\"") <= line("$") |
+            \   exe "normal! g'\"" |
+            \ endif
 
 " 默认加载tags
 set tags=tags;/
