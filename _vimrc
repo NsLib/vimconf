@@ -58,6 +58,7 @@ Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-dispatch'
 Plugin 'janko-m/vim-test'
 Plugin 'thinca/vim-quickrun'
+Plugin 'airblade/vim-rooter'
 
 call vundle#end()
 "}}}
