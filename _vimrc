@@ -65,6 +65,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'janko-m/vim-test'
 Plugin 'thinca/vim-quickrun'
 Plugin 'airblade/vim-rooter'
+Plugin 'klen/python-mode'
 
 call vundle#end()
 "}}}
