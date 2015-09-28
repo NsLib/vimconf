@@ -21,6 +21,8 @@ set nocompatible
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'VundleVim/Vundle.vim'
+
 Plugin 'NsLib/vim-fold-mod'
 Plugin 'NsLib/vim-DoxygenToolkit-mod'
 Plugin 'NsLib/vimwiki-mod'
@@ -32,6 +34,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'matchit.zip'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'luochen1990/rainbow'
 Plugin 'tpope/vim-surround'
@@ -315,6 +318,20 @@ function! s:CloseIfOnlyNerdTreeLeft()
     endif
 endfunction
 autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+"}}}
+
+"{{{ nerdtree-git-plugin
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 "}}}
 
 "{{{ fold 折叠所有文档注释/函数/类
