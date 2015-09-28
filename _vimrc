@@ -14,13 +14,18 @@ set nocompatible
 "}}}
 
 "{{{
-execute pathogen#infect()
+"execute pathogen#infect()
 "}}}
 
 "{{{ Vundle插件管理
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
+Plugin 'NsLib/vim-fold-mod'
+Plugin 'NsLib/vim-DoxygenToolkit-mod'
+Plugin 'NsLib/vimwiki-mod'
+Plugin 'NsLib/vim-snippets-mod'
+Plugin 'NsLib/vim-cscope-mod'
 Plugin 'VOoM'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'nathanaelkane/vim-indent-guides'
@@ -46,10 +51,8 @@ Plugin 'taglist.vim'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'mattn/emmet-vim'
 Plugin 'SirVer/ultisnips'
-Plugin 'NsLib/vim-fold-mod'
 Plugin 'scrooloose/NERDCommenter'
 Plugin 'a.vim'
-Plugin 'NsLib/vim-DoxygenToolkit-mod'
 Plugin 'Shougo/vimproc.vim'
 Plugin 'Shougo/unite.vim'
 Plugin 'Shougo/neomru.vim'
@@ -288,7 +291,7 @@ let g:vimwiki_list = [
              \   "syntax": "markdown",
              \   "ext": ".md",
              \   "css_name": "main.css",
-             \   "custom_wiki2html": "~/.vim/bundle/vimwiki/autoload/vimwiki/misaka_md2html.py",
+             \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
              \   "auto_export": 0
              \}]
 let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
