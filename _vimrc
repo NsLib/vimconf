@@ -13,10 +13,6 @@
 set nocompatible
 "}}}
 
-"{{{
-"execute pathogen#infect()
-"}}}
-
 "{{{ Vundle插件管理
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
