@@ -46,7 +46,7 @@ Plugin 'mhinz/vim-startify'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'shime/vim-livedown'
 Plugin 'scrooloose/syntastic'
-Plugin 'taglist.vim'
+Plugin 'majutsushi/tagbar'
 Plugin 'MattesGroeger/vim-bookmarks'
 Plugin 'mattn/emmet-vim'
 Plugin 'SirVer/ultisnips'
@@ -371,20 +371,6 @@ let g:UltiSnipsUsePythonVersion     = 2
 let g:UltiSnipsEditSplit            = "vertical"
 "}}}
 
-"{{{ TagList        大纲
-let g:tlist_markdown_settings   = 'markdown;h:TOC'
-let g:tlist_vimwiki_settings    = 'markdown;h:TOC'
-let Tlist_Auto_Open             = 0
-let Tlist_Auto_Update           = 1
-let Tlist_Show_One_File         = 1
-let Tlist_Exit_OnlyWindow       = 1
-let Tlist_Use_Right_Window      = 1
-let Tlist_Auto_Highlight_Tag    = 0
-let Tlist_Compart_Format        = 1
-let Tlist_File_Fold_Auto_Close  = 0
-let Tlist_Sort_Type             = "name"
-"}}}
-
 "{{{ NERD_commenter.vim    注释插件
 " \cc                   注释当前行
 " \c<space>             注释掉所选块
@@ -572,7 +558,7 @@ nnoremap    ,db                 :DoxBlock<cr>
 " 高亮当前列
 nnoremap    ,hc                 :call SetColorColumn()<CR>
 
-nnoremap    ,tl                 :TlistToggle<CR>
+nnoremap    ,tb                 :TagbarToggle<CR>
 nnoremap    ,td                 :TaskList<CR>
 
 " 对齐插件
