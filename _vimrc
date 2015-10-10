@@ -63,6 +63,12 @@ Plugin 'thinca/vim-quickrun'
 Plugin 'airblade/vim-rooter'
 Plugin 'klen/python-mode'
 
+" Go语言
+Plugin 'fatih/vim-go'
+Plugin 'rjohnsondev/vim-compiler-go'
+Plugin 'dgryski/vim-godef'
+Plugin 'vim-jp/vim-go-extra'
+
 call vundle#end()
 "}}}
 
