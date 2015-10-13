@@ -30,7 +30,7 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'matchit.zip'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'myusuf3/numbers.vim'
 Plugin 'luochen1990/rainbow'
 Plugin 'tpope/vim-surround'
@@ -483,6 +483,10 @@ let g:bufferline_rotate = 2
 
 "{{{
 let test#python#runner = 'pytest'
+"}}}
+
+
+"{{{ python-mode
 "}}}
 
 "{{{ quickrun
