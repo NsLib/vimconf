@@ -291,7 +291,7 @@ let g:vimwiki_CJK_length        = 1
 let g:vimwiki_valid_html_tags   ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
 let g:vimwiki_list = [
              \{
-             \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",  
+             \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",
              \   "html_footer": "~/vimwiki/template/footer.tpl",
              \   "html_header": "~/vimwiki/template/header.tpl",
              \   "syntax": "markdown",
@@ -299,7 +299,18 @@ let g:vimwiki_list = [
              \   "css_name": "main.css",
              \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
              \   "auto_export": 0
-             \}]
+             \},
+             \{
+             \   "path": "~/miwiki", "path_html": "~/miwiki/html",
+             \   "html_footer": "~/miwiki/template/footer.tpl",
+             \   "html_header": "~/miwiki/template/header.tpl",
+             \   "syntax": "markdown",
+             \   "ext": ".md",
+             \   "css_name": "main.css",
+             \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
+             \   "auto_export": 0
+             \}
+             \]
 let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 "}}}
 
@@ -610,6 +621,7 @@ nnoremap    zsf                 :split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap    zf                  :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 nnoremap    <Leader>ws          :call VMS()<CR>
+nnoremap    <Leader>wm          :VimwikiUISelect<CR>2<CR>
 function! VMS()
     execute ":VimwikiSearch " . input("VimwikiSearch:")
     :lopen
