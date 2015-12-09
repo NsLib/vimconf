@@ -42,7 +42,7 @@ autocmd FileType python　   set tags+=~/.vim/python27_tags
 
 "{{{ startify
 let g:startify_bookmarks            = [
-            \ '~/vimwiki/路由器.md',
+            \ '~/vimwiki/Nginx 0.1模块分类.md',
             \]
 "}}}
 
