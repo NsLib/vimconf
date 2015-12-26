@@ -1,43 +1,9 @@
 
 "set lines=60 columns=220
 
-"{{{标尺相关
-"set cursorcolumn                    " 高亮显示列
-set textwidth=78                    " 插入文本的最大宽度
-set cc=+1                           " 是否显示标尺
-set scrolloff=15                    " 光标上下两侧最少保留的屏幕行数
-"}}}
-
-let SCHEMES = [
-            \ "desertEx_256",
-            \ "BusyBee",
-            \ "darkerdesert_modified",
-            \ "dw_cyan",
-            \ "maroloccio3_modified"
-            \ ]
-
-
-"exec "colorscheme " . SCHEMES[getpid() % len(SCHEMES)]
-"colorscheme jellyx
-"colorscheme desertEx_256
-"set background=dark
-"let g:solarized_termcolors=256
-"colorscheme solarized
-colorscheme BusyBee
-"colorscheme jellybeans
-
-hi ColorColumn          ctermfg=White           ctermbg=Grey  
-
 "{{{ DoxygenToolkit.vim  文档插件
 let g:DoxygenToolkit_authorName             = "dongliang.ma"
 let g:DoxygenToolkit_licenseTag             = "BSD\<enter>"
-"}}}
-
-"{{{ tags
-autocmd FileType cpp        set tags+=~/.vim/tags/linux_all_in_one_tags
-autocmd FileType c          set tags+=~/.vim/tags/linux_all_in_one_tags
-autocmd FileType c          set tags+=~/.vim/tags/kernel_src_tags
-autocmd FileType python　   set tags+=~/.vim/python27_tags 
 "}}}
 
 "{{{ startify
@@ -45,8 +11,3 @@ let g:startify_bookmarks            = [
             \ '~/vimwiki/Nginx 0.1模块分类.md',
             \]
 "}}}
-
-autocmd     BufRead,BufNewFile      *.string   set filetype=html
-"set clipboard=unnamed               " 共用系统剪贴板
-
-autocmd     BufRead,BufNewFile      init    set filetype=sh

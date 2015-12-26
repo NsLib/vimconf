@@ -11,6 +11,7 @@
 
 "{{{ 基本设置
 set nocompatible
+set hidden
 "}}}
 
 "{{{ Vundle插件管理
@@ -19,6 +20,7 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'szw/vim-ctrlspace'
 Plugin 'NsLib/vim-fold-mod'
 Plugin 'NsLib/vim-DoxygenToolkit-mod'
 Plugin 'NsLib/vimwiki-mod'
@@ -72,105 +74,183 @@ Plugin 'vim-jp/vim-go-extra'
 call vundle#end()
 "}}}
 
-
 "{{{ 语法检测设定
-filetype    on                      " 检测打开文件的类型
-syntax      on                      " 开启语法高亮
-syntax      enable                  " 激活语法高亮
-filetype    plugin on               " 允许特定的文件类型载入插件文件
-filetype    indent on               " 允许特定的文件类型载入缩进文件
+" 检测文件类型
+filetype on
+" 允许特定的文件类型载入插件
+filetype plugin on
+" 允许特定的文件类型载入缩进文件
+filetype indent on
+" 补全
+filetype plugin indent on
+" 开启语法高亮
+syntax on
+" 激活语法高亮
+syntax enable
 " 一些文件类型的自动检测 & 设定
-autocmd     BufRead,BufNewFile      *.go                    set filetype=go
-autocmd     BufRead,BufNewFile      *.{md,mkd,mkdn,mark*}   set filetype=markdown
-autocmd     BufRead,BufNewFile      *.tex                   set filetype=tex
+autocmd BufRead,BufNewFile *.go set filetype=go
+autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
+autocmd BufRead,BufNewFile *.tex set filetype=tex
 "}}}
 
 "{{{ 编码及存储
-set fileencodings=utf-8             " 文件编码，强制UTF-8
-set encoding=utf-8                  " vim内部编码
-set nobomb                          " 不使用bom编码
-set nobackup                        " 不使用备份文件
-set noswapfile                      " 不产生交换文件
-set autoread                        " 自动同步外部修改
-set autowrite                       " 自动把内容写回文件
+" 文件编码，强制UTF-8
+set fileencodings=utf-8
+" vim内部编码
+set encoding=utf-8
+" 不使用bom编码
+set nobomb
+" 不使用备份文件
+set nobackup
+" 不产生交换文件
+set noswapfile
+" 自动同步外部修改
+set autoread
+" 自动把内容写回文件
+set autowrite
+" 合并两行中文时，不在中间加空格
+set formatoptions+=B
 "}}}
 
 "{{{ 缩进/换行/空白/行号/折叠/滚动
-" 缩进
-set autoindent                      " 开启新行时，自动缩进
-set smartindent                     " 开启新行时，智能缩进
-set cindent                         " C程序自动缩进
+" 开启新行时，自动缩进
+set autoindent
+" 开启新行时，智能缩进
+set smartindent
+" C程序自动缩进
+set cindent
 
-" 换行
-set nowrap                          " 不自动换行
-set lbr                             " 不在单词中间断行
-set fo+=mB                          " 打开断行模块对亚洲语言支持
-set whichwrap+=<,>,h,l              " 命令模式下可以直接移动到下一行或上一行
+" 不自动换行
+set nowrap
+" 不在单词中间断行
+set lbr
+" 打开断行模块对亚洲语言支持
+set fo+=mB
+" 命令模式下可以直接移动到下一行或上一行
+set whichwrap+=<,>,h,l
 
-" 空白
-set shiftwidth=4                    " 缩进空白数
-set tabstop=4                       " Tab所占空格数
-set expandtab                       " 将Tab展开为空格
-set softtabstop=4                   " 配合tabstop
-set listchars=tab:▸\ ,trail:▫       " 指定Tab和结尾空白字符
-autocmd FileType make   set      noexpandtab
-set backspace=eol,start,indent      " 插入模式下使用 <BS>、<Del> <C-W> <C-U>
+" 缩进空白数
+set shiftwidth=4
+" Tab所占空格数
+set tabstop=4
+" 将Tab展开为空格
+set expandtab
+" 退格是删除tab
+set smarttab
+set shiftround
+" 配合tabstop
+set softtabstop=4
+" 指定Tab和结尾空白字符
+set listchars=tab:▸\ ,trail:▫
+autocmd FileType make set noexpandtab
+" 插入模式下使用 <BS>、<Del> <C-W> <C-U>
+set backspace=eol,start,indent
 
-" 行号
-set number                          " 显示行号
+" 显示行号
+set number
 
-" 代码折叠
-set foldenable                      " 开启代码折叠
-set foldmethod=syntax               " 根据语法折叠代码
-autocmd FileType c      :syntax match   comment     "\v(^\s*//.*\n)+" fold | " 折叠C语言多行的//注释
-autocmd FileType cpp    :syntax match   comment     "\v(^\s*//.*\n)+" fold | " 折叠C++多行的//注释
-autocmd FileType go     :syntax match   comment     "\v(^\s*//.*\n)+" fold | " 折叠go多行的//注释
-autocmd FileType go     :syntax region  goImport    start="($" end=")$" fold | " 折叠go的import ()导入
-let g:sh_fold_enabled   = 1         " 开启shell脚本函数折叠支持
-autocmd FileType sh     :syntax match   comment     "\v(^\s*[#]+.*\n)+" fold | " 折叠shell的#多行注释
+" 开启代码折叠
+set foldenable
+" 根据语法折叠代码
+set foldmethod=syntax
+autocmd FileType c :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠C语言多行的//注释
+autocmd FileType cpp :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠C++多行的//注释
+autocmd FileType go :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠go多行的//注释
+autocmd FileType go :syntax region goImport start="($" end=")$" fold | " 折叠go的import ()导入
+" 开启shell脚本函数折叠支持
+let g:sh_fold_enabled = 1
+autocmd FileType sh :syntax match comment "\v(^\s*[#]+.*\n)+" fold | " 折叠shell的#多行注释
 autocmd FileType python setlocal foldmethod=indent
-autocmd FileType vim    setlocal foldmethod=marker
-autocmd FileType vim    setlocal foldmarker={{{,}}}
+autocmd FileType vim setlocal foldmethod=marker
+autocmd FileType vim setlocal foldmarker={{{,}}}
 
 " 默认开启代码折叠的文件类型
-autocmd BufReadPost *.vim                           normal z[
-autocmd BufReadPost *.vimrc                         normal z[
-autocmd BufReadPost *.vimrc.*                       normal z[
+autocmd BufReadPost *.vim normal z[
+autocmd BufReadPost *.vimrc normal z[
+autocmd BufReadPost *.vimrc.* normal z[
 
-set foldlevel=99                    " 默认的折叠级别，为0则表示函数级别的折叠
-set foldcolumn=0                    " 折叠线所占的宽度
-nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>    " 用空格键开关折叠
+" 默认的折叠级别，为0则表示函数级别的折叠
+set foldlevel=99
+" 折叠线所占的宽度
+set foldcolumn=0
+"nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>    " 用空格键开关折叠
 "}}}
 
 "{{{ 状态栏/标尺
-set ruler                           " 显示光标所在位置
-set cursorline                      " 高亮当前行
-set showcmd                         " 再屏幕最后一行显示命令
-set laststatus=2                    " 始终显示状态栏
-set cmdheight=1                     " 命令行使用的屏幕行数
+" 显示光标所在位置
+set ruler
+" 高亮当前行
+set cursorline
+" 高亮当前列
+set cursorcolumn
+" 再屏幕最后一行显示命令
+set showcmd
+" 始终显示状态栏
+set laststatus=2
+" 命令行使用的屏幕行数
+set cmdheight=1
+" 高亮显示列
+set cursorcolumn
+" 插入文本的最大宽度
+set textwidth=78
+" 是否显示标尺
+set cc=+1
+" 光标上下两侧最少保留的屏幕行数
+set scrolloff=15
 "}}}
 
 "{{{ 搜索和匹配
-set showmatch                       " 高亮显示匹配的括号
-set matchtime=5                     " 匹配括号高亮的时间(单位是十分之一秒)
-set ignorecase                      " 搜索时忽略大小写
-set smartcase                       " 如果搜索模式包含大写字符，不使用'ignorecase'选项
-set hlsearch                        " 高亮被搜索的内容
-set incsearch                       " 增量搜索
+" 高亮显示匹配的括号
+set showmatch
+" 匹配括号高亮的时间(单位是十分之一秒)
+set matchtime=5
+" 搜索时忽略大小写
+set ignorecase
+" 如果搜索模式包含大写字符，不使用'ignorecase'选项
+set smartcase
+" 高亮被搜索的内容
+set hlsearch
+" 增量搜索
+set incsearch
 "}}}
 
 "{{{ 主题设置
-set t_Co=256                        " 开启256色支持
+" 开启256色支持
+set t_Co=256
+" 主题
+"colorscheme jellyx
+"colorscheme darkerdesert_modified
+"colorscheme dw_cyan
+"colorscheme maroloccio3_modified
+"colorscheme desertEx_256
+"set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
+colorscheme BusyBee
+"colorscheme jellybeans
+" 参考线颜色
+highlight ColorColumn ctermfg=White ctermbg=Grey
 "}}}
 
 "{{{ 杂项
-set noerrorbells                    " 错误时不发出声响
-set novisualbell                    " 禁用可视响铃
-set t_vb=                           " 可视响铃
-set mouse=a                         " 所有模式下，开启鼠标支持
-set wildmenu                        " 命令行补全以增强模式运行
-set splitright                      " 竖直新分割的窗口在右侧
-set splitbelow                      " 水平新分割的窗口在下面
+" 错误时不发出声响
+set noerrorbells
+" 禁用可视响铃
+set novisualbell
+" 可视响铃
+set t_vb=
+" 所有模式下，开启鼠标支持
+set mouse=a
+" 命令行补全以增强模式运行
+set wildmenu
+" 补全时忽略的文件类型
+set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj
+" 竖直新分割的窗口在右侧
+set splitright
+" 水平新分割的窗口在下面
+set splitbelow
+"" 共用系统剪贴板
+"set clipboard=unnamed
 
 " 打开上次编辑位置
 autocmd BufReadPost *
@@ -180,14 +260,16 @@ autocmd BufReadPost *
 
 " 默认加载tags
 set tags=tags;/
+" 离开插入模式后自动关闭预览窗口
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 "}}}
 
 "{{{ python的基础设定
-let g:python_highlight_all                  = 1
-let g:python_highlight_builtin_funcs        = 1
-let g:python_highlight_exceptions           = 1
-let g:python_highlight_builtin_objs         = 1
-let g:python_highlight_string_formatting    = 1
+let g:python_highlight_all = 1
+let g:python_highlight_builtin_funcs = 1
+let g:python_highlight_exceptions = 1
+let g:python_highlight_builtin_objs = 1
+let g:python_highlight_string_formatting = 1
 "}}}
 
 "===============================================================================
@@ -358,7 +440,7 @@ let g:NERDTreeIndicatorMapCustom = {
 
 "{{{ tasklist.vim  任务列表插件
 " \td           开启任务列表
-let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY"]
+let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY", "BUG"]
 "}}}
 
 "{{{ vim-bookmarks      可视化书签
@@ -493,10 +575,9 @@ nmap ,c        :bp<CR>:bd #<CR>
 let g:bufferline_rotate = 2
 "}}}
 
-"{{{
+"{{{ pytest
 let test#python#runner = 'pytest'
 "}}}
-
 
 "{{{ python-mode
 let g:pymode_lint                       = 0
@@ -515,6 +596,7 @@ let g:quickrun_config.html = {'command' : 'open'}
 "===============================================================================
 
 "{{{ 映射F1~F12
+nnoremap <F1> <Esc>
 " <F3>  搜索光标所在单词
 "nnoremap        <silent> <F3>           :Unite grep:.<cr>
 nnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
@@ -528,6 +610,8 @@ autocmd FileType python         map <F5>            :call NsLibMakeTags()<CR>
 autocmd FileType javascript     map <F5>            :call NsLibMakeTags()<CR>
 autocmd FileType go             map <F5>            :call NsLibMakeTags()<CR>
 
+" 切换语法高亮
+":exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 " 语法检查
 autocmd FileType *          map <buffer> <F7>    :SyntasticCheck<ESC>:Errors<CR>
 " 关闭NerdTree和行号以及鼠标，用于复制代码
@@ -559,22 +643,22 @@ nnoremap    <C-h>               <C-W>h
 nnoremap    <C-l>               <C-W>l
 
 " 插入模式下移动光标
-inoremap    <C-y>               <Up>            " 输入模式下，按Ctrl+y移动光标到上一行
-inoremap    <C-e>               <Down>          " 输入模式下，按Ctrl+e移动光标到下一行
 inoremap    <c-h>               <left>
 inoremap    <c-l>               <right>
 inoremap    <c-j>               <c-o>gj
 inoremap    <c-k>               <c-o>gk
 
 " vim命令行Emacs风格快捷键绑定
-:cnoremap   <C-a>               <Home>
-:cnoremap   <C-b>               <Left>
-:cnoremap   <C-f>               <Right>
-:cnoremap   <C-d>               <Delete>
-:cnoremap   <Esc>b              <S-Left>
-:cnoremap   <Esc>f              <S-Right>
-:cnoremap   <Esc>d              <S-right><Delete>
-:cnoremap   <C-g>               <C-c>
+cnoremap   <C-a>               <Home>
+cnoremap   <C-b>               <Left>
+cnoremap   <C-f>               <Right>
+cnoremap   <C-d>               <Delete>
+cnoremap <C-j> <t_kd>
+cnoremap <C-k> <t_ku>
+cnoremap   <Esc>b              <S-Left>
+cnoremap   <Esc>f              <S-Right>
+cnoremap   <Esc>d              <S-right><Delete>
+cnoremap   <C-g>               <C-c>
 
 " DoxygenToolkit快捷键
 nnoremap    ,da                 :DoxAuthor<cr>
@@ -658,11 +742,6 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'vimwiki/html/*\.html',
             \ ], '\|'))
 
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.o
-            "\ 'dir':  '\v[\/]\.(git)$',
-            "\ 'file': '\v\.(log|jpg|png|jpeg)$',
-
-"set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj  " 补全时忽略的文件类型
 "let g:ctrlp_custom_ignore = {
   "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
   "\ 'file': '\v\.(exe|so|dll)$',
