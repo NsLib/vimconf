@@ -5,6 +5,8 @@
 " Blog:     http://blog.csdn.net/MDL13412
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let mapleader = ","
+
 "{{{ Vundle插件管理
 
     "{{{ Vundle配置
@@ -208,8 +210,6 @@ call vundle#end()
         set laststatus=2
         " 命令行使用的屏幕行数
         set cmdheight=1
-        " 高亮显示列
-        set cursorcolumn
         " 插入文本的最大宽度
         set textwidth=78
         " 是否显示标尺
@@ -428,6 +428,8 @@ let g:vim_markdown_folding_disabled = 1
 "}}}
 
 "{{{ eaymotion
+" <Leader><Leader>f
+" <Leader><Leader>F
 map <Leader><leader> <Plug>(easymotion-prefix)
 "}}}
 
@@ -640,102 +642,82 @@ map             <F12>                               :NERDTreeToggle<CR>
 "}}}
 
 " {{{映射快捷键
-" vim 开发
-nnoremap    ,sv                 :source $MYVIMRC<cr>        " 刷新vim配置
-nnoremap    ,ev                 :vsplit $MYVIMRC<cr>        " 分割窗口打开vim配置
+" 刷新vim配置
+nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " 编辑相关
 " 编辑模式下按jk等价于按ESC键, 非常高效
-inoremap    jk                  <esc>
-nnoremap    Q                   :q<CR>          " 命令模式下，输入Q，退出Vim
-cmap w!! %!sudo tee > /dev/null %               " 忘记sudo时，强制保存
-vnoremap    ,y                  "+y             " 选中元素复制到系统剪贴板
-nnoremap    ,p                  "+p             " 系统剪贴板内容粘贴到当前位置
+inoremap jk <esc>
+" 命令模式下，输入Q，退出Vim
+nnoremap Q :q<CR>
+" 忘记sudo时，强制保存
+cmap w!! %!sudo tee > /dev/null %
+" 选中元素复制到系统剪贴板
+vnoremap <leader>y "+y
+" 系统剪贴板内容粘贴到当前位置
+nnoremap <leader>p "+p
 
 " 窗口间移动
-nnoremap    <C-j>               <C-W>j
-nnoremap    <C-k>               <C-W>k
-nnoremap    <C-h>               <C-W>h
-nnoremap    <C-l>               <C-W>l
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " 插入模式下移动光标
-inoremap    <c-h>               <left>
-inoremap    <c-l>               <right>
-inoremap    <c-j>               <c-o>gj
-inoremap    <c-k>               <c-o>gk
+inoremap <c-h> <left>
+inoremap <c-l> <right>
+inoremap <c-j> <c-o>gj
+inoremap <c-k> <c-o>gk
 
 " vim命令行Emacs风格快捷键绑定
-cnoremap   <C-a>               <Home>
-cnoremap   <C-b>               <Left>
-cnoremap   <C-f>               <Right>
-cnoremap   <C-d>               <Delete>
+cnoremap <C-a> <Home>
+cnoremap <C-b> <Left>
+cnoremap <C-f> <Right>
+cnoremap <C-d> <Delete>
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
-cnoremap   <Esc>b              <S-Left>
-cnoremap   <Esc>f              <S-Right>
-cnoremap   <Esc>d              <S-right><Delete>
-cnoremap   <C-g>               <C-c>
-
-" DoxygenToolkit快捷键
-nnoremap    ,da                 :DoxAuthor<cr>
-nnoremap    ,df                 :Dox<cr>
-nnoremap    ,db                 :DoxBlock<cr>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc>f <S-Right>
+cnoremap <Esc>d <S-right><Delete>
+cnoremap <C-g> <C-c>
 
 " 高亮当前列
-nnoremap    ,hc                 :call SetColorColumn()<CR>
+nnoremap <leader>hc :call SetColorColumn()<CR>
 
-nnoremap    ,tb                 :TagbarToggle<CR>
-nnoremap    ,td                 :TaskList<CR>
+nnoremap <leader>tb :TagbarToggle<CR>
+nnoremap <leader>td :TaskList<CR>
 
-" 对齐插件
-nnoremap    ,a=                 :Tabularize /=<CR>
-vnoremap    ,a=                 :Tabularize /=<CR>
-nnoremap    ,a#                 :Tabularize /#<CR>
-vnoremap    ,a#                 :Tabularize /#<CR>
-nnoremap    ,a"                 :Tabularize /"<CR>
-vnoremap    ,a"                 :Tabularize /"<CR>
-nnoremap    ,a:                 :Tabularize /:\zs<CR>
-vnoremap    ,a:                 :Tabularize /:\zs<CR>
+nnoremap <leader>gn <Plug>GitGutterNextHunk
+nnoremap <leader>gp <Plug>GitGutterPrevHunk
+nnoremap <leader>gs <Plug>GitGutterStageHunk
+nnoremap <leader>gr <Plug>GitGutterRevertHunk
 
-nnoremap    ,gn                 <Plug>GitGutterNextHunk
-nnoremap    ,gp                 <Plug>GitGutterPrevHunk
-nnoremap    ,gs                 <Plug>GitGutterStageHunk
-nnoremap    ,gr                 <Plug>GitGutterRevertHunk
+nnoremap <leader>np :set nopaste<CR>
+nnoremap <leader>sp :set paste<CR>
 
-" 调整窗口大小
-nnoremap <silent> ,=            :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
-nnoremap <silent> ,-            :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
-nnoremap <silent> ,h=           :exe "resize " . (winheight(0) * 6/5)<CR>
-nnoremap <silent> ,h-           :exe "resize " . (winheight(0) * 4/5)<CR>
-nnoremap <silent> ,v=           :exe "vertical resize " . (winwidth(0) * 6/5)<CR>
-nnoremap <silent> ,v-           :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
+nnoremap  <Leader>wb :Vimwiki2HTMLBrowse<CR>
+nnoremap  <Leader>wa :VimwikiAll2HTML<CR>
+nnoremap  <Leader>wh :Vimwiki2HTML<CR>
 
-nnoremap    ,np                 :set nopaste<CR>
-nnoremap    ,sp                 :set paste<CR>
+nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap zsf :split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap zf :split<CR>:exec("tag ".expand("<cword>"))<CR>
 
-nnoremap    <Leader>wb          :Vimwiki2HTMLBrowse<CR>
-nnoremap    <Leader>wa          :VimwikiAll2HTML<CR>
-nnoremap    <Leader>wh          :Vimwiki2HTML<CR>
-
-nnoremap    zvf                 :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap    zsf                 :split<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap    zf                  :split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-nnoremap    <Leader>ws          :call VMS()<CR>
-nnoremap    <Leader>wm          :VimwikiUISelect<CR>2<CR>
+nnoremap <Leader>ws :call VMS()<CR>
+nnoremap <Leader>wm :VimwikiUISelect<CR>2<CR>
 function! VMS()
     execute ":VimwikiSearch " . input("VimwikiSearch:")
     :lopen
 endfunction
 
-nnoremap    ,u/                 :Unite grep:.<cr>
-let         g:unite_source_history_yank_enable      = 1
-nnoremap    ,uy                 :Unite -buffer-name=yanks   history/yank<cr>
-nnoremap    ,uo                 :Unite -buffer-name=outline -vertical outline<cr>
-nnoremap    ,um                 :Unite -buffer-name=mru file_mru
-nnoremap    ,us                 :Unite -quick-match buffer<cr>
-nnoremap    ,ub                 :Unite -buffer-name=buffer buffer<CR>
-nnoremap    ,uf                 :Unite -buffer-name=files file_rec/async<CR>
+nnoremap  <leader>u/ :Unite grep:.<cr>
+let g:unite_source_history_yank_enable = 1
+nnoremap  <leader>uy :Unite -buffer-name=yanks   history/yank<cr>
+nnoremap  <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
+nnoremap  <leader>um :Unite -buffer-name=mru file_mru
+nnoremap  <leader>us :Unite -quick-match buffer<cr>
+nnoremap  <leader>ub :Unite -buffer-name=buffer buffer<CR>
+nnoremap  <leader>uf :Unite -buffer-name=files file_rec/async<CR>
 "nnoremap    <silent><c-p>       :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
 nnoremap <silent><C-p> :CtrlSpace O<CR>
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
@@ -772,19 +754,18 @@ call unite#custom#profile('default', 'context', {
 
 "call unite#custom#source('file_rec/async','sorters','sorter_rank', )
 " replacing unite with ctrl-p
-let g:unite_data_directory                  = '~/.cache/unite'
-let g:unite_source_history_yank_enable      = 1
-let g:unite_prompt                          = '» '
-"let g:unite_split_rule                      = 'botright'
+let g:unite_data_directory = '~/.cache/unite'
+let g:unite_source_history_yank_enable = 1
+let g:unite_prompt = '» '
 
 if executable('ack')
-    let g:unite_source_grep_command         = 'ack'
-    let g:unite_source_grep_default_opts    = '--no-heading --no-color -C4'
-    let g:unite_source_grep_recursive_opt   = ''
+    let g:unite_source_grep_command = 'ack'
+    let g:unite_source_grep_default_opts = '--no-heading --no-color -C4'
+    let g:unite_source_grep_recursive_opt = ''
 elseif executable('ag')
-    let g:unite_source_grep_command         = 'ag'
-    let g:unite_source_grep_default_opts    = '--nocolor --line-numbers --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt   = ''
+    let g:unite_source_grep_command = 'ag'
+    let g:unite_source_grep_default_opts = '--nocolor --line-numbers --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt = ''
 endif
 "}}}
 
