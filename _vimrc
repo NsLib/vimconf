@@ -18,9 +18,13 @@
     "{{{ 前端
         " Yet Another JavaScript Syntax for Vim
         Plugin 'othree/yajs.vim'
+        " JavaScript文档生成工具
+        Plugin 'heavenshell/vim-jsdoc'
+        Plugin 'marijnh/tern_for_vim'
     "}}}
 
     "{{{ 编程辅助
+        Plugin 'Valloric/YouCompleteMe'
         Plugin 'scrooloose/syntastic'
         Plugin 'SirVer/ultisnips'
         Plugin 'NsLib/vim-snippets-mod'
@@ -53,14 +57,17 @@
     "}}}
 
     "{{{ 通用
+
+        " 启动页
         Plugin 'mhinz/vim-startify'
+        " 状态栏
         Plugin 'bling/vim-airline'
-        Plugin 'bling/vim-bufferline'
         Plugin 'easymotion/vim-easymotion'
         Plugin 'terryma/vim-multiple-cursors'
         Plugin 'tpope/vim-surround'
         Plugin 'godlygeek/tabular'
-        Plugin 'MattesGroeger/vim-bookmarks'
+        " 可视化书签
+        Plugin 'MattesGroeges/vim-bookmarks'
         Plugin 'myusuf3/numbers.vim'
         Plugin 'tpope/vim-fugitive'
         Plugin 'airblade/vim-gitgutter'
@@ -83,6 +90,7 @@ Plugin 'janko-m/vim-test'
 
 
 " 编程
+" Plugin 'tpope/vim-commentary'
 " Plugin 'junegunn/vim-easy-align'
 " Plugin 'unblevable/quick-scope'
 " Plugin 'kshenoy/vim-signature'
@@ -100,6 +108,7 @@ Plugin 'janko-m/vim-test'
 call vundle#end()
 
 "}}}
+
 
 "{{{ 基础设置
 
@@ -192,7 +201,7 @@ call vundle#end()
         " 高亮当前行
         set cursorline
         " 高亮当前列
-        set cursorcolumn
+        " set cursorcolumn
         " 再屏幕最后一行显示命令
         set showcmd
         " 始终显示状态栏
@@ -276,6 +285,7 @@ call vundle#end()
 
 "}}}
 
+
 "{{{ 特定文件类型设置
 
     "{{{ vim
@@ -311,13 +321,18 @@ call vundle#end()
 
 "}}}
 
+
 "{{{ 插件配置
 
     "{{{ 前端
 
         "{{{ JavaScript
 
-            "{{{ 
+            "{{{ vim-jsdoc
+            " :JsDoc
+                let g:jsdoc_allow_input_prompt = 1
+                let g:jsdoc_input_description = 1
+                let g:jsdoc_param_description_separator = ' - '
             "}}}
 
         "}}}
@@ -330,32 +345,64 @@ call vundle#end()
 
     "{{{ 通用
 
-        "{{{ numbers.vim 更好的行号显示
-            let g:numbers_exclude = ['startify', 'gundo', 'vimshell', 'w3m']
+        "{{{ startify Vim起始页
+            let g:startify_list_order = ['files', 'bookmarks']
+            let g:startify_files_number = 20
+            let g:startify_enable_special = 0
+            let g:startify_skiplist = [
+                        \ '^/tmp',
+                        \ '/project/.*/documentation'
+                        \ ]
         "}}}
 
-        "{{{ startify Vim起始页
-            let g:startify_list_order = [
-                        \ ['   Bookmarks:'], 'bookmarks',
-                        \ ['   MRU:'], 'files',
-                        \ ['   MRU in dir'], 'dir']
-            let g:startify_skiplist = [
-                        \ '\.vimgolf',
-                        \ '^/tmp',
-                        \ '/project/.*/documentation',
-                        \ $HOME . '/.zshrc',
-                        \ $HOME . '/.vimrc*',
-                        \ $HOME . '/vimwiki/index.md',
-                        \ $HOME . '/tools/*',
-                        \ ]
-            let g:startify_custom_header = ['   1.01^365 = 37.78, 1.02^365 = 1377.40']
+        "{{{ vim-bookmarks 可视化书签
+        " mm    添加/删除书签
+        " mi    带注释的书签
+        " mn    跳转到下一个书签
+        " mp    跳转到前一个书签
+        " ma    显示所有书签(toggle)
+        " mc    清除书签
+        " mx    清除所有书签
+            let g:bookmark_sign = '♥'
+            let g:bookmark_highlight_lines = 1
+            let g:bookmark_auto_save = 1
+            let g:bookmark_save_per_working_dir = 1
+
+            highlight BookmarkSign ctermbg=NONE ctermfg=blue
+            highlight BookmarkLine ctermbg=237 ctermfg=NONE
+            highlight BookmarkAnnotationSign ctermbg=NONE ctermfg=blue
+            highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
+        "}}}
+
+        "{{{ airline 状态栏
+            let g:airline_left_sep = ''
+            let g:airline_right_sep = ''
+            let g:airline_exclude_preview = 1
+            let g:airline#extensions#tabline#enabled = 1
+            let g:airline#extensions#tabline#left_sep = ' '
+            let g:airline#extensions#tabline#left_alt_sep = '|'
+            let g:airline#extensions#tabline#tab_nr_type = 2
+            let g:airline#extensions#tabline#buffer_idx_mode = 1
+            nmap <leader>1 <Plug>AirlineSelectTab1
+            nmap <leader>2 <Plug>AirlineSelectTab2
+            nmap <leader>3 <Plug>AirlineSelectTab3
+            nmap <leader>4 <Plug>AirlineSelectTab4
+            nmap <leader>5 <Plug>AirlineSelectTab5
+            nmap <leader>6 <Plug>AirlineSelectTab6
+            nmap <leader>7 <Plug>AirlineSelectTab7
+            nmap <leader>8 <Plug>AirlineSelectTab8
+            nmap <leader>9 <Plug>AirlineSelectTab9
+            nmap <Leader>c :bp<CR>:bd #<CR>
+        "}}}
+
+        "{{{ vim-ctrlspace
+        " TODO: workspace
+        " TODO: bookmark
         "}}}
 
     "}}}
 
 "}}}
-
-
 
 
 "{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
@@ -467,14 +514,6 @@ let g:NERDTreeIndicatorMapCustom = {
 let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY", "BUG"]
 "}}}
 
-"{{{ vim-bookmarks      可视化书签
-let g:bookmark_highlight_lines = 1
-highlight BookmarkSign ctermbg=NONE ctermfg=blue
-highlight BookmarkLine ctermbg=237 ctermfg=NONE
-highlight BookmarkAnnotationSign ctermbg=NONE ctermfg=blue
-highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
-"}}}
-
 "{{{ 编程通用插件
 "{{{
 if has('mac')
@@ -550,37 +589,6 @@ let g:syntastic_always_populate_loc_list    = 1
 " :AS    打开.cpp对应的.h并且水平分屏
 " :AV    打开.cpp对应的.h并且竖直分屏
 " \ih    打开光标所在的文件
-"}}}
-
-"{{{ airline
-let g:airline_left_sep                                          = ''
-let g:airline_right_sep                                         = ''
-
-let g:airline#extensions#bufferline#enabled                     = 1
-let g:airline#extensions#bufferline#overwrite_variables         = 1
-
-let g:bufferline_echo                                           = 0
-let g:airline#extensions#tabline#enabled                        = 1
-let g:airline#extensions#tabline#left_sep                       = ' '
-let g:airline#extensions#tabline#left_alt_sep                   = '|'
-let g:airline#extensions#bufferline#enabled                     = 0
-let g:airline#extensions#tabline#tab_nr_type                    = 2
-
-let g:airline#extensions#tabline#buffer_idx_mode                = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap ,c        :bp<CR>:bd #<CR>
-"}}}
-
-"{{{ bufferline
-let g:bufferline_rotate = 2
 "}}}
 
 "{{{ pytest
@@ -728,7 +736,8 @@ nnoremap    ,um                 :Unite -buffer-name=mru file_mru
 nnoremap    ,us                 :Unite -quick-match buffer<cr>
 nnoremap    ,ub                 :Unite -buffer-name=buffer buffer<CR>
 nnoremap    ,uf                 :Unite -buffer-name=files file_rec/async<CR>
-nnoremap    <silent><c-p>       :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+"nnoremap    <silent><c-p>       :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+nnoremap <silent><C-p> :CtrlSpace O<CR>
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'ignore_pattern', join([
             \ '\.git/',
@@ -750,12 +759,6 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
             \ 'vimwiki/html/*\.html',
             \ ], '\|'))
 
-"let g:ctrlp_custom_ignore = {
-  "\ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  "\ 'file': '\v\.(exe|so|dll)$',
-  "\ 'link': 'some_bad_symbolic_links',
-  "\ }
-
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 call unite#custom#profile('default', 'context', {
@@ -765,6 +768,7 @@ call unite#custom#profile('default', 'context', {
             \   'direction': 'botright',
             \   'unite-options-direction': 'botright'
             \ })
+
 
 "call unite#custom#source('file_rec/async','sorters','sorter_rank', )
 " replacing unite with ctrl-p
