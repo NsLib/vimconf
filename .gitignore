@@ -8,3 +8,4 @@ vim/doc/tags
 
 vim/bundle/
 !vim/bundle/Vundle.vim
+_vimrc.local

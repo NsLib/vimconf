@@ -5,337 +5,361 @@
 " Blog:     http://blog.csdn.net/MDL13412
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"===============================================================================
-" Vim Settings
-"===============================================================================
-
-"{{{ 基本设置
-set nocompatible
-set hidden
-"}}}
-
 "{{{ Vundle插件管理
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
-Plugin 'VundleVim/Vundle.vim'
+    "{{{ Vundle配置
+        set nocompatible
+        set hidden
+        set rtp+=~/.vim/bundle/Vundle.vim
+        call vundle#begin()
+        Plugin 'VundleVim/Vundle.vim'
+    "}}}
 
-Plugin 'szw/vim-ctrlspace'
-Plugin 'NsLib/vim-fold-mod'
-Plugin 'NsLib/vim-DoxygenToolkit-mod'
-Plugin 'NsLib/vimwiki-mod'
-Plugin 'NsLib/vim-snippets-mod'
-Plugin 'NsLib/vim-cscope-mod'
-Plugin 'VOoM'
-Plugin 'dyng/ctrlsf.vim'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'matchit.zip'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'scrooloose/nerdtree'
+    "{{{ 前端
+        " Yet Another JavaScript Syntax for Vim
+        Plugin 'othree/yajs.vim'
+    "}}}
+
+    "{{{ 编程辅助
+        Plugin 'scrooloose/syntastic'
+        Plugin 'SirVer/ultisnips'
+        Plugin 'NsLib/vim-snippets-mod'
+        Plugin 'scrooloose/NERDCommenter'
+        Plugin 'NsLib/vim-fold-mod'
+        Plugin 'NsLib/vim-DoxygenToolkit-mod'
+        Plugin 'TaskList.vim'
+        Plugin 'majutsushi/tagbar'
+        Plugin 'tpope/vim-projectionist'
+        Plugin 'tpope/vim-dispatch'
+        Plugin 'thinca/vim-quickrun'
+        Plugin 'airblade/vim-rooter'
+    "}}}
+
+    "{{{ Go
+        Plugin 'fatih/vim-go'
+        Plugin 'rjohnsondev/vim-compiler-go'
+        Plugin 'dgryski/vim-godef'
+        Plugin 'vim-jp/vim-go-extra'
+    "}}}
+
+    "{{{ C/C++
+        Plugin 'a.vim'
+        Plugin 'NsLib/vim-cscope-mod'
+    "}}}
+
+    "{{{ Python
+    Plugin 'klen/python-mode'
+        Plugin 'nathanaelkane/vim-indent-guides'
+    "}}}
+
+    "{{{ 通用
+        Plugin 'mhinz/vim-startify'
+        Plugin 'bling/vim-airline'
+        Plugin 'bling/vim-bufferline'
+        Plugin 'easymotion/vim-easymotion'
+        Plugin 'terryma/vim-multiple-cursors'
+        Plugin 'tpope/vim-surround'
+        Plugin 'godlygeek/tabular'
+        Plugin 'MattesGroeger/vim-bookmarks'
+        Plugin 'myusuf3/numbers.vim'
+        Plugin 'tpope/vim-fugitive'
+        Plugin 'airblade/vim-gitgutter'
+        Plugin 'NsLib/vimwiki-mod'
+        Plugin 'VOoM'
+        Plugin 'matchit.zip'
+        Plugin 'scrooloose/nerdtree'
+        Plugin 'bronson/vim-trailing-whitespace'
+        Plugin 'Shougo/vimproc.vim'
+        Plugin 'Shougo/unite.vim'
+        Plugin 'Shougo/neomru.vim'
+        Plugin 'Shougo/unite-outline'
+        Plugin 'szw/vim-ctrlspace'
+        Plugin 'dyng/ctrlsf.vim'
+    "}}}
+
 "Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'luochen1990/rainbow'
-Plugin 'tpope/vim-surround'
-Plugin 'godlygeek/tabular'
-Plugin 'TaskList.vim'
-Plugin 'bling/vim-airline'
-Plugin 'bling/vim-bufferline'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'tpope/vim-fugitive'
-Plugin 'airblade/vim-gitgutter'
 Plugin 'plasticboy/vim-markdown'
-Plugin 'mhinz/vim-startify'
-Plugin 'bronson/vim-trailing-whitespace'
-Plugin 'shime/vim-livedown'
-Plugin 'scrooloose/syntastic'
-Plugin 'majutsushi/tagbar'
-Plugin 'MattesGroeger/vim-bookmarks'
-Plugin 'mattn/emmet-vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'scrooloose/NERDCommenter'
-Plugin 'a.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/neomru.vim'
-Plugin 'Shougo/unite-outline'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
 Plugin 'janko-m/vim-test'
-Plugin 'thinca/vim-quickrun'
-Plugin 'airblade/vim-rooter'
-Plugin 'klen/python-mode'
 
-" Go语言
-Plugin 'fatih/vim-go'
-Plugin 'rjohnsondev/vim-compiler-go'
-Plugin 'dgryski/vim-godef'
-Plugin 'vim-jp/vim-go-extra'
+
+" 编程
+" Plugin 'junegunn/vim-easy-align'
+" Plugin 'unblevable/quick-scope'
+" Plugin 'kshenoy/vim-signature'
+" Plugin 'sjl/gundo.vim'
+" Plugin 'hdima/python-syntax'
+" Plugin 'hynek/vim-python-pep8-indent'
+" https://github.com/marijnh/tern_for_vim
+" Plugin 'marijnh/tern_for_vim'
+" Plugin 'elzr/vim-json', {'for': 'json'}
+" Plugin 'gorodinskiy/vim-coloresque'
+" Plugin 'Shougo/neocomplete.vim'
+" Plugin 'gcmt/wildfire.vim'
+
 
 call vundle#end()
+
 "}}}
 
-"{{{ 语法检测设定
-" 检测文件类型
-filetype on
-" 允许特定的文件类型载入插件
-filetype plugin on
-" 允许特定的文件类型载入缩进文件
-filetype indent on
-" 补全
-filetype plugin indent on
-" 开启语法高亮
-syntax on
-" 激活语法高亮
-syntax enable
-" 一些文件类型的自动检测 & 设定
-autocmd BufRead,BufNewFile *.go set filetype=go
-autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
-autocmd BufRead,BufNewFile *.tex set filetype=tex
+"{{{ 基础设置
+
+    "{{{ 语法检测设定
+        " 检测文件类型
+        filetype on
+        " 允许特定的文件类型载入插件
+        filetype plugin on
+        " 允许特定的文件类型载入缩进文件
+        filetype indent on
+        " 补全
+        filetype plugin indent on
+        " 开启语法高亮
+        syntax on
+        " 激活语法高亮
+        syntax enable
+    "}}}
+
+    "{{{ 编码及存储
+        " 文件编码，强制UTF-8
+        set fileencodings=utf-8
+        " vim内部编码
+        set encoding=utf-8
+        " 不使用bom编码
+        set nobomb
+        " 不使用备份文件
+        set nobackup
+        " 不产生交换文件
+        set noswapfile
+        " 自动同步外部修改
+        set autoread
+        " 自动把内容写回文件
+        set autowrite
+        " 合并两行中文时，不在中间加空格
+        set formatoptions+=B
+    "}}}
+
+    "{{{ 缩进/换行/空白/行号/折叠/滚动
+        " 开启新行时，自动缩进
+        set autoindent
+        " 开启新行时，智能缩进
+        set smartindent
+        " C程序自动缩进
+        set cindent
+
+        " 不自动换行
+        set nowrap
+        " 不在单词中间断行
+        set lbr
+        " 打开断行模块对亚洲语言支持
+        set fo+=mB
+        " 命令模式下可以直接移动到下一行或上一行
+        set whichwrap+=<,>,h,l
+
+        " 缩进空白数
+        set shiftwidth=4
+        " Tab所占空格数
+        set tabstop=4
+        " 将Tab展开为空格
+        set expandtab
+        " 退格是删除tab
+        set smarttab
+        set shiftround
+        " 配合tabstop
+        set softtabstop=4
+        " 指定Tab和结尾空白字符
+        set listchars=tab:▸\ ,trail:▫
+        autocmd FileType make set noexpandtab
+        " 插入模式下使用 <BS>、<Del> <C-W> <C-U>
+        set backspace=eol,start,indent
+
+        " 显示行号
+        set number
+
+        " 开启代码折叠
+        set foldenable
+        " 根据语法折叠代码
+        set foldmethod=syntax
+
+        " 默认的折叠级别，为0则表示函数级别的折叠
+        set foldlevel=99
+        " 折叠线所占的宽度
+        set foldcolumn=0
+        nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>    " 用空格键开关折叠
+    "}}}
+
+    "{{{ 状态栏/标尺
+        " 显示光标所在位置
+        set ruler
+        " 高亮当前行
+        set cursorline
+        " 高亮当前列
+        set cursorcolumn
+        " 再屏幕最后一行显示命令
+        set showcmd
+        " 始终显示状态栏
+        set laststatus=2
+        " 命令行使用的屏幕行数
+        set cmdheight=1
+        " 高亮显示列
+        set cursorcolumn
+        " 插入文本的最大宽度
+        set textwidth=78
+        " 是否显示标尺
+        set cc=+1
+        " 光标上下两侧最少保留的屏幕行数
+        set scrolloff=15
+    "}}}
+
+    "{{{ 搜索和匹配
+        " 高亮显示匹配的括号
+        set showmatch
+        " 匹配括号高亮的时间(单位是十分之一秒)
+        set matchtime=5
+        " 搜索时忽略大小写
+        set ignorecase
+        " 如果搜索模式包含大写字符，不使用'ignorecase'选项
+        set smartcase
+        " 高亮被搜索的内容
+        set hlsearch
+        " 增量搜索
+        set incsearch
+    "}}}
+
+    "{{{ 主题设置
+        " 开启256色支持
+        set t_Co=256
+        " 主题
+        "colorscheme jellyx
+        "colorscheme darkerdesert_modified
+        "colorscheme dw_cyan
+        "colorscheme maroloccio3_modified
+        "colorscheme desertEx_256
+        "set background=dark
+        "let g:solarized_termcolors=256
+        "colorscheme solarized
+        colorscheme BusyBee
+        "colorscheme jellybeans
+        " 参考线颜色
+        highlight ColorColumn ctermfg=White ctermbg=Grey
+    "}}}
+
+    "{{{ 杂项
+        " 错误时不发出声响
+        set noerrorbells
+        " 禁用可视响铃
+        set novisualbell
+        " 可视响铃
+        set t_vb=
+        " 所有模式下，开启鼠标支持
+        set mouse=a
+        " 命令行补全以增强模式运行
+        set wildmenu
+        " 补全时忽略的文件类型
+        set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj
+        " 竖直新分割的窗口在右侧
+        set splitright
+        " 水平新分割的窗口在下面
+        set splitbelow
+        "" 共用系统剪贴板
+        "set clipboard=unnamed
+
+        " 打开上次编辑位置
+        autocmd BufReadPost *
+                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
+                    \   exe "normal! g'\"" |
+                    \ endif
+
+        " 默认加载tags
+        set tags=tags;/
+        " 离开插入模式后自动关闭预览窗口
+        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+    "}}}
+
 "}}}
 
-"{{{ 编码及存储
-" 文件编码，强制UTF-8
-set fileencodings=utf-8
-" vim内部编码
-set encoding=utf-8
-" 不使用bom编码
-set nobomb
-" 不使用备份文件
-set nobackup
-" 不产生交换文件
-set noswapfile
-" 自动同步外部修改
-set autoread
-" 自动把内容写回文件
-set autowrite
-" 合并两行中文时，不在中间加空格
-set formatoptions+=B
+"{{{ 特定文件类型设置
+
+    "{{{ vim
+        autocmd FileType vim setlocal foldmethod=marker
+        autocmd FileType vim setlocal foldmarker={{{,}}}
+        autocmd FileType vim setlocal foldlevel=0
+
+        " 默认开启代码折叠的文件类型
+        autocmd BufReadPost *.vim normal z[
+        autocmd BufReadPost *.vimrc normal z[
+        autocmd BufReadPost *.vimrc.* normal z[
+    "}}}
+
+    "{{{ shell
+        " 开启shell脚本函数折叠支持
+        let g:sh_fold_enabled = 1
+    "}}}
+
+    "{{{ python
+        autocmd FileType python setlocal foldmethod=indent
+    "}}}
+
+    "{{{ markdown
+        autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
+    "}}}
+
+    "{{{ vimwiki
+    "}}}
+
+    "{{{ go
+        autocmd BufRead,BufNewFile *.go set filetype=go
+    "}}}
+
 "}}}
 
-"{{{ 缩进/换行/空白/行号/折叠/滚动
-" 开启新行时，自动缩进
-set autoindent
-" 开启新行时，智能缩进
-set smartindent
-" C程序自动缩进
-set cindent
+"{{{ 插件配置
 
-" 不自动换行
-set nowrap
-" 不在单词中间断行
-set lbr
-" 打开断行模块对亚洲语言支持
-set fo+=mB
-" 命令模式下可以直接移动到下一行或上一行
-set whichwrap+=<,>,h,l
+    "{{{ 前端
 
-" 缩进空白数
-set shiftwidth=4
-" Tab所占空格数
-set tabstop=4
-" 将Tab展开为空格
-set expandtab
-" 退格是删除tab
-set smarttab
-set shiftround
-" 配合tabstop
-set softtabstop=4
-" 指定Tab和结尾空白字符
-set listchars=tab:▸\ ,trail:▫
-autocmd FileType make set noexpandtab
-" 插入模式下使用 <BS>、<Del> <C-W> <C-U>
-set backspace=eol,start,indent
+        "{{{ JavaScript
 
-" 显示行号
-set number
+            "{{{ 
+            "}}}
 
-" 开启代码折叠
-set foldenable
-" 根据语法折叠代码
-set foldmethod=syntax
-autocmd FileType c :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠C语言多行的//注释
-autocmd FileType cpp :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠C++多行的//注释
-autocmd FileType go :syntax match comment "\v(^\s*//.*\n)+" fold | " 折叠go多行的//注释
-autocmd FileType go :syntax region goImport start="($" end=")$" fold | " 折叠go的import ()导入
-" 开启shell脚本函数折叠支持
-let g:sh_fold_enabled = 1
-autocmd FileType sh :syntax match comment "\v(^\s*[#]+.*\n)+" fold | " 折叠shell的#多行注释
-autocmd FileType python setlocal foldmethod=indent
-autocmd FileType vim setlocal foldmethod=marker
-autocmd FileType vim setlocal foldmarker={{{,}}}
+        "}}}
 
-" 默认开启代码折叠的文件类型
-autocmd BufReadPost *.vim normal z[
-autocmd BufReadPost *.vimrc normal z[
-autocmd BufReadPost *.vimrc.* normal z[
+        "{{{ HTML
 
-" 默认的折叠级别，为0则表示函数级别的折叠
-set foldlevel=99
-" 折叠线所占的宽度
-set foldcolumn=0
-"nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>    " 用空格键开关折叠
+        "}}}
+
+    "}}}
+
+    "{{{ 通用
+
+        "{{{ numbers.vim 更好的行号显示
+            let g:numbers_exclude = ['startify', 'gundo', 'vimshell', 'w3m']
+        "}}}
+
+        "{{{ startify Vim起始页
+            let g:startify_list_order = [
+                        \ ['   Bookmarks:'], 'bookmarks',
+                        \ ['   MRU:'], 'files',
+                        \ ['   MRU in dir'], 'dir']
+            let g:startify_skiplist = [
+                        \ '\.vimgolf',
+                        \ '^/tmp',
+                        \ '/project/.*/documentation',
+                        \ $HOME . '/.zshrc',
+                        \ $HOME . '/.vimrc*',
+                        \ $HOME . '/vimwiki/index.md',
+                        \ $HOME . '/tools/*',
+                        \ ]
+            let g:startify_custom_header = ['   1.01^365 = 37.78, 1.02^365 = 1377.40']
+        "}}}
+
+    "}}}
+
 "}}}
 
-"{{{ 状态栏/标尺
-" 显示光标所在位置
-set ruler
-" 高亮当前行
-set cursorline
-" 高亮当前列
-set cursorcolumn
-" 再屏幕最后一行显示命令
-set showcmd
-" 始终显示状态栏
-set laststatus=2
-" 命令行使用的屏幕行数
-set cmdheight=1
-" 高亮显示列
-set cursorcolumn
-" 插入文本的最大宽度
-set textwidth=78
-" 是否显示标尺
-set cc=+1
-" 光标上下两侧最少保留的屏幕行数
-set scrolloff=15
-"}}}
 
-"{{{ 搜索和匹配
-" 高亮显示匹配的括号
-set showmatch
-" 匹配括号高亮的时间(单位是十分之一秒)
-set matchtime=5
-" 搜索时忽略大小写
-set ignorecase
-" 如果搜索模式包含大写字符，不使用'ignorecase'选项
-set smartcase
-" 高亮被搜索的内容
-set hlsearch
-" 增量搜索
-set incsearch
-"}}}
 
-"{{{ 主题设置
-" 开启256色支持
-set t_Co=256
-" 主题
-"colorscheme jellyx
-"colorscheme darkerdesert_modified
-"colorscheme dw_cyan
-"colorscheme maroloccio3_modified
-"colorscheme desertEx_256
-"set background=dark
-"let g:solarized_termcolors=256
-"colorscheme solarized
-colorscheme BusyBee
-"colorscheme jellybeans
-" 参考线颜色
-highlight ColorColumn ctermfg=White ctermbg=Grey
-"}}}
-
-"{{{ 杂项
-" 错误时不发出声响
-set noerrorbells
-" 禁用可视响铃
-set novisualbell
-" 可视响铃
-set t_vb=
-" 所有模式下，开启鼠标支持
-set mouse=a
-" 命令行补全以增强模式运行
-set wildmenu
-" 补全时忽略的文件类型
-set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj
-" 竖直新分割的窗口在右侧
-set splitright
-" 水平新分割的窗口在下面
-set splitbelow
-"" 共用系统剪贴板
-"set clipboard=unnamed
-
-" 打开上次编辑位置
-autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$") |
-            \   exe "normal! g'\"" |
-            \ endif
-
-" 默认加载tags
-set tags=tags;/
-" 离开插入模式后自动关闭预览窗口
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-"}}}
-
-"{{{ python的基础设定
-let g:python_highlight_all = 1
-let g:python_highlight_builtin_funcs = 1
-let g:python_highlight_exceptions = 1
-let g:python_highlight_builtin_objs = 1
-let g:python_highlight_string_formatting = 1
-"}}}
-
-"===============================================================================
-" Plugins
-"===============================================================================
-
-"{{{ startify Vim起始页
-let g:startify_list_order = [
-            \ ['   Bookmarks:'],
-            \ 'bookmarks',
-            \ ['   MRU:'],
-            \ 'files',
-            \ ['   MRU in dir'],
-            \ 'dir',
-            \ ]
-let g:startify_skiplist = [
-            \ '\.vimgolf',
-            \ '^/tmp',
-            \ '/project/.*/documentation',
-            \ $HOME . '/.zshrc',
-            \ $HOME . '/.vimrc',
-            \ $HOME . '/.vimrc.local',
-            \ $HOME . '/vimwiki/index.md',
-            \ $HOME . '/tools/*',
-            \ ]
-
-let g:startify_custom_header = ['   1.01^365 = 37.78, 1.02^365 = 1377.40']
-"}}}
-
-"{{{ numbers.vim 更好的行号显示
-" 不开启numbers.vim的窗口(:echo &ft)
-let g:numbers_exclude = [
-            \ 'startify',
-            \ 'gundo',
-            \ 'vimshell',
-            \ 'w3m']
-"}}}
 
 "{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
-let g:ctrlsf_open_left          = 0
-"}}}
-
-"{{{ rainbow 对于不同的括号，渲染成不同颜色
-let g:rainbow_active = 1
-let g:rainbow_operators=2
-let g:rainbow_conf = {
-            \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-            \   'ctermfgs': ['lightgray', 'lightblue', 'lightmagenta', 'lightcyan'],
-            \   'operators': '_,_',
-            \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-            \   'separately': {
-            \       '*': {},
-            \       'lisp': {
-            \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-            \           'ctermfgs': ['darkgray', 'darkblue', 'darkmagenta', 'darkcyan', 'darkred', 'darkgreen'],
-            \       },
-            \       'vim': {
-            \           'parentheses': [['fu\w* \s*.*)','endfu\w*'], ['for','endfor'], ['while', 'endwhile'], ['if','_elseif\|else_','endif'], ['(',')'], ['\[','\]'], ['{','}']],
-            \       },
-            \       'tex': {
-            \           'parentheses': [['(',')'], ['\[','\]'], ['\\begin{.*}','\\end{.*}']],
-            \       },
-            \       'css': 0,
-            \       'stylus': 0,
-            \   }
-            \}
+let g:ctrlsf_open_left = 0
 "}}}
 
 "{{{ tabular    对齐插件
@@ -353,15 +377,15 @@ endfunction
 "}}}
 
 "{{{ markdown
-let g:vim_markdown_folding_disabled     = 1
+let g:vim_markdown_folding_disabled = 1
 "}}}
 
-"{{{ easymotion
+"{{{ eaymotion
 map <Leader><leader> <Plug>(easymotion-prefix)
 "}}}
 
 "{{{ VOom
-let g:voom_return_key = "<C-Return>"
+let g:oom_return_key = "<C-Return>"
 "}}}
 
 "{{{ vimwiki
@@ -397,9 +421,9 @@ let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdo
 "}}}
 
 "{{{ NERDTree      文件浏览器
-let NERDChristmasTree           = 1
-let NERDTreeWinPos              = 'left'
-let NERDTreeWinSize             = 25 
+let NERDChristmasTree = 1
+let NERDTreeWinPos = 'left'
+let NERDTreeWinSize = 25
 " 自动开启NERDTree并将光标移动到打开的文件
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -526,22 +550,6 @@ let g:syntastic_always_populate_loc_list    = 1
 " :AS    打开.cpp对应的.h并且水平分屏
 " :AV    打开.cpp对应的.h并且竖直分屏
 " \ih    打开光标所在的文件
-"}}}
-
-"{{{ Emmet(zen-coding)      前端插件
-" <C-Z>A       从URL地址生成引用文本
-" <C-Z>a       生成URL标记
-" <c-y>m       合并行
-" <C-Z>k       移除标签对
-" <C-Z>N       跳转到上一个编辑点
-" <C-Z>n       跳转到下一个编辑点
-" <C-Z>D       插入模式下根据光标位置选中整个标签内容
-" <C-Z>d       插入模式下根据光标位置选中整个标签
-" <C-Z>;       展开tag标签
-" <C-Z>,       展开缩略词
-let g:user_emmet_install_global     = 0
-autocmd FileType xhtml,html,css EmmetInstall
-let g:user_emmet_leader_key         = '<C-Z>'
 "}}}
 
 "{{{ airline

@@ -7,6 +7,7 @@ let g:DoxygenToolkit_licenseTag             = "BSD\<enter>"
 "}}}
 
 "{{{ startify
+"
 let g:startify_bookmarks            = [
             \ '~/vimwiki/Nginx 0.1模块分类.md',
             \]
