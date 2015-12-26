@@ -7,6 +7,8 @@
 
 let mapleader = ","
 
+let g:ycm_disable_for_files_larger_than_kb = 1
+
 "{{{ Vundle插件管理
 
     "{{{ Vundle配置
@@ -23,22 +25,31 @@ let mapleader = ","
         " JavaScript文档生成工具
         Plugin 'heavenshell/vim-jsdoc'
         Plugin 'marijnh/tern_for_vim'
+        " 快速生成HTML/CSS代码
+        Plugin 'mattn/emmet-vim'
     "}}}
 
     "{{{ 编程辅助
         Plugin 'Valloric/YouCompleteMe'
+        " 语法检查插件
         Plugin 'scrooloose/syntastic'
+        " 代码片段
         Plugin 'SirVer/ultisnips'
+        " 代码片段
         Plugin 'NsLib/vim-snippets-mod'
         Plugin 'scrooloose/NERDCommenter'
+        " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
-        Plugin 'NsLib/vim-DoxygenToolkit-mod'
+        " 任务列表
         Plugin 'TaskList.vim'
+        " 显示文件中的tag列表
         Plugin 'majutsushi/tagbar'
-        Plugin 'tpope/vim-projectionist'
+        " 异步构建&测试
         Plugin 'tpope/vim-dispatch'
+        " 快速运行代码
         Plugin 'thinca/vim-quickrun'
-        Plugin 'airblade/vim-rooter'
+        " test wrapper
+        Plugin 'janko-m/vim-test'
     "}}}
 
     "{{{ Go
@@ -49,12 +60,14 @@ let mapleader = ","
     "}}}
 
     "{{{ C/C++
+        " c/cpp和.h切换
         Plugin 'a.vim'
+        " 生成tags和scope文件
         Plugin 'NsLib/vim-cscope-mod'
     "}}}
 
     "{{{ Python
-    Plugin 'klen/python-mode'
+        " 对齐参考线
         Plugin 'nathanaelkane/vim-indent-guides'
     "}}}
 
@@ -64,48 +77,39 @@ let mapleader = ","
         Plugin 'mhinz/vim-startify'
         " 状态栏
         Plugin 'bling/vim-airline'
+        " 快速移动
         Plugin 'easymotion/vim-easymotion'
+        " 多光标编辑
         Plugin 'terryma/vim-multiple-cursors'
+        " 简化对称标签编辑
         Plugin 'tpope/vim-surround'
-        Plugin 'godlygeek/tabular'
         " 可视化书签
         Plugin 'MattesGroeges/vim-bookmarks'
+        " 相对行号
         Plugin 'myusuf3/numbers.vim'
+        " Git wrapper
         Plugin 'tpope/vim-fugitive'
+        " 显示Git修改
         Plugin 'airblade/vim-gitgutter'
+        " 个人Wiki
         Plugin 'NsLib/vimwiki-mod'
-        Plugin 'VOoM'
+        " 增强%
         Plugin 'matchit.zip'
+        " 文件浏览器
         Plugin 'scrooloose/nerdtree'
+        " 高亮显示空白行
         Plugin 'bronson/vim-trailing-whitespace'
+        " 加入异步执行命令支持
         Plugin 'Shougo/vimproc.vim'
         Plugin 'Shougo/unite.vim'
         Plugin 'Shougo/neomru.vim'
-        Plugin 'Shougo/unite-outline'
+        " buffer/file/tab/workspace/bookmark切换
         Plugin 'szw/vim-ctrlspace'
+        " 搜索插件
         Plugin 'dyng/ctrlsf.vim'
+        " Markdown支持
+        Plugin 'plasticboy/vim-markdown'
     "}}}
-
-"Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'janko-m/vim-test'
-
-
-" 编程
-" Plugin 'tpope/vim-commentary'
-" Plugin 'junegunn/vim-easy-align'
-" Plugin 'unblevable/quick-scope'
-" Plugin 'kshenoy/vim-signature'
-" Plugin 'sjl/gundo.vim'
-" Plugin 'hdima/python-syntax'
-" Plugin 'hynek/vim-python-pep8-indent'
-" https://github.com/marijnh/tern_for_vim
-" Plugin 'marijnh/tern_for_vim'
-" Plugin 'elzr/vim-json', {'for': 'json'}
-" Plugin 'gorodinskiy/vim-coloresque'
-" Plugin 'Shougo/neocomplete.vim'
-" Plugin 'gcmt/wildfire.vim'
-
 
 call vundle#end()
 
@@ -324,12 +328,50 @@ call vundle#end()
 
 "{{{ 插件配置
 
+    "{{{ 编程辅助
+
+        "{{{  UltiSnips
+            autocmd FileType * call UltiSnips#FileTypeChanged()
+            let g:UltiSnipsExpandTrigger = "ii"
+            let g:UltiSnipsUsePythonVersion = 2
+            let g:UltiSnipsEditSplit = "vertical"
+        "}}}
+
+        "{{{ tasklist.vim
+            let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY", "BUG"]
+        "}}}
+
+        "{{{ quickrun
+            let g:quickrun_config = {}
+            let g:quickrun_config.html = {'command' : 'open'}
+        "}}}
+
+        "{{{ syntastic
+            let g:syntastic_check_on_open = 0
+            let g:syntastic_echo_current_error = 1
+            let g:syntastic_loc_list_height = 10
+            let g:syntastic_c_checkers = ['gcc', 'make']
+            let g:syntastic_c_check_header = 1
+            let g:syntastic_c_no_include_search = 1
+            let g:syntastic_python_checkers = ['pylint', 'flake8', 'pep8', 'pyflakes']
+            let g:syntastic_c_checkers = ['gcc', 'make']
+            let g:syntastic_python_pylint_args = "-disable-msg=C0103 --max-line-length=79"
+            let g:syntastic_python_pep8_args = "--max-line-length=79"
+            let g:syntastic_python_flake8_args = "--max-line-length=79 --max-complexity=15"
+            let g:syntastic_always_populate_loc_list = 1
+        "}}}
+
+        "{{{ ctrlsf.vim
+            let g:ctrlsf_open_left = 0
+        "}}}
+
+    "}}}
+
     "{{{ 前端
 
         "{{{ JavaScript
 
             "{{{ vim-jsdoc
-            " :JsDoc
                 let g:jsdoc_allow_input_prompt = 1
                 let g:jsdoc_input_description = 1
                 let g:jsdoc_param_description_separator = ' - '
@@ -339,13 +381,41 @@ call vundle#end()
 
         "{{{ HTML
 
+        "{{{ vim-emmet
+            let g:user_emmet_install_global = 0
+            let g:user_emmet_leader_key='<C-z>'
+            autocmd FileType html,css EmmetInstall
+        "}}}
+
+        "}}}
+
+    "}}}
+
+    " {{{ python
+
+        "{{{ indent-guides 对齐线插件
+            let g:indent_guides_guide_size = 1
+            let g:indent_guides_auto_colors = 0
+            let g:indent_guides_start_level = 2
+            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
+            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
+        "}}}
+
+    "}}}
+
+    "{{{ c/cpp
+
+        "{{{ vim-cscope-mod
+            if has('mac')
+                let g:Cscope_ctags_cmd    = '/usr/local/bin/ctags'
+            endif
         "}}}
 
     "}}}
 
     "{{{ 通用
 
-        "{{{ startify Vim起始页
+        "{{{ startify
             let g:startify_list_order = ['files', 'bookmarks']
             let g:startify_files_number = 20
             let g:startify_enable_special = 0
@@ -355,7 +425,7 @@ call vundle#end()
                         \ ]
         "}}}
 
-        "{{{ vim-bookmarks 可视化书签
+        "{{{ vim-bookmarks
         " mm    添加/删除书签
         " mi    带注释的书签
         " mn    跳转到下一个书签
@@ -374,7 +444,7 @@ call vundle#end()
             highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
         "}}}
 
-        "{{{ airline 状态栏
+        "{{{ airline
             let g:airline_left_sep = ''
             let g:airline_right_sep = ''
             let g:airline_exclude_preview = 1
@@ -383,6 +453,7 @@ call vundle#end()
             let g:airline#extensions#tabline#left_alt_sep = '|'
             let g:airline#extensions#tabline#tab_nr_type = 2
             let g:airline#extensions#tabline#buffer_idx_mode = 1
+
             nmap <leader>1 <Plug>AirlineSelectTab1
             nmap <leader>2 <Plug>AirlineSelectTab2
             nmap <leader>3 <Plug>AirlineSelectTab3
@@ -395,219 +466,65 @@ call vundle#end()
             nmap <Leader>c :bp<CR>:bd #<CR>
         "}}}
 
+        "{{{ vim-easymotion
+            let g:EasyMotion_smartcase = 1
+        "}}}
+
+        "{{{ vim-gitgutter
+            let g:gitgutter_map_keys = 0
+            let g:gitgutter_realtime    = 0
+            let g:gitgutter_eager       = 0
+        "}}}
+
         "{{{ vim-ctrlspace
         " TODO: workspace
         " TODO: bookmark
+        "}}}
+
+        "{{{ NERDTree
+            let g:NERDTreeWinPos = 'left'
+            let g:NERDTreeWinSize = 25
+            autocmd VimEnter * if argc() != 0 | NERDTree | endif
+            autocmd VimEnter * if argc() != 0 | wincmd p | endif
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+        "}}}
+
+        "{{{ vimwiki
+            let g:vimwiki_use_mouse = 1
+            let g:vimwiki_camel_case = 0
+            let g:vimwiki_hl_cb_checked = 1
+            let g:vimwiki_folding = 0
+            let g:vimwiki_CJK_length = 1
+            let g:vimwiki_valid_html_tags ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
+            let g:vimwiki_list = [
+                        \{
+                        \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",
+                        \   "html_footer": "~/vimwiki/template/footer.tpl",
+                        \   "html_header": "~/vimwiki/template/header.tpl",
+                        \   "syntax": "markdown",
+                        \   "ext": ".md",
+                        \   "css_name": "main.css",
+                        \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
+                        \   "auto_export": 0
+                        \},
+                        \{
+                        \   "path": "~/miwiki", "path_html": "~/miwiki/html",
+                        \   "html_footer": "~/miwiki/template/footer.tpl",
+                        \   "html_header": "~/miwiki/template/header.tpl",
+                        \   "syntax": "markdown",
+                        \   "ext": ".md",
+                        \   "css_name": "main.css",
+                        \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
+                        \   "auto_export": 0
+                        \}
+                        \]
+            let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
         "}}}
 
     "}}}
 
 "}}}
 
-
-"{{{ ctrlsf.vim 更好的搜索插件，可以在预览窗口查看上下文
-let g:ctrlsf_open_left = 0
-"}}}
-
-"{{{ tabular    对齐插件
-autocmd FileType markdown inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
-"}}}
-
-"{{{ markdown
-let g:vim_markdown_folding_disabled = 1
-"}}}
-
-"{{{ eaymotion
-" <Leader><Leader>f
-" <Leader><Leader>F
-map <Leader><leader> <Plug>(easymotion-prefix)
-"}}}
-
-"{{{ VOom
-let g:oom_return_key = "<C-Return>"
-"}}}
-
-"{{{ vimwiki
-let g:vimwiki_use_mouse         = 1
-let g:vimwiki_camel_case        = 0
-let g:vimwiki_hl_cb_checked     = 1
-let g:vimwiki_folding           = 0
-let g:vimwiki_CJK_length        = 1
-let g:vimwiki_valid_html_tags   ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
-let g:vimwiki_list = [
-             \{
-             \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",
-             \   "html_footer": "~/vimwiki/template/footer.tpl",
-             \   "html_header": "~/vimwiki/template/header.tpl",
-             \   "syntax": "markdown",
-             \   "ext": ".md",
-             \   "css_name": "main.css",
-             \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
-             \   "auto_export": 0
-             \},
-             \{
-             \   "path": "~/miwiki", "path_html": "~/miwiki/html",
-             \   "html_footer": "~/miwiki/template/footer.tpl",
-             \   "html_header": "~/miwiki/template/header.tpl",
-             \   "syntax": "markdown",
-             \   "ext": ".md",
-             \   "css_name": "main.css",
-             \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
-             \   "auto_export": 0
-             \}
-             \]
-let g:vimwiki_ext2syntax    = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-"}}}
-
-"{{{ NERDTree      文件浏览器
-let NERDChristmasTree = 1
-let NERDTreeWinPos = 'left'
-let NERDTreeWinSize = 25
-" 自动开启NERDTree并将光标移动到打开的文件
-autocmd VimEnter * NERDTree
-autocmd VimEnter * wincmd p
-
-function! s:CloseIfOnlyNerdTreeLeft()
-    if exists("t:NERDTreeBufName")
-        if bufwinnr(t:NERDTreeBufName) != -1
-            if winnr("$") == 1
-                q
-            endif
-        endif
-    endif
-endfunction
-autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
-"}}}
-
-"{{{ nerdtree-git-plugin
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ "Unknown"   : "?"
-    \ }
-"}}}
-
-"{{{ fold 折叠所有文档注释/函数/类
-"
-" z[    折叠所有文档注释
-" z]    打开所有文档注释
-" z{    折叠所有函数
-" z}    打开所有函数
-"}}}
-
-"{{{ tasklist.vim  任务列表插件
-" \td           开启任务列表
-let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY", "BUG"]
-"}}}
-
-"{{{ 编程通用插件
-"{{{
-if has('mac')
-    let g:Cscope_ctags_cmd    = '/usr/local/bin/ctags'
-endif
-"}}}
-
-"{{{ gitgutter  用于git托管项目的diff插件,显示文件变化
-let g:gitgutter_realtime    = 0
-let g:gitgutter_eager       = 0
-"}}}
-
-"{{{  UltiSnips
-autocmd FileType * call UltiSnips#FileTypeChanged()
-let g:UltiSnipsExpandTrigger        = "ii"
-let g:UltiSnipsUsePythonVersion     = 2
-let g:UltiSnipsEditSplit            = "vertical"
-"}}}
-
-"{{{ NERD_commenter.vim    注释插件
-" \cc                   注释当前行
-" \c<space>             注释掉所选块
-" \cs                   /*
-"                        * 形式的注释
-"                        */
-" \cu                   取消注释
-let NERDShutUp=1
-"}}}
-
-"{{{ DoxygenToolkit.vim  文档插件
-" :DoxLic        插入License信息
-" :DoxAuthor     插入作者信息
-" :Dox           插入文档注释
-let g:DoxygenToolkit_undocTag               = "DOXIGEN_SKIP_BLOCK"
-let g:DoxygenToolkit_briefTag_pre           = "@brief\t\t"
-let g:DoxygenToolkit_paramTag_pre           = "@param\t\t"
-let g:DoxygenToolkit_returnTag              = "@return\t\t"
-let g:DoxygenToolkit_throwTag_pre           = "@exception\t\t"
-let g:DoxygenToolkit_briefTag_funcName      = "yes"
-let g:DoxygenToolkit_maxFunctionProtoLines  = 30 
-"}}}
-
-"{{{ indent-guides 对齐线插件
-"
-" \ig           开启对齐线
-let g:indent_guides_guide_size      = 1
-let g:indent_guides_auto_colors     = 0
-let g:indent_guides_start_level     = 2
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
-"}}}
-
-"{{{ syntastic  支持多种语言的语法检查插件
-let g:syntastic_check_on_open               = 0
-let g:syntastic_echo_current_error          = 1
-let g:syntastic_loc_list_height             = 10
-let g:syntastic_c_checkers                  = ['gcc', 'make']
-let g:syntastic_c_check_header              = 1
-let g:syntastic_c_no_include_search         = 1
-let g:syntastic_python_checkers             = ['pylint', 'flake8', 'pep8', 'pyflakes']
-let g:syntastic_c_checkers                  = ['gcc', 'make']
-let g:syntastic_python_pylint_args          = "-disable-msg=C0103 --max-line-length=79"
-let g:syntastic_python_pep8_args            = "--max-line-length=79"
-let g:syntastic_python_flake8_args          = "--max-line-length=79 --max-complexity=15"
-let g:syntastic_always_populate_loc_list    = 1
-"}}}
-
-"}}}
-
-"{{{ a.vim  快速切换头文件与实现文件插件
-"
-" :A     打开.cpp对应的.h
-" :AS    打开.cpp对应的.h并且水平分屏
-" :AV    打开.cpp对应的.h并且竖直分屏
-" \ih    打开光标所在的文件
-"}}}
-
-"{{{ pytest
-let test#python#runner = 'pytest'
-"}}}
-
-"{{{ python-mode
-let g:pymode_lint                       = 0
-let g:pymode_rope                       = 1
-let g:pymode_rope_goto_definition_bind  = '<C-]>'
-let g:pymode_rope_goto_definition_cmd   = 'e'
-"}}}
-
-"{{{ quickrun
-let g:quickrun_config = {}
-let g:quickrun_config.html = {'command' : 'open'}
-"}}}
 
 "===============================================================================
 " Key Binding
@@ -657,6 +574,9 @@ vnoremap <leader>y "+y
 " 系统剪贴板内容粘贴到当前位置
 nnoremap <leader>p "+p
 
+nnoremap <leader>np :set nopaste<CR>
+nnoremap <leader>sp :set paste<CR>
+
 " 窗口间移动
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -687,13 +607,13 @@ nnoremap <leader>hc :call SetColorColumn()<CR>
 nnoremap <leader>tb :TagbarToggle<CR>
 nnoremap <leader>td :TaskList<CR>
 
-nnoremap <leader>gn <Plug>GitGutterNextHunk
-nnoremap <leader>gp <Plug>GitGutterPrevHunk
-nnoremap <leader>gs <Plug>GitGutterStageHunk
-nnoremap <leader>gr <Plug>GitGutterRevertHunk
-
-nnoremap <leader>np :set nopaste<CR>
-nnoremap <leader>sp :set paste<CR>
+"{{{ vim-gitgutter
+    nnoremap <leader>gn <Plug>GitGutterNextHunk
+    nnoremap <leader>gp <Plug>GitGutterPrevHunk
+    nnoremap <leader>gs <Plug>GitGutterStageHunk
+    nnoremap <leader>gr <Plug>GitGutterRevertHunk
+    nnoremap <leader>gv <Plug>GitGutterPreviewHunk
+"}}}
 
 nnoremap  <Leader>wb :Vimwiki2HTMLBrowse<CR>
 nnoremap  <Leader>wa :VimwikiAll2HTML<CR>
@@ -751,9 +671,6 @@ call unite#custom#profile('default', 'context', {
             \   'unite-options-direction': 'botright'
             \ })
 
-
-"call unite#custom#source('file_rec/async','sorters','sorter_rank', )
-" replacing unite with ctrl-p
 let g:unite_data_directory = '~/.cache/unite'
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt = '» '
@@ -769,12 +686,9 @@ elseif executable('ag')
 endif
 "}}}
 
-"===============================================================================
-" Source User's Own Setting
-"===============================================================================
 
-"{{{ source
+"{{{ 加载个性设置
 if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
+    source ~/.vimrc.local
 endif
 "}}}
