@@ -9,7 +9,6 @@
 set nocompatible
 set hidden
 let mapleader = ","
-let g:ycm_disable_for_files_larger_than_kb = 1
 "}}}
 
 "{{{ Vundle插件管理
@@ -32,6 +31,9 @@ let g:ycm_disable_for_files_larger_than_kb = 1
     "}}}
 
     "{{{ 编程辅助
+        " 使用Dash查看API文档
+        Plugin 'rizzatti/dash.vim'
+        " 代码补全
         Plugin 'Valloric/YouCompleteMe'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
@@ -54,7 +56,7 @@ let g:ycm_disable_for_files_larger_than_kb = 1
         " test wrapper
         Plugin 'janko-m/vim-test'
         " 自动闭合标签
-        Plugin 'jiangmiao/auto-pairs'
+        Plugin 'Raimondi/delimitMate'
     "}}}
 
     "{{{ Go
@@ -331,6 +333,14 @@ call vundle#end()
 
     "{{{ 编程辅助
 
+        "{{{ Dash.vim
+        let g:dash_map = {
+                    \'javascript': ['javascript'],
+                    \'c': ['c', 'cpp'],
+                    \'cpp': ['c', 'cpp'],
+                    \}
+        "}}}
+
         "{{{  UltiSnips
             autocmd FileType * call UltiSnips#FileTypeChanged()
             let g:UltiSnipsExpandTrigger = "ii"
@@ -360,6 +370,11 @@ call vundle#end()
             let g:syntastic_python_pep8_args = "--max-line-length=79"
             let g:syntastic_python_flake8_args = "--max-line-length=79 --max-complexity=15"
             let g:syntastic_always_populate_loc_list = 1
+        "}}}
+
+        "{{{ YouCompleteMe
+            let g:ycm_register_as_syntastic_checker = 0
+            let g:ycm_disable_for_files_larger_than_kb = 100
         "}}}
 
         "{{{ ctrlsf.vim
