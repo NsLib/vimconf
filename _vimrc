@@ -124,6 +124,10 @@ let mapleader = ","
         Plugin 'plasticboy/vim-markdown'
     "}}}
 
+    "{{{ 主题
+        Plugin 'altercation/vim-colors-solarized'
+    "}}}
+
 call vundle#end()
 
 "}}}
