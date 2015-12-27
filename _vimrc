@@ -260,6 +260,7 @@ call vundle#end()
         if has("gui_running")
             set background=light
             colorscheme solarized
+            "colorscheme dracula
             let g:solarized_contrast = 'low'
         else
             set background=light
