@@ -257,15 +257,15 @@ call vundle#end()
         " 开启256色支持
         set t_Co=256
         " 主题
-        if has("gui")
+        if has("gui_running")
             set background=light
             colorscheme solarized
+            let g:solarized_contrast = 'low'
         else
-            "colorscheme desertEx_256
             set background=light
             let g:solarized_termcolors=256
+            let g:solarized_contrast = 'low'
             colorscheme solarized
-            "colorscheme BusyBee
             " 参考线颜色
             highlight ColorColumn ctermfg=White ctermbg=Grey
         endif
@@ -456,10 +456,13 @@ call vundle#end()
 
         "{{{ indent-guides 对齐线插件
             let g:indent_guides_guide_size = 1
-            let g:indent_guides_auto_colors = 0
             let g:indent_guides_start_level = 2
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
-            autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
+            if !has("gui_running")
+                let g:indent_guides_auto_colors = 0
+                autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
+                autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
+            endif
+
         "}}}
 
     "}}}
@@ -593,7 +596,7 @@ call vundle#end()
             let g:NERDTreeWinSize = 25
             autocmd VimEnter * if argc() != 0 | NERDTree | endif
             autocmd VimEnter * if argc() != 0 | wincmd p | endif
-            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+            autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
         "}}}
 
         "{{{ vimwiki
