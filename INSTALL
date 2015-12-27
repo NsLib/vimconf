@@ -12,8 +12,6 @@ function init_vim_file()
 
     ln -s "${CURRENT_PATH}/vim" ~/.vim
     ln -s "${CURRENT_PATH}/_vimrc" ~/.vimrc
-    ln -s "${CURRENT_PATH}/_vimrc.local" ~/.vimrc.local
-    ln -s "${CURRENT_PATH}/tmux.conf" ~/.tmux.conf
 }
 
 function init_linux_font()
@@ -27,7 +25,18 @@ function init_linux_font()
     mkfontdir
 }
 
-function init_dependeny()
+function init_mac_dependeny()
+{
+    brew install ctags
+    brew install ag
+    sudo pip install --upgrade pyflakes
+    sudo pip install --upgrade pylint
+    sudo pip install --upgrade pep8
+    sudo npm install jshint -g
+    sudo npm install jslint -g
+}
+
+function init_unix_dependeny()
 {
     local os_name=`cat /etc/issue | head -n 1 | awk '{print $1}'`
     echo $os_name
@@ -44,10 +53,11 @@ function init_dependeny()
 
 if [ "${OS_TYPE}" = "Darwin" ]; then
     init_vim_file;
+    init_mac_dependeny;
 elif [ "${OS_TYPE}" = "Linux" ]; then
     init_vim_file;
     init_linux_font;
-    init_dependeny;
+    init_unix_dependeny;
 else
     echo "Unsupported OS type"
     exit 1
