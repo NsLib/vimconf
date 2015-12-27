@@ -663,6 +663,7 @@ call vundle#end()
             inoremap jk <esc>
             " 命令模式下，输入Q，退出Vim
             nnoremap Q :q<CR>
+            nnoremap ; :
             " 忘记sudo时，强制保存
             cmap w!! %!sudo tee > /dev/null %
             " 选中元素复制到系统剪贴板
