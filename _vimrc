@@ -253,18 +253,18 @@ call vundle#end()
         " 开启256色支持
         set t_Co=256
         " 主题
-        "colorscheme jellyx
-        "colorscheme darkerdesert_modified
-        "colorscheme dw_cyan
-        "colorscheme maroloccio3_modified
-        "colorscheme desertEx_256
-        "set background=dark
-        "let g:solarized_termcolors=256
-        "colorscheme solarized
-        colorscheme BusyBee
-        "colorscheme jellybeans
-        " 参考线颜色
-        highlight ColorColumn ctermfg=White ctermbg=Grey
+        if has("gui")
+            set background=light
+            colorscheme solarized
+        else
+            "colorscheme desertEx_256
+            set background=light
+            let g:solarized_termcolors=256
+            colorscheme solarized
+            "colorscheme BusyBee
+            " 参考线颜色
+            highlight ColorColumn ctermfg=White ctermbg=Grey
+        endif
     "}}}
 
     "{{{ 杂项
