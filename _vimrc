@@ -6,6 +6,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "{{{ before
+set nocompatible
+set hidden
 let mapleader = ","
 let g:ycm_disable_for_files_larger_than_kb = 1
 "}}}
@@ -13,8 +15,6 @@ let g:ycm_disable_for_files_larger_than_kb = 1
 "{{{ Vundle插件管理
 
     "{{{ Vundle配置
-        set nocompatible
-        set hidden
         set rtp+=~/.vim/bundle/Vundle.vim
         call vundle#begin()
         Plugin 'VundleVim/Vundle.vim'
@@ -25,6 +25,7 @@ let g:ycm_disable_for_files_larger_than_kb = 1
         Plugin 'othree/yajs.vim'
         " JavaScript文档生成工具
         Plugin 'heavenshell/vim-jsdoc'
+        " JavaScript补全
         Plugin 'marijnh/tern_for_vim'
         " 快速生成HTML/CSS代码
         Plugin 'mattn/emmet-vim'
@@ -38,6 +39,7 @@ let g:ycm_disable_for_files_larger_than_kb = 1
         Plugin 'SirVer/ultisnips'
         " 代码片段
         Plugin 'NsLib/vim-snippets-mod'
+        " 快速注释插件
         Plugin 'scrooloose/NERDCommenter'
         " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
@@ -102,7 +104,9 @@ let g:ycm_disable_for_files_larger_than_kb = 1
         Plugin 'bronson/vim-trailing-whitespace'
         " 加入异步执行命令支持
         Plugin 'Shougo/vimproc.vim'
+        " Unite and create user interfaces
         Plugin 'Shougo/unite.vim'
+        " MRU plugin for unite.vim
         Plugin 'Shougo/neomru.vim'
         " buffer/file/tab/workspace/bookmark切换
         Plugin 'szw/vim-ctrlspace'
@@ -313,9 +317,6 @@ call vundle#end()
 
     "{{{ markdown
         autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
-    "}}}
-
-    "{{{ vimwiki
     "}}}
 
     "{{{ go
