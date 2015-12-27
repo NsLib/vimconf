@@ -275,7 +275,7 @@ call vundle#end()
         " 错误时不发出声响
         set noerrorbells
         " 禁用可视响铃
-        set novisualbell
+        set visualbell
         " 可视响铃
         set t_vb=
         " 所有模式下，开启鼠标支持
