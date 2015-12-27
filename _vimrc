@@ -264,8 +264,9 @@ call vundle#end()
             let g:solarized_contrast = 'low'
         else
             set background=light
-            let g:solarized_termcolors=256
-            let g:solarized_contrast = 'low'
+            let g:solarized_termcolors = 256
+            let g:solarized_underline = 0
+            let g:solarized_contrast = 'normal'
             colorscheme solarized
             " 参考线颜色
             highlight ColorColumn ctermfg=White ctermbg=Grey
