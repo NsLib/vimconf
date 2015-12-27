@@ -35,6 +35,8 @@ let mapleader = ","
         Plugin 'rizzatti/dash.vim'
         " 代码补全
         Plugin 'Valloric/YouCompleteMe'
+        " 生成YCM使用的配置文件
+        Plugin 'rdnetto/YCM-Generator'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
         " 代码片段
