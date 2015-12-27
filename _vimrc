@@ -33,6 +33,8 @@ let mapleader = ","
     "{{{ 编程辅助
         " 使用Dash查看API文档
         Plugin 'rizzatti/dash.vim'
+        " 格式化代码
+        Plugin 'Chiel92/vim-autoformat'
         " 代码补全
         Plugin 'Valloric/YouCompleteMe'
         " 生成YCM使用的配置文件
@@ -334,6 +336,19 @@ call vundle#end()
 "{{{ 插件配置
 
     "{{{ 编程辅助
+
+        "{{{ vim-autoformat
+            let g:autoformat_autoindent = 0
+            let g:autoformat_verbosemode = 1
+            let g:formatdef_jsbeautify_javascript = join(['"',
+                        \' js-beautify -f - ',
+                        \' --indent-size 4 ',
+                        \' --wrap-line-length 80 ',
+                        \' --jslint-happy ',
+                        \' --brace-style collapse',
+                        \' --break-chained-methods ',
+                        \'"'])
+        "}}}
 
         "{{{ Dash.vim
         let g:dash_map = {
