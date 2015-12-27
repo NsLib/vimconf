@@ -375,6 +375,26 @@ call vundle#end()
         "{{{ YouCompleteMe
             let g:ycm_register_as_syntastic_checker = 0
             let g:ycm_disable_for_files_larger_than_kb = 100
+            let g:ycm_key_list_select_completion = ['<Down>', '<C-J>']
+            let g:ycm_key_list_previous_completion = ['<Up>', '<C-K>']
+            let g:ycm_min_num_of_chars_for_completion = 3
+            let g:ycm_collect_identifiers_from_tags_files = 1
+            let g:ycm_key_invoke_completion = '<C-L>'
+            let g:ycm_key_detailed_diagnost1cs = ''
+            let g:ycm_confirm_extra_conf = 1
+            let g:ycm_complete_in_comments = 1
+            let g:ycm_filetype_blacklist = {
+                        \ 'tagbar' : 1,
+                        \ 'qf' : 1,
+                        \ 'notes' : 1,
+                        \ 'markdown' : 1,
+                        \ 'unite' : 1,
+                        \ 'text' : 1,
+                        \ 'vimwiki' : 1,
+                        \ 'pandoc' : 1,
+                        \ 'infolog' : 1,
+                        \ 'mail' : 1
+                        \}
         "}}}
 
         "{{{ ctrlsf.vim
