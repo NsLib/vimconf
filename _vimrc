@@ -53,6 +53,8 @@ let g:ycm_disable_for_files_larger_than_kb = 1
         Plugin 'thinca/vim-quickrun'
         " test wrapper
         Plugin 'janko-m/vim-test'
+        " 自动闭合标签
+        Plugin 'jiangmiao/auto-pairs'
     "}}}
 
     "{{{ Go
@@ -362,9 +364,10 @@ call vundle#end()
 
         "{{{ ctrlsf.vim
             let g:ctrlsf_position = 'right'
-            " if executable('ack')
-            " elseif executable('ag')
-            " endif
+            let g:ctrlsf_mapping = {
+                        \ "next": ["<C-J>", "n"],
+                        \ "prev": ["<C-K>", "p"]
+                        \}
         "}}}
 
     "}}}
@@ -654,7 +657,6 @@ call vundle#end()
                 nnoremap <leader>gv <Plug>GitGutterPreviewHunk
             "}}}
 
-
             "{{{ vimwiki
                 nnoremap <Leader>wb :Vimwiki2HTMLBrowse<CR>
                 nnoremap <Leader>wa :VimwikiAll2HTML<CR>
@@ -683,6 +685,10 @@ call vundle#end()
                 nnoremap  <leader>ub :Unite -buffer-name=buffer buffer<CR>
                 nnoremap  <leader>uf :Unite -buffer-name=files file_rec/async<CR>
                 "nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+            "}}}
+
+            "{{{ ctrlsf
+                nnoremap <leader>cf :CtrlSF<CR>
             "}}}
 
             "{{{ ctrlspace
