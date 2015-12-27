@@ -5,9 +5,10 @@
 " Blog:     http://blog.csdn.net/MDL13412
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+"{{{ before
 let mapleader = ","
-
 let g:ycm_disable_for_files_larger_than_kb = 1
+"}}}
 
 "{{{ Vundle插件管理
 
@@ -114,7 +115,6 @@ let g:ycm_disable_for_files_larger_than_kb = 1
 call vundle#end()
 
 "}}}
-
 
 "{{{ 基础设置
 
@@ -289,7 +289,6 @@ call vundle#end()
 
 "}}}
 
-
 "{{{ 特定文件类型设置
 
     "{{{ vim
@@ -324,7 +323,6 @@ call vundle#end()
     "}}}
 
 "}}}
-
 
 "{{{ 插件配置
 
@@ -362,7 +360,10 @@ call vundle#end()
         "}}}
 
         "{{{ ctrlsf.vim
-            let g:ctrlsf_open_left = 0
+            let g:ctrlsf_position = 'right'
+            " if executable('ack')
+            " elseif executable('ag')
+            " endif
         "}}}
 
     "}}}
@@ -423,6 +424,52 @@ call vundle#end()
                         \ '^/tmp',
                         \ '/project/.*/documentation'
                         \ ]
+        "}}}
+
+        "{{{ unite
+            call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+                        \ 'ignore_pattern', join([
+                        \ '\.git/',
+                        \ 'tmp/',
+                        \ 'node_modules/',
+                        \ 'vendor/',
+                        \ 'Vendor/',
+                        \ 'bower_components/',
+                        \ '.sass-cache',
+                        \ '\.venv',
+                        \ '**\.png',
+                        \ '**\.jpeg',
+                        \ '**\.jpg',
+                        \ '**\.gif',
+                        \ '**\.bpm',
+                        \ '**\.svg',
+                        \ '**\.gliffy',
+                        \ 'vimwiki/html/*\.html',
+                        \ ], '\|'))
+
+            call unite#filters#matcher_default#use(['matcher_fuzzy'])
+            call unite#filters#sorter_default#use(['sorter_rank'])
+            call unite#custom#profile('default', 'context', {
+                        \   'marked_icon': '✓',
+                        \   'start_insert': 1,
+                        \   'winheight': 10,
+                        \   'direction': 'botright',
+                        \   'unite-options-direction': 'botright'
+                        \ })
+
+            let g:unite_data_directory = '~/.cache/unite'
+            let g:unite_source_history_yank_enable = 1
+            let g:unite_prompt = '» '
+
+            if executable('ack')
+                let g:unite_source_grep_command = 'ack'
+                let g:unite_source_grep_default_opts = '--no-heading --no-color -C4'
+                let g:unite_source_grep_recursive_opt = ''
+            elseif executable('ag')
+                let g:unite_source_grep_command = 'ag'
+                let g:unite_source_grep_default_opts = '--nocolor --line-numbers --nogroup -S -C4'
+                let g:unite_source_grep_recursive_opt = ''
+            endif
         "}}}
 
         "{{{ vim-bookmarks
@@ -525,167 +572,127 @@ call vundle#end()
 
 "}}}
 
+"{{{ 快捷键
 
-"===============================================================================
-" Key Binding
-"===============================================================================
+    "{{{ F1 ~ F12
+        nnoremap <F1> <Esc>
+        nnoremap <F3> :CtrlSF
+        autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
+        autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
+        autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
+        autocmd FileType javascript map <F5> :call NsLibMakeTags()<CR>
+        autocmd FileType go map <F5> :call NsLibMakeTags()<CR>
+        autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
+        nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
+        nnoremap <F9> :QuickRun
+        nnoremap <F12> :NERDTreeToggle<CR>
+    "}}}
 
-"{{{ 映射F1~F12
-nnoremap <F1> <Esc>
-" <F3>  搜索光标所在单词
-"nnoremap        <silent> <F3>           :Unite grep:.<cr>
-nnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
-vnoremap        <silent> <F3>           :Ag <c-r>=expand("<cword>")<cr><cr>
-" <F4>  C++切换头文件
-map             <F4>                    :A<CR>
-" <F5>  生成tags文件
-autocmd FileType cpp            map <F5>            :call NsLibMakeTags()<CR>
-autocmd FileType c              map <F5>            :call NsLibMakeTags()<CR>
-autocmd FileType python         map <F5>            :call NsLibMakeTags()<CR>
-autocmd FileType javascript     map <F5>            :call NsLibMakeTags()<CR>
-autocmd FileType go             map <F5>            :call NsLibMakeTags()<CR>
+    "{{{ vim
 
-" 切换语法高亮
-":exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
-" 语法检查
-autocmd FileType *          map <buffer> <F7>    :SyntasticCheck<ESC>:Errors<CR>
-" 关闭NerdTree和行号以及鼠标，用于复制代码
-nnoremap <S-F7>             :call ToggleLineNumberAndNerdTree()<CR>
+        "{{{ 基础配置
+            " 刷新vim配置
+            nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" <F9>
-nnoremap <F9>                   :QuickRun
+            " 编辑模式下按jk等价于按ESC键, 非常高效
+            inoremap jk <esc>
+            " 命令模式下，输入Q，退出Vim
+            nnoremap Q :q<CR>
+            " 忘记sudo时，强制保存
+            cmap w!! %!sudo tee > /dev/null %
+            " 选中元素复制到系统剪贴板
+            vnoremap <leader>y "+y
+            " 系统剪贴板内容粘贴到当前位置
+            nnoremap <leader>p "+p
 
-map             <F12>                               :NERDTreeToggle<CR>
+            nnoremap <leader>np :set nopaste<CR>
+            nnoremap <leader>sp :set paste<CR>
+        "}}}
+
+        "{{{ 移动
+            " 窗口间移动
+            nnoremap <C-j> <C-W>j
+            nnoremap <C-k> <C-W>k
+            nnoremap <C-h> <C-W>h
+            nnoremap <C-l> <C-W>l
+
+            " 插入模式下移动光标
+            inoremap <c-h> <left>
+            inoremap <c-l> <right>
+            inoremap <c-j> <c-o>gj
+            inoremap <c-k> <c-o>gk
+
+            " vim命令行Emacs风格快捷键绑定
+            cnoremap <C-a> <Home>
+            cnoremap <C-b> <Left>
+            cnoremap <C-f> <Right>
+            cnoremap <C-d> <Delete>
+            cnoremap <C-j> <t_kd>
+            cnoremap <C-k> <t_ku>
+            cnoremap <Esc>b <S-Left>
+            cnoremap <Esc>f <S-Right>
+            cnoremap <Esc>d <S-right><Delete>
+            cnoremap <C-g> <C-c>
+        "}}}
+
+        "{{{ 高亮
+            " 高亮当前列
+            nnoremap <leader>hc :call SetColorColumn()<CR>
+        "}}}
+
+        "{{{ 编程辅助
+
+            nnoremap <leader>tb :TagbarToggle<CR>
+            nnoremap <leader>td :TaskList<CR>
+
+            "{{{ vim-gitgutter
+                nnoremap <leader>gn <Plug>GitGutterNextHunk
+                nnoremap <leader>gp <Plug>GitGutterPrevHunk
+                nnoremap <leader>gs <Plug>GitGutterStageHunk
+                nnoremap <leader>gr <Plug>GitGutterRevertHunk
+                nnoremap <leader>gv <Plug>GitGutterPreviewHunk
+            "}}}
+
+
+            "{{{ vimwiki
+                nnoremap <Leader>wb :Vimwiki2HTMLBrowse<CR>
+                nnoremap <Leader>wa :VimwikiAll2HTML<CR>
+                nnoremap <Leader>wh :Vimwiki2HTML<CR>
+                nnoremap <Leader>ws :call VMS()<CR>
+                nnoremap <Leader>wm :VimwikiUISelect<CR>2<CR>
+
+                function! VMS()
+                    execute ":VimwikiSearch " . input("VimwikiSearch:")
+                    :lopen
+                endfunction
+            "}}}
+
+            "{{{ cscope & ctags
+                nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
+                nnoremap zsf :split<CR>:exec("tag ".expand("<cword>"))<CR>
+                nnoremap zf :split<CR>:exec("tag ".expand("<cword>"))<CR>
+            "}}}
+
+            "{{{ unite
+                nnoremap  <leader>u/ :Unite grep:.<cr>
+                nnoremap  <leader>uy :Unite -buffer-name=yanks history/yank<cr>
+                nnoremap  <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
+                nnoremap  <leader>um :Unite -buffer-name=mru file_mru
+                nnoremap  <leader>us :Unite -quick-match buffer<cr>
+                nnoremap  <leader>ub :Unite -buffer-name=buffer buffer<CR>
+                nnoremap  <leader>uf :Unite -buffer-name=files file_rec/async<CR>
+                "nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+            "}}}
+
+            "{{{ ctrlspace
+                nnoremap <silent><C-p> :CtrlSpace O<CR>
+            "}}}
+
+        "}}}
+
+    "}}}
+
 "}}}
-
-" {{{映射快捷键
-" 刷新vim配置
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" 编辑相关
-" 编辑模式下按jk等价于按ESC键, 非常高效
-inoremap jk <esc>
-" 命令模式下，输入Q，退出Vim
-nnoremap Q :q<CR>
-" 忘记sudo时，强制保存
-cmap w!! %!sudo tee > /dev/null %
-" 选中元素复制到系统剪贴板
-vnoremap <leader>y "+y
-" 系统剪贴板内容粘贴到当前位置
-nnoremap <leader>p "+p
-
-nnoremap <leader>np :set nopaste<CR>
-nnoremap <leader>sp :set paste<CR>
-
-" 窗口间移动
-nnoremap <C-j> <C-W>j
-nnoremap <C-k> <C-W>k
-nnoremap <C-h> <C-W>h
-nnoremap <C-l> <C-W>l
-
-" 插入模式下移动光标
-inoremap <c-h> <left>
-inoremap <c-l> <right>
-inoremap <c-j> <c-o>gj
-inoremap <c-k> <c-o>gk
-
-" vim命令行Emacs风格快捷键绑定
-cnoremap <C-a> <Home>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-d> <Delete>
-cnoremap <C-j> <t_kd>
-cnoremap <C-k> <t_ku>
-cnoremap <Esc>b <S-Left>
-cnoremap <Esc>f <S-Right>
-cnoremap <Esc>d <S-right><Delete>
-cnoremap <C-g> <C-c>
-
-" 高亮当前列
-nnoremap <leader>hc :call SetColorColumn()<CR>
-
-nnoremap <leader>tb :TagbarToggle<CR>
-nnoremap <leader>td :TaskList<CR>
-
-"{{{ vim-gitgutter
-    nnoremap <leader>gn <Plug>GitGutterNextHunk
-    nnoremap <leader>gp <Plug>GitGutterPrevHunk
-    nnoremap <leader>gs <Plug>GitGutterStageHunk
-    nnoremap <leader>gr <Plug>GitGutterRevertHunk
-    nnoremap <leader>gv <Plug>GitGutterPreviewHunk
-"}}}
-
-nnoremap  <Leader>wb :Vimwiki2HTMLBrowse<CR>
-nnoremap  <Leader>wa :VimwikiAll2HTML<CR>
-nnoremap  <Leader>wh :Vimwiki2HTML<CR>
-
-nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap zsf :split<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap zf :split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-nnoremap <Leader>ws :call VMS()<CR>
-nnoremap <Leader>wm :VimwikiUISelect<CR>2<CR>
-function! VMS()
-    execute ":VimwikiSearch " . input("VimwikiSearch:")
-    :lopen
-endfunction
-
-nnoremap  <leader>u/ :Unite grep:.<cr>
-let g:unite_source_history_yank_enable = 1
-nnoremap  <leader>uy :Unite -buffer-name=yanks   history/yank<cr>
-nnoremap  <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
-nnoremap  <leader>um :Unite -buffer-name=mru file_mru
-nnoremap  <leader>us :Unite -quick-match buffer<cr>
-nnoremap  <leader>ub :Unite -buffer-name=buffer buffer<CR>
-nnoremap  <leader>uf :Unite -buffer-name=files file_rec/async<CR>
-"nnoremap    <silent><c-p>       :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
-nnoremap <silent><C-p> :CtrlSpace O<CR>
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-            \ 'ignore_pattern', join([
-            \ '\.git/',
-            \ 'tmp/',
-            \ 'node_modules/',
-            \ 'vendor/',
-            \ 'Vendor/',
-            \ 'bower_components/',
-            \ '.sass-cache',
-            \ '\.venv',
-            \ '**\.png',
-            \ '**\.jpeg',
-            \ '**\.jpg',
-            \ '**\.gif',
-            \ '**\.bpm',
-            \ '**\.svg',
-            \ '**\.gliffy',
-            \ 'vimwiki/html/images/',
-            \ 'vimwiki/html/*\.html',
-            \ ], '\|'))
-
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('default', 'context', {
-            \   'marked_icon': '✓',
-            \   'start_insert': 1,
-            \   'winheight': 10,
-            \   'direction': 'botright',
-            \   'unite-options-direction': 'botright'
-            \ })
-
-let g:unite_data_directory = '~/.cache/unite'
-let g:unite_source_history_yank_enable = 1
-let g:unite_prompt = '» '
-
-if executable('ack')
-    let g:unite_source_grep_command = 'ack'
-    let g:unite_source_grep_default_opts = '--no-heading --no-color -C4'
-    let g:unite_source_grep_recursive_opt = ''
-elseif executable('ag')
-    let g:unite_source_grep_command = 'ag'
-    let g:unite_source_grep_default_opts = '--nocolor --line-numbers --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt = ''
-endif
-"}}}
-
 
 "{{{ 加载个性设置
 if filereadable(expand("~/.vimrc.local"))
