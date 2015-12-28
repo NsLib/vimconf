@@ -41,6 +41,8 @@ let mapleader = ","
         Plugin 'rdnetto/YCM-Generator'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
+        " 切换工作目录到项目根目录
+        Plugin 'airblade/vim-rooter'
         " 代码片段
         Plugin 'SirVer/ultisnips'
         " 代码片段
@@ -351,7 +353,6 @@ call vundle#end()
                         \' --wrap-line-length 80 ',
                         \' --jslint-happy ',
                         \' --brace-style collapse',
-                        \' --break-chained-methods ',
                         \'"'])
         "}}}
 
@@ -399,7 +400,7 @@ call vundle#end()
             let g:ycm_disable_for_files_larger_than_kb = 100
             let g:ycm_key_list_select_completion = ['<Down>', '<C-J>']
             let g:ycm_key_list_previous_completion = ['<Up>', '<C-K>']
-            let g:ycm_min_num_of_chars_for_completion = 3
+            let g:ycm_min_num_of_chars_for_completion = 1
             let g:ycm_collect_identifiers_from_tags_files = 1
             let g:ycm_key_invoke_completion = '<C-L>'
             let g:ycm_key_detailed_diagnost1cs = ''
