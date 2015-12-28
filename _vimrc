@@ -95,7 +95,7 @@ let mapleader = ","
         " 简化对称标签编辑
         Plugin 'tpope/vim-surround'
         " 可视化书签
-        Plugin 'MattesGroeges/vim-bookmarks'
+        Plugin 'MattesGroeger/vim-bookmarks'
         " 相对行号
         Plugin 'myusuf3/numbers.vim'
         " Git wrapper
@@ -264,7 +264,6 @@ call vundle#end()
             let g:solarized_contrast = 'low'
         else
             set background=light
-            let g:solarized_termcolors = 256
             let g:solarized_underline = 0
             let g:solarized_contrast = 'normal'
             colorscheme solarized
