@@ -128,6 +128,7 @@ let mapleader = ","
 
     "{{{ 主题
         Plugin 'altercation/vim-colors-solarized'
+        Plugin 'w0ng/vim-hybrid'
     "}}}
 
 call vundle#end()
@@ -269,6 +270,7 @@ call vundle#end()
             let g:solarized_underline = 0
             let g:solarized_contrast = 'normal'
             colorscheme solarized
+            "colorscheme dracula
             " 参考线颜色
             highlight ColorColumn ctermfg=White ctermbg=Grey
         endif
@@ -738,22 +740,18 @@ call vundle#end()
             "}}}
 
             "{{{ unite
-                nnoremap  <leader>u/ :Unite grep:.<cr>
-                nnoremap  <leader>uy :Unite -buffer-name=yanks history/yank<cr>
-                nnoremap  <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
-                nnoremap  <leader>um :Unite -buffer-name=mru file_mru
-                nnoremap  <leader>us :Unite -quick-match buffer<cr>
-                nnoremap  <leader>ub :Unite -buffer-name=buffer buffer<CR>
-                nnoremap  <leader>uf :Unite -buffer-name=files file_rec/async<CR>
-                "nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru file_rec/async<cr>
+                nnoremap <leader>u/ :Unite grep:.<cr>
+                nnoremap <leader>uy :Unite -buffer-name=yanks history/yank<cr>
+                nnoremap <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
+                nnoremap <leader>um :Unite -buffer-name=mru file_mru
+                nnoremap <leader>us :Unite -quick-match buffer<cr>
+                nnoremap <leader>ub :Unite -buffer-name=buffer buffer<CR>
+                nnoremap <leader>uf :Unite -buffer-name=files file_rec/async<CR>
+                nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru<cr>
             "}}}
 
             "{{{ ctrlsf
                 nnoremap <leader>cf :CtrlSF<CR>
-            "}}}
-
-            "{{{ ctrlspace
-                nnoremap <silent><C-p> :CtrlSpace O<CR>
             "}}}
 
         "}}}
