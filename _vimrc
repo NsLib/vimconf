@@ -24,8 +24,6 @@ let mapleader = ","
         Plugin 'othree/yajs.vim'
         " JavaScript文档生成工具
         Plugin 'heavenshell/vim-jsdoc'
-        " JavaScript补全
-        Plugin 'marijnh/tern_for_vim'
         " 快速生成HTML/CSS代码
         Plugin 'mattn/emmet-vim'
     "}}}
@@ -402,7 +400,7 @@ call vundle#end()
             let g:ycm_disable_for_files_larger_than_kb = 100
             let g:ycm_key_list_select_completion = ['<Down>', '<C-J>']
             let g:ycm_key_list_previous_completion = ['<Up>', '<C-K>']
-            let g:ycm_min_num_of_chars_for_completion = 1
+            let g:ycm_min_num_of_chars_for_completion = 99
             let g:ycm_collect_identifiers_from_tags_files = 1
             let g:ycm_key_invoke_completion = '<C-L>'
             let g:ycm_key_detailed_diagnost1cs = ''
