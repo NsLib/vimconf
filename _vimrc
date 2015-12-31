@@ -262,13 +262,13 @@ call vundle#end()
             "colorscheme dracula
             let g:solarized_contrast = 'low'
         else
-            set background=light
-            let g:solarized_underline = 0
-            let g:solarized_contrast = 'normal'
-            colorscheme solarized
-            "colorscheme dracula
+            "set background=light
+            "let g:solarized_underline = 0
+            "let g:solarized_contrast = 'normal'
+            "colorscheme solarized
+            colorscheme dracula
             " 参考线颜色
-            highlight ColorColumn ctermfg=White ctermbg=Grey
+            "highlight ColorColumn ctermfg=White ctermbg=Grey
         endif
     "}}}
 
