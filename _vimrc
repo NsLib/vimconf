@@ -26,6 +26,8 @@ let mapleader = ","
         Plugin 'heavenshell/vim-jsdoc'
         " 快速生成HTML/CSS代码
         Plugin 'mattn/emmet-vim'
+        " Less
+        Plugin 'groenewege/vim-less'
     "}}}
 
     "{{{ 编程辅助
@@ -106,6 +108,8 @@ let mapleader = ","
         Plugin 'matchit.zip'
         " 文件浏览器
         Plugin 'scrooloose/nerdtree'
+        " NERDTree and tabs together in Vim, painlessly
+        Plugin 'jistr/vim-nerdtree-tabs'
         " 高亮显示空白行
         Plugin 'bronson/vim-trailing-whitespace'
         " 加入异步执行命令支持
@@ -342,6 +346,10 @@ call vundle#end()
 
     "{{{ 编程辅助
 
+        "{{{ vim-rooter
+            "let g:rooter_manual_only = 1
+        "}}}
+
         "{{{ vim-autoformat
             let g:autoformat_autoindent = 0
             let g:autoformat_verbosemode = 1
@@ -569,10 +577,12 @@ call vundle#end()
         "{{{ NERDTree
             let g:NERDTreeWinPos = 'left'
             let g:NERDTreeWinSize = 25
-            autocmd VimEnter * if argc() != 0 | NERDTree | endif
-            autocmd VimEnter * if argc() != 0 | wincmd p | endif
-            autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
         "}}}
+
+        "{{{ vim-nerdtree-tabs
+            let g:nerdtree_tabs_open_on_console_startup = 1
+            let g:nerdtree_tabs_autofind = 1
+        "}}}}
 
         "{{{ vimwiki
             let g:vimwiki_use_mouse = 1
