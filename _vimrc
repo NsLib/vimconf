@@ -124,6 +124,8 @@ let mapleader = ","
         Plugin 'dyng/ctrlsf.vim'
         " Markdown支持
         Plugin 'plasticboy/vim-markdown'
+        " 自动搜索并加载local vimrc
+        Plugin 'embear/vim-localvimrc'
     "}}}
 
     "{{{ 主题
@@ -616,6 +618,9 @@ call vundle#end()
             let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
         "}}}
 
+        "{{{ vim-localvimrc
+            let g:localvimrc_persistent = 1
+        "}}}
     "}}}
 
 "}}}
