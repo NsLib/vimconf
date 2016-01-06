@@ -268,11 +268,18 @@ call vundle#end()
             "colorscheme dracula
             let g:solarized_contrast = 'low'
         else
-            set background=dark
-            let g:solarized_underline = 0
-            let g:solarized_contrast = 'high'
-            colorscheme solarized
+            "set background=dark
+            "let g:solarized_underline = 0
+            "let g:solarized_contrast = 'high'
+            "colorscheme solarized
             "colorscheme dracula
+            "colorscheme jellyx
+            colorscheme desertEx_256
+            "set background=dark
+            "let g:solarized_termcolors=256
+            "colorscheme solarized
+            "colorscheme BusyBee
+            "colorscheme jellybeans
             " 参考线颜色
             "highlight ColorColumn ctermfg=White ctermbg=Grey
         endif
