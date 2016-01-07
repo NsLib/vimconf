@@ -268,16 +268,23 @@ call vundle#end()
             "colorscheme dracula
             let g:solarized_contrast = 'low'
         else
-            "set background=dark
-            "let g:solarized_underline = 0
-            "let g:solarized_contrast = 'high'
-            "colorscheme solarized
+            "{{{ vim-color-solarized
+                "set background=dark
+                "let g:solarized_termcolors = 256
+                "let g:solarized_underline = 0
+                "let g:solarized_contrast = 'normal'
+                "colorscheme solarized
+            "}}}
+
+            "{{{ vim-hybrid
+                set background=dark
+                let g:hybrid_reduced_contrast = 1
+                colorscheme hybrid
+            "}}}
+
             "colorscheme dracula
             "colorscheme jellyx
-            colorscheme desertEx_256
-            "set background=dark
-            "let g:solarized_termcolors=256
-            "colorscheme solarized
+            "colorscheme desertEx_256
             "colorscheme BusyBee
             "colorscheme jellybeans
             " 参考线颜色
