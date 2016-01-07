@@ -12,6 +12,7 @@ function init_vim_file()
 
     ln -s "${CURRENT_PATH}/vim" ~/.vim
     ln -s "${CURRENT_PATH}/_vimrc" ~/.vimrc
+    ln -s "${CURRENT_PATH}/tmux.conf" ~/.tmux.conf
 }
 
 function init_linux_font()
