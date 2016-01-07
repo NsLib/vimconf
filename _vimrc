@@ -59,8 +59,6 @@ let mapleader = ","
         Plugin 'thinca/vim-quickrun'
         " test wrapper
         Plugin 'janko-m/vim-test'
-        " 自动闭合标签
-        Plugin 'Raimondi/delimitMate'
     "}}}
 
     "{{{ Go
