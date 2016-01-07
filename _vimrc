@@ -124,6 +124,8 @@ let mapleader = ","
         Plugin 'plasticboy/vim-markdown'
         " 自动搜索并加载local vimrc
         Plugin 'embear/vim-localvimrc'
+        " tmux和vim panel无缝切换
+        Plugin 'christoomey/vim-tmux-navigator'
     "}}}
 
     "{{{ 主题
