@@ -8,7 +8,6 @@ function init_vim_file()
     rm -rf ~/.vim
     rm -f ~/.vimrc
     rm -f ~/.vimrc.local
-    rm -f ~/.tmux.conf
 
     ln -s "${CURRENT_PATH}/vim" ~/.vim
     ln -s "${CURRENT_PATH}/_vimrc" ~/.vimrc
