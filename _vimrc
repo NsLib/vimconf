@@ -126,6 +126,8 @@ let mapleader = ","
         Plugin 'embear/vim-localvimrc'
         " tmux和vim panel无缝切换
         Plugin 'christoomey/vim-tmux-navigator'
+        " Shell
+        Plugin 'oplatek/Conque-Shell'
     "}}}
 
     "{{{ 主题
@@ -754,6 +756,11 @@ call vundle#end()
                 nnoremap <leader>cf :CtrlSF<CR>
             "}}}
 
+        "}}}
+
+        "{{{ 通用
+            nnoremap <leader>b :ConqueTermSplit bash<CR>
+            nnoremap <leader>vb :ConqueTermVSplit bash<CR>
         "}}}
 
     "}}}
