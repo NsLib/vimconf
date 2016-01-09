@@ -9,6 +9,7 @@
 set nocompatible
 set hidden
 let mapleader = ","
+set shell=bash
 "}}}
 
 "{{{ Vundle插件管理
