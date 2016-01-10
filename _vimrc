@@ -129,6 +129,10 @@ set shell=bash
         Plugin 'christoomey/vim-tmux-navigator'
         " Shell
         Plugin 'oplatek/Conque-Shell'
+        " 增强可视化选择
+        Plugin 'terryma/vim-expand-region'
+        " enable repeating supported plugin maps with .
+        Plugin 'tpope/vim-repeat'
     "}}}
 
     "{{{ 主题
@@ -752,6 +756,7 @@ call vundle#end()
                 nnoremap <leader>ub :Unite -buffer-name=buffer buffer<CR>
                 nnoremap <leader>uf :Unite -buffer-name=files file_rec/async<CR>
                 nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru<cr>
+                nnoremap <silent><leader>o :<C-u>Unite -auto-resize file file_mru<cr>
             "}}}
 
             "{{{ ctrlsf
@@ -763,6 +768,8 @@ call vundle#end()
         "{{{ 通用
             nnoremap <leader>b :ConqueTermSplit bash<CR>
             nnoremap <leader>vb :ConqueTermVSplit bash<CR>
+            vmap v <Plug>(expand_region_expand)
+            vmap <C-v> <Plug>(expand_region_shrink)
         "}}}
 
     "}}}
