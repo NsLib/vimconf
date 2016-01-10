@@ -778,14 +778,6 @@ call vundle#end()
 
 "}}}
 
-"{{{
-augroup FastEscape
-    autocmd!
-    au InsertEnter * set timeoutlen=0
-    au InsertLeave * set timeoutlen=1000
-augroup END
-"}}}
-
 "{{{ 加载个性设置
 if filereadable(expand("~/.vimrc.local"))
     source ~/.vimrc.local
