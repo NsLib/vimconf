@@ -668,6 +668,7 @@ call vundle#end()
         "{{{ 基础配置
             " 刷新vim配置
             nnoremap <leader>sv :source $MYVIMRC<cr>
+            nnoremap <leader>ev :edit $MYVIMRC<cr>
 
             " 编辑模式下按jk等价于按ESC键, 非常高效
             inoremap jk <esc>
