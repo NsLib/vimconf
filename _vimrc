@@ -8,7 +8,7 @@
 "{{{ before
 set nocompatible
 set hidden
-let mapleader = ","
+let mapleader = "\<Space>"
 set shell=bash
 "}}}
 
@@ -222,7 +222,8 @@ call vundle#end()
         set foldlevel=99
         " 折叠线所占的宽度
         set foldcolumn=0
-        nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>    " 用空格键开关折叠
+        " 用空格键开关折叠
+        " nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
     "}}}
 
     "{{{ 状态栏/标尺
