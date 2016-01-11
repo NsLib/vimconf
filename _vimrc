@@ -8,8 +8,10 @@
 "{{{ before
 set nocompatible
 set hidden
-let mapleader = "\<Space>"
+"let mapleader = "\<Space>"
 set shell=bash
+map <space> <leader>
+map <space><space> <leader><leader>
 "}}}
 
 "{{{ Vundle插件管理
