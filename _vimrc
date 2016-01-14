@@ -135,8 +135,6 @@ map <space><space> <leader><leader>
         Plugin 'terryma/vim-expand-region'
         " enable repeating supported plugin maps with .
         Plugin 'tpope/vim-repeat'
-        " TODO Management in VIM inspired by Org Mode
-        Plugin 'dhruvasagar/vim-dotoo'
     "}}}
 
     "{{{ 主题
@@ -650,9 +648,6 @@ call vundle#end()
         "}}}
     "}}}
 
-    "{{{ vim-dotoo
-        let g:dotoo#agenda#files = ['~/vimwiki/*.dotoo']
-    "}}}
 "}}}
 
 "{{{ 快捷键
