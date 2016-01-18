@@ -495,7 +495,11 @@ call vundle#end()
             let g:startify_enable_special = 0
             let g:startify_skiplist = [
                         \ '^/tmp',
-                        \ '/project/.*/documentation'
+                        \ '/project/.*/documentation',
+                        \ $HOME . '/vimwiki/.*',
+                        \ $HOME . '/miwiki/.*',
+                        \ $HOME . '/Code/test/.*',
+                        \ $HOME . '/tools/.*',
                         \ ]
         "}}}
 
