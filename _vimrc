@@ -81,6 +81,10 @@ map <space><space> <leader><leader>
     "{{{ Python
         " 对齐参考线
         Plugin 'nathanaelkane/vim-indent-guides'
+        " 语法高亮
+        Plugin 'hdima/python-syntax'
+        " 缩进
+        Plugin 'hynek/vim-python-pep8-indent'
     "}}}
 
     "{{{ 通用
@@ -727,14 +731,6 @@ call vundle#end()
 
             nnoremap <leader>tb :TagbarToggle<CR>
             nnoremap <leader>td :TaskList<CR>
-
-            "{{{ vim-gitgutter
-                nnoremap <leader>gn <Plug>GitGutterNextHunk
-                nnoremap <leader>gp <Plug>GitGutterPrevHunk
-                nnoremap <leader>gs <Plug>GitGutterStageHunk
-                nnoremap <leader>gr <Plug>GitGutterRevertHunk
-                nnoremap <leader>gv <Plug>GitGutterPreviewHunk
-            "}}}
 
             "{{{ vimwiki
                 nnoremap <Leader>wb :Vimwiki2HTMLBrowse<CR>
