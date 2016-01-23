@@ -544,7 +544,7 @@ call vundle#end()
                         \   'unite-options-direction': 'botright'
                         \ })
 			call unite#custom#source(
-						\ 'neomru/file', 'matchers',
+                        \ 'neomru/file,file_mru,file', 'matchers',
 						\ ['matcher_project_files', 'matcher_fuzzy'])
 
             let g:unite_data_directory = '~/.cache/unite'
