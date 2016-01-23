@@ -514,7 +514,7 @@ call vundle#end()
         "}}}
 
         "{{{ unite
-            call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+            call unite#custom#source('neomru/file,file_rec,file_rec/async,file_mru,file,buffer,grep',
                         \ 'ignore_pattern', join([
                         \ '\.git/',
                         \ 'tmp/',
@@ -543,6 +543,9 @@ call vundle#end()
                         \   'direction': 'botright',
                         \   'unite-options-direction': 'botright'
                         \ })
+			call unite#custom#source(
+						\ 'neomru/file', 'matchers',
+						\ ['matcher_project_files', 'matcher_fuzzy'])
 
             let g:unite_data_directory = '~/.cache/unite'
             let g:unite_source_history_yank_enable = 1
@@ -765,7 +768,8 @@ call vundle#end()
                 nnoremap <leader>us :Unite -quick-match buffer<cr>
                 nnoremap <leader>ub :Unite -buffer-name=buffer buffer<CR>
                 nnoremap <leader>uf :Unite -buffer-name=files file_rec/async<CR>
-                nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru<cr>
+                "nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru<cr>
+                nnoremap <silent><c-p> :<C-u>Unite -auto-resize neomru/file file_mru<cr>
                 nnoremap <silent><leader>o :<C-u>Unite -auto-resize file file_mru<cr>
             "}}}
 
