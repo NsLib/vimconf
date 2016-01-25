@@ -74,8 +74,10 @@ map <space><space> <leader><leader>
     "{{{ C/C++
         " c/cpp和.h切换
         Plugin 'a.vim'
-        " 生成tags和scope文件
-        Plugin 'NsLib/vim-cscope-mod'
+        " 生成tags文件
+        Plugin 'szw/vim-tags'
+        " 生成scope文件
+        Plugin 'brookhong/cscope.vim'
     "}}}
 
     "{{{ Python
@@ -489,10 +491,12 @@ call vundle#end()
 
     "{{{ c/cpp
 
-        "{{{ vim-cscope-mod
-            if has('mac')
-                let g:Cscope_ctags_cmd    = '/usr/local/bin/ctags'
-            endif
+        "{{{ vim-tags
+            let g:vim_tags_auto_generate = 0
+            let g:vim_tags_directories = []
+        "}}}
+        "{{{ vim-cscope
+            let g:cscope_auto_update = 0
         "}}}
 
     "}}}
@@ -758,6 +762,25 @@ call vundle#end()
                 nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
                 nnoremap zsf :split<CR>:exec("tag ".expand("<cword>"))<CR>
                 nnoremap zf :split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+				nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
+				nnoremap <leader>fl :call ToggleLocationList()<CR>
+				" s: Find this C symbol
+				nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
+				" g: Find this definition
+				nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
+				" d: Find functions called by this function
+				nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
+				" c: Find functions calling this function
+				nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
+				" t: Find this text string
+				nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
+				" e: Find this egrep pattern
+				nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
+				" f: Find this file
+				nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
+				" i: Find files #including this file
+				nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
             "}}}
 
             "{{{ unite
