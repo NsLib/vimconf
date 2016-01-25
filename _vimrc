@@ -34,6 +34,8 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ 编程辅助
+        " neocomplete
+        Plugin 'Shougo/neocomplete.vim'
         " 使用Dash查看API文档
         Plugin 'rizzatti/dash.vim'
         " 格式化代码
@@ -379,8 +381,11 @@ call vundle#end()
 
     "{{{ 编程辅助
 
-        "{{{ vim-rooter
-            "let g:rooter_manual_only = 1
+        "{{{ neocomplete.vim
+            let g:neocomplete#enable_at_startup = 1
+            let g:neocomplete#enable_smart_case = 1
+            let g:neocomplete#sources#syntax#min_keyword_length = 2
+            let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
         "}}}
 
         "{{{ vim-autoformat
