@@ -80,6 +80,8 @@ map <space><space> <leader><leader>
         Plugin 'szw/vim-tags'
         " 生成scope文件
         Plugin 'brookhong/cscope.vim'
+        " 生成Doxygen注释
+        Plugin 'DoxygenToolkit.vim'
     "}}}
 
     "{{{ Python
@@ -500,8 +502,17 @@ call vundle#end()
             let g:vim_tags_auto_generate = 0
             let g:vim_tags_directories = []
         "}}}
+
         "{{{ vim-cscope
             let g:cscope_auto_update = 0
+        "}}}
+
+        "{{{ DoxygenToolkit.vim
+            let g:DoxygenToolkit_briefTag_pre = "@brief       "
+            let g:DoxygenToolkit_paramTag_pre = "@params      "
+            let g:DoxygenToolkit_returnTag = "@return      "
+            let g:DoxygenToolkit_authorName = "NsLib"
+            let g:DoxygenToolkit_licenseTag = "MIT"
         "}}}
 
     "}}}
