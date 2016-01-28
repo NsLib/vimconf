@@ -34,6 +34,8 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ 编程辅助
+        " Ascii diagram
+        Plugin 'DrawIt'
         " neocomplete
         Plugin 'Shougo/neocomplete.vim'
         " 使用Dash查看API文档
