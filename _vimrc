@@ -42,8 +42,6 @@ map <space><space> <leader><leader>
         Plugin 'rizzatti/dash.vim'
         " 格式化代码
         Plugin 'Chiel92/vim-autoformat'
-        " 生成YCM使用的配置文件
-        Plugin 'rdnetto/YCM-Generator'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
         " 切换工作目录到项目根目录
