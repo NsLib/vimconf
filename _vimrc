@@ -386,7 +386,7 @@ call vundle#end()
         "{{{ neocomplete.vim
             let g:neocomplete#enable_at_startup = 0
             let g:neocomplete#enable_smart_case = 1
-            let g:neocomplete#sources#syntax#min_keyword_length = 2
+            let g:neocomplete#sources#syntax#min_keyword_length = 1
             let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
         "}}}
 
