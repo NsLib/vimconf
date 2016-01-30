@@ -700,6 +700,7 @@ call vundle#end()
         autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
         nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
         nnoremap <F9> :QuickRun
+        nnoremap <F11> :NERDTreeFind<CR>
         nnoremap <F12> :NERDTreeToggle<CR>
     "}}}
 
