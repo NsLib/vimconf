@@ -34,6 +34,8 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ 编程辅助
+        " A solid language pack for Vim
+        Plugin 'sheerun/vim-polyglot'
         " Ascii diagram
         Plugin 'DrawIt'
         " neocomplete
