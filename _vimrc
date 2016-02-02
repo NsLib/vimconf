@@ -147,6 +147,8 @@ map <space><space> <leader><leader>
         Plugin 'terryma/vim-expand-region'
         " enable repeating supported plugin maps with .
         Plugin 'tpope/vim-repeat'
+        " automatic resizing
+        Plugin 'roman/golden-ratio'
     "}}}
 
     "{{{ 主题
@@ -646,7 +648,7 @@ call vundle#end()
         "}}}
 
         "{{{ vim-nerdtree-tabs
-            let g:nerdtree_tabs_open_on_console_startup = 1
+            let g:nerdtree_tabs_open_on_console_startup = 0
             let g:nerdtree_tabs_smart_startup_focus = 2
         "}}}}
 
@@ -684,6 +686,10 @@ call vundle#end()
 
         "{{{ vim-localvimrc
             let g:localvimrc_persistent = 1
+        "}}}
+
+        "{{{ golden-ratio
+            let g:golden_ratio_exclude_nonmodifiable = 1
         "}}}
     "}}}
 
