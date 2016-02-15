@@ -84,6 +84,8 @@ map <space><space> <leader><leader>
         Plugin 'brookhong/cscope.vim'
         " 生成Doxygen注释
         Plugin 'DoxygenToolkit.vim'
+        " Systemtap syntax
+        Plugin 'schnell18/vim-stap'
     "}}}
 
     "{{{ Python
