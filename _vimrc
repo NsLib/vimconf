@@ -616,6 +616,8 @@ call vundle#end()
             let g:airline#extensions#tabline#left_alt_sep = '|'
             let g:airline#extensions#tabline#tab_nr_type = 2
             let g:airline#extensions#tabline#buffer_idx_mode = 1
+            let g:airline#extensions#ctrlspace#enabled = 1
+            let g:CtrlSpaceStatuslineFunction = "airline#extensions#ctrlspace#statusline()"
 
             nmap <leader>1 <Plug>AirlineSelectTab1
             nmap <leader>2 <Plug>AirlineSelectTab2
@@ -778,6 +780,7 @@ call vundle#end()
                 nnoremap <Leader>wh :Vimwiki2HTML<CR>
                 nnoremap <Leader>ws :call VMS()<CR>
                 nnoremap <Leader>wm :VimwikiUISelect<CR>2<CR>
+                nnoremap <Leader>wd <Plug>VimwikiToggleListItem
 
                 function! VMS()
                     execute ":VimwikiSearch " . input("VimwikiSearch:")
