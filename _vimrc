@@ -31,6 +31,8 @@ map <space><space> <leader><leader>
         Plugin 'mattn/emmet-vim'
         " Less
         Plugin 'groenewege/vim-less'
+        " VueJS
+        Plugin 'posva/vim-vue'
     "}}}
 
     "{{{ 编程辅助
