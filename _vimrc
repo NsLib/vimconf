@@ -56,6 +56,8 @@ map <space><space> <leader><leader>
         Plugin 'NsLib/vim-snippets-mod'
         " 快速注释插件
         Plugin 'scrooloose/NERDCommenter'
+        " 快速注释
+        Plugin 'tpope/vim-commentary'
         " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
         " 任务列表
@@ -97,6 +99,10 @@ map <space><space> <leader><leader>
         Plugin 'hdima/python-syntax'
         " 缩进
         Plugin 'hynek/vim-python-pep8-indent'
+    "}}}
+
+    "{{{ Lisp
+        Plugin 'vim-scripts/slimv.vim'
     "}}}
 
     "{{{ 通用
@@ -231,7 +237,10 @@ call vundle#end()
         set softtabstop=4
         " 指定Tab和结尾空白字符
         set listchars=tab:▸\ ,trail:▫
-        autocmd FileType make set noexpandtab
+        augroup vimrc-lang-make
+            autocmd!
+            autocmd FileType make set noexpandtab
+        augroup END
         " 插入模式下使用 <BS>、<Del> <C-W> <C-U>
         set backspace=eol,start,indent
 
@@ -342,15 +351,18 @@ call vundle#end()
         "set clipboard=unnamed
 
         " 打开上次编辑位置
-        autocmd BufReadPost *
-                    \ if line("'\"") > 1 && line("'\"") <= line("$") |
-                    \   exe "normal! g'\"" |
-                    \ endif
+        augroup vimrc-remember-cursor-position
+            autocmd!
+            autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+        augroup END
 
         " 默认加载tags
         set tags=tags;/
         " 离开插入模式后自动关闭预览窗口
-        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+        augroup vimrc-editor-insert
+            autocmd!
+            autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+        augroup END
     "}}}
 
 "}}}
@@ -358,14 +370,17 @@ call vundle#end()
 "{{{ 特定文件类型设置
 
     "{{{ vim
-        autocmd FileType vim setlocal foldmethod=marker
-        autocmd FileType vim setlocal foldmarker={{{,}}}
-        autocmd FileType vim setlocal foldlevel=0
+        augroup vimrc-lang-vim
+            autocmd!
+            autocmd FileType vim setlocal foldmethod=marker
+            autocmd FileType vim setlocal foldmarker={{{,}}}
+            autocmd FileType vim setlocal foldlevel=0
 
-        " 默认开启代码折叠的文件类型
-        autocmd BufReadPost *.vim normal z[
-        autocmd BufReadPost *.vimrc normal z[
-        autocmd BufReadPost *.vimrc.* normal z[
+            " 默认开启代码折叠的文件类型
+            autocmd BufReadPost *.vim normal z[
+            autocmd BufReadPost *.vimrc normal z[
+            autocmd BufReadPost *.vimrc.* normal z[
+        augroup END
     "}}}
 
     "{{{ shell
@@ -374,15 +389,24 @@ call vundle#end()
     "}}}
 
     "{{{ python
-        autocmd FileType python setlocal foldmethod=indent
+        augroup vimrc-lang-python
+            autocmd!
+            autocmd FileType python setlocal foldmethod=indent
+        augroup END
     "}}}
 
     "{{{ markdown
-        autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
+        augroup vimrc-lang-markdown
+            autocmd!
+            autocmd BufRead,BufNewFile *.{md,mkd,mkdn,mark*} set filetype=markdown
+        augroup END
     "}}}
 
     "{{{ go
-        autocmd BufRead,BufNewFile *.go set filetype=go
+        augroup vimrc-lang-go
+            autocmd!
+            autocmd BufRead,BufNewFile *.go set filetype=go
+        augroup END
     "}}}
 
 "}}}
@@ -419,7 +443,10 @@ call vundle#end()
         "}}}
 
         "{{{  UltiSnips
-            autocmd FileType * call UltiSnips#FileTypeChanged()
+            augroup vimrc-plugin-ultisnips
+                autocmd!
+                autocmd FileType * call UltiSnips#FileTypeChanged()
+            augroup END
             let g:UltiSnipsExpandTrigger = "ii"
             let g:UltiSnipsUsePythonVersion = 2
             let g:UltiSnipsEditSplit = "vertical"
@@ -482,7 +509,10 @@ call vundle#end()
         "{{{ vim-emmet
             let g:user_emmet_install_global = 0
             let g:user_emmet_leader_key='<C-z>'
-            autocmd FileType html,css EmmetInstall
+            augroup vimrc-plugin-emmet
+                autocmd!
+                autocmd FileType html,css EmmetInstall
+            augroup END
         "}}}
 
         "}}}
@@ -496,8 +526,11 @@ call vundle#end()
             let g:indent_guides_start_level = 2
             if !has("gui_running")
                 let g:indent_guides_auto_colors = 0
-                autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
-                autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
+                augroup vimrc-plugin-indent-guides
+                    autocmd!
+                    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
+                    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
+                augroup END
             endif
 
         "}}}
@@ -706,12 +739,15 @@ call vundle#end()
     "{{{ F1 ~ F12
         nnoremap <F1> <Esc>
         nnoremap <F3> :CtrlSF
-        autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
-        autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
-        autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
-        autocmd FileType javascript map <F5> :call NsLibMakeTags()<CR>
-        autocmd FileType go map <F5> :call NsLibMakeTags()<CR>
-        autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
+        augroup vimrc-editor-shortcuts
+            autocmd!
+            autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
+            autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
+            autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
+            autocmd FileType javascript map <F5> :call NsLibMakeTags()<CR>
+            autocmd FileType go map <F5> :call NsLibMakeTags()<CR>
+            autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
+        augroup END
         nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
         nnoremap <F9> :QuickRun
         nnoremap <F11> :NERDTreeFind<CR>
@@ -738,6 +774,19 @@ call vundle#end()
 
             nnoremap <leader>np :set nopaste<CR>
             nnoremap <leader>sp :set paste<CR>
+        "}}}
+
+        "{{{ 命令更正
+            cnoreabbrev W! w!
+            cnoreabbrev Q! q!
+            cnoreabbrev Qall! qall!
+            cnoreabbrev Wq wq
+            cnoreabbrev Wa wa
+            cnoreabbrev wQ wq
+            cnoreabbrev WQ wq
+            cnoreabbrev W w
+            cnoreabbrev Q q
+            cnoreabbrev Qall qall
         "}}}
 
         "{{{ 移动
