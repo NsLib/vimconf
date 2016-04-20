@@ -38,12 +38,8 @@ map <space><space> <leader><leader>
     "{{{ 编程辅助
         " A solid language pack for Vim
         Plugin 'sheerun/vim-polyglot'
-        " Ascii diagram
-        Plugin 'DrawIt'
         " neocomplete
         Plugin 'Shougo/neocomplete.vim'
-        " 使用Dash查看API文档
-        Plugin 'rizzatti/dash.vim'
         " 格式化代码
         Plugin 'Chiel92/vim-autoformat'
         " 语法检查插件
@@ -56,8 +52,6 @@ map <space><space> <leader><leader>
         Plugin 'NsLib/vim-snippets-mod'
         " 快速注释插件
         Plugin 'scrooloose/NERDCommenter'
-        " 快速注释
-        Plugin 'tpope/vim-commentary'
         " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
         " 任务列表
@@ -101,12 +95,7 @@ map <space><space> <leader><leader>
         Plugin 'hynek/vim-python-pep8-indent'
     "}}}
 
-    "{{{ Lisp
-        Plugin 'vim-scripts/slimv.vim'
-    "}}}
-
     "{{{ 通用
-
         " 启动页
         Plugin 'mhinz/vim-startify'
         " 状态栏
@@ -151,8 +140,6 @@ map <space><space> <leader><leader>
         Plugin 'embear/vim-localvimrc'
         " tmux和vim panel无缝切换
         Plugin 'christoomey/vim-tmux-navigator'
-        " Shell
-        Plugin 'oplatek/Conque-Shell'
         " 增强可视化选择
         Plugin 'terryma/vim-expand-region'
         " enable repeating supported plugin maps with .
