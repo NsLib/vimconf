@@ -146,6 +146,8 @@ map <space><space> <leader><leader>
         Plugin 'tpope/vim-repeat'
         " automatic resizing
         Plugin 'roman/golden-ratio'
+        " 支持editorconfig
+        Plugin 'editorconfig/editorconfig-vim'
     "}}}
 
     "{{{ 主题
