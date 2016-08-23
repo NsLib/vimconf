@@ -173,6 +173,8 @@ call vundle#end()
         syntax on
         " 激活语法高亮
         syntax enable
+        " 语法高亮最大列限制(提升性能)
+        set synmaxcol=150
     "}}}
 
     "{{{ 编码及存储
@@ -371,8 +373,11 @@ call vundle#end()
     "}}}
 
     "{{{ shell
-        " 开启shell脚本函数折叠支持
-        " let g:sh_fold_enabled = 0
+        augroup vimrc-lang-shell
+            set foldmethod=manual
+            " 开启shell脚本函数折叠支持
+            " let g:sh_fold_enabled = 1
+        augroup END
     "}}}
 
     "{{{ python
