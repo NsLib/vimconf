@@ -114,8 +114,6 @@ map <space><space> <leader><leader>
         Plugin 'tpope/vim-fugitive'
         " 显示Git修改
         Plugin 'airblade/vim-gitgutter'
-        " 个人Wiki
-        Plugin 'NsLib/vimwiki-mod'
         " 增强%
         Plugin 'matchit.zip'
         " 文件浏览器
@@ -581,7 +579,6 @@ call vundle#end()
                         \ '**\.bpm',
                         \ '**\.svg',
                         \ '**\.gliffy',
-                        \ 'vimwiki/html/*\.html',
                         \ ], '\|'))
 
             call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -679,38 +676,6 @@ call vundle#end()
             let g:nerdtree_tabs_open_on_console_startup = 0
             let g:nerdtree_tabs_smart_startup_focus = 2
         "}}}}
-
-        "{{{ vimwiki
-            let g:vimwiki_use_mouse = 1
-            let g:vimwiki_camel_case = 0
-            let g:vimwiki_hl_cb_checked = 1
-            let g:vimwiki_folding = 0
-            let g:vimwiki_CJK_length = 1
-            let g:vimwiki_valid_html_tags ='b,i,s,u,sub,sup,kbd,del,br,hr,div,code,h1'
-            let g:vimwiki_list = [
-                        \{
-                        \   "path": "~/vimwiki", "path_html": "~/vimwiki/html",
-                        \   "html_footer": "~/vimwiki/template/footer.tpl",
-                        \   "html_header": "~/vimwiki/template/header.tpl",
-                        \   "syntax": "markdown",
-                        \   "ext": ".md",
-                        \   "css_name": "main.css",
-                        \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
-                        \   "auto_export": 0
-                        \},
-                        \{
-                        \   "path": "~/miwiki", "path_html": "~/miwiki/html",
-                        \   "html_footer": "~/miwiki/template/footer.tpl",
-                        \   "html_header": "~/miwiki/template/header.tpl",
-                        \   "syntax": "markdown",
-                        \   "ext": ".md",
-                        \   "css_name": "main.css",
-                        \   "custom_wiki2html": "~/.vim/bundle/vimwiki-mod/autoload/vimwiki/misaka_md2html.py",
-                        \   "auto_export": 0
-                        \}
-                        \]
-            let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-        "}}}
 
         "{{{ vim-localvimrc
             let g:localvimrc_persistent = 1
@@ -813,20 +778,6 @@ call vundle#end()
 
             nnoremap <leader>tb :TagbarToggle<CR>
             nnoremap <leader>td :TaskList<CR>
-
-            "{{{ vimwiki
-                nnoremap <Leader>wb :Vimwiki2HTMLBrowse<CR>
-                nnoremap <Leader>wa :VimwikiAll2HTML<CR>
-                nnoremap <Leader>wh :Vimwiki2HTML<CR>
-                nnoremap <Leader>ws :call VMS()<CR>
-                nnoremap <Leader>wm :VimwikiUISelect<CR>2<CR>
-                nnoremap <Leader>wd <Plug>VimwikiToggleListItem
-
-                function! VMS()
-                    execute ":VimwikiSearch " . input("VimwikiSearch:")
-                    :lopen
-                endfunction
-            "}}}
 
             "{{{ cscope & ctags
                 nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
