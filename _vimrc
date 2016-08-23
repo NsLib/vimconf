@@ -372,7 +372,7 @@ call vundle#end()
 
     "{{{ shell
         " 开启shell脚本函数折叠支持
-        let g:sh_fold_enabled = 1
+        " let g:sh_fold_enabled = 0
     "}}}
 
     "{{{ python
@@ -419,14 +419,6 @@ call vundle#end()
                         \' --jslint-happy ',
                         \' --brace-style collapse',
                         \'"'])
-        "}}}
-
-        "{{{ Dash.vim
-        let g:dash_map = {
-                    \'javascript': ['javascript'],
-                    \'c': ['c', 'cpp'],
-                    \'cpp': ['c', 'cpp'],
-                    \}
         "}}}
 
         "{{{  UltiSnips
