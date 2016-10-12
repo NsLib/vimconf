@@ -427,10 +427,10 @@ call vundle#end()
         "}}}
 
         "{{{  UltiSnips
-            augroup vimrc-plugin-ultisnips
-                autocmd!
-                autocmd FileType * call UltiSnips#FileTypeChanged()
-            augroup END
+            " augroup vimrc-plugin-ultisnips
+            "     autocmd!
+            "     autocmd FileType * call UltiSnips#FileTypeChanged()
+            " augroup END
             let g:UltiSnipsExpandTrigger = "ii"
             let g:UltiSnipsUsePythonVersion = 2
             let g:UltiSnipsEditSplit = "vertical"
