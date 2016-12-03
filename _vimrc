@@ -22,10 +22,6 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ 编程辅助
-        " A solid language pack for Vim
-        Plugin 'sheerun/vim-polyglot'
-        " neocomplete
-        Plugin 'Shougo/neocomplete.vim'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
         " 切换工作目录到项目根目录
@@ -38,21 +34,10 @@ map <space><space> <leader><leader>
         Plugin 'scrooloose/NERDCommenter'
         " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
-        " 任务列表
-        Plugin 'TaskList.vim'
         " 显示文件中的tag列表
         Plugin 'majutsushi/tagbar'
-        " 异步构建&测试
-        Plugin 'tpope/vim-dispatch'
         " 快速运行代码
         Plugin 'thinca/vim-quickrun'
-    "}}}
-
-    "{{{ Go
-        Plugin 'fatih/vim-go'
-        Plugin 'rjohnsondev/vim-compiler-go'
-        Plugin 'dgryski/vim-godef'
-        Plugin 'vim-jp/vim-go-extra'
     "}}}
 
     "{{{ C/C++
@@ -88,16 +73,10 @@ map <space><space> <leader><leader>
         Plugin 'tpope/vim-fugitive'
         " 显示Git修改
         Plugin 'airblade/vim-gitgutter'
-        " 增强%
-        Plugin 'matchit.zip'
         " 文件浏览器
         Plugin 'scrooloose/nerdtree'
-        " NERDTree and tabs together in Vim, painlessly
-        Plugin 'jistr/vim-nerdtree-tabs'
         " 高亮显示空白行
         Plugin 'bronson/vim-trailing-whitespace'
-        " 加入异步执行命令支持
-        Plugin 'Shougo/vimproc.vim'
         " Unite and create user interfaces
         Plugin 'Shougo/unite.vim'
         " MRU plugin for unite.vim
@@ -108,20 +87,13 @@ map <space><space> <leader><leader>
         Plugin 'dyng/ctrlsf.vim'
         " Markdown支持
         Plugin 'plasticboy/vim-markdown'
-        " 自动搜索并加载local vimrc
-        Plugin 'embear/vim-localvimrc'
-        " tmux和vim panel无缝切换
-        Plugin 'christoomey/vim-tmux-navigator'
         " enable repeating supported plugin maps with .
         Plugin 'tpope/vim-repeat'
-        " automatic resizing
-        Plugin 'roman/golden-ratio'
         " 支持editorconfig
         Plugin 'editorconfig/editorconfig-vim'
     "}}}
 
     "{{{ 主题
-        Plugin 'altercation/vim-colors-solarized'
         Plugin 'w0ng/vim-hybrid'
     "}}}
 call vundle#end()
@@ -131,70 +103,45 @@ call vundle#end()
 "{{{ 基础设置
 
     "{{{ 语法检测设定
-        " 检测文件类型
         filetype on
-        " 允许特定的文件类型载入插件
         filetype plugin on
-        " 允许特定的文件类型载入缩进文件
         filetype indent on
-        " 补全
         filetype plugin indent on
-        " 开启语法高亮
         syntax on
-        " 激活语法高亮
         syntax enable
         " 语法高亮最大列限制(提升性能)
         set synmaxcol=150
     "}}}
 
     "{{{ 编码及存储
-        " 文件编码，强制UTF-8
         set fileencodings=utf-8
-        " vim内部编码
         set encoding=utf-8
-        " 不使用bom编码
         set nobomb
-        " 不使用备份文件
         set nobackup
-        " 不产生交换文件
         set noswapfile
-        " 自动同步外部修改
         set autoread
-        " 自动把内容写回文件
         set autowrite
-        " 合并两行中文时，不在中间加空格
         set formatoptions+=B
     "}}}
 
     "{{{ 缩进/换行/空白/行号/折叠/滚动
-        " 开启新行时，自动缩进
         set autoindent
-        " 开启新行时，智能缩进
         set smartindent
-        " C程序自动缩进
         set cindent
 
-        " 不自动换行
         set nowrap
-        " 不在单词中间断行
-        set lbr
+        set linebreak
         " 打开断行模块对亚洲语言支持
         set fo+=mB
         " 命令模式下可以直接移动到下一行或上一行
         set whichwrap+=<,>,h,l
 
-        " 缩进空白数
         set shiftwidth=4
-        " Tab所占空格数
         set tabstop=4
-        " 将Tab展开为空格
         set expandtab
-        " 退格是删除tab
         set smarttab
         set shiftround
-        " 配合tabstop
         set softtabstop=4
-        " 指定Tab和结尾空白字符
         set listchars=tab:▸\ ,trail:▫
         augroup vimrc-lang-make
             autocmd!
@@ -203,12 +150,9 @@ call vundle#end()
         " 插入模式下使用 <BS>、<Del> <C-W> <C-U>
         set backspace=eol,start,indent
 
-        " 显示行号
         set number
 
-        " 开启代码折叠
         set foldenable
-        " 根据语法折叠代码
         set foldmethod=syntax
 
         " 默认的折叠级别，为0则表示函数级别的折叠
@@ -222,77 +166,45 @@ call vundle#end()
     "{{{ 状态栏/标尺
         " 显示光标所在位置
         set ruler
-        " 高亮当前行
         set cursorline
-        " 高亮当前列
         " set cursorcolumn
-        " 再屏幕最后一行显示命令
         set showcmd
-        " 始终显示状态栏
         set laststatus=2
-        " 命令行使用的屏幕行数
         set cmdheight=1
-        " 插入文本的最大宽度
         set textwidth=78
-        " 是否显示标尺
         set cc=+1
-        " 光标上下两侧最少保留的屏幕行数
         set scrolloff=15
     "}}}
 
     "{{{ 搜索和匹配
-        " 高亮显示匹配的括号
         set showmatch
-        " 匹配括号高亮的时间(单位是十分之一秒)
         set matchtime=5
-        " 搜索时忽略大小写
         set ignorecase
-        " 如果搜索模式包含大写字符，不使用'ignorecase'选项
         set smartcase
-        " 高亮被搜索的内容
         set hlsearch
-        " 增量搜索
         set incsearch
     "}}}
 
     "{{{ 主题设置
-        " 开启256色支持
         set t_Co=256
-        " 主题
-        "{{{ vim-hybrid
-            set background=dark
-            let g:hybrid_reduced_contrast = 1
-            colorscheme hybrid
-        "}}}
+        set background=dark
+        let g:hybrid_reduced_contrast = 1
+        colorscheme hybrid
 
         "colorscheme dracula
-        "colorscheme jellyx
-        "colorscheme desertEx_256
-        "colorscheme BusyBee
-        "colorscheme jellybeans
         " 参考线颜色
         "highlight ColorColumn ctermfg=White ctermbg=Grey
     "}}}
 
     "{{{ 杂项
-        " 错误时不发出声响
         set noerrorbells
-        " 禁用可视响铃
         set visualbell
-        " 可视响铃
         set t_vb=
-        " 所有模式下，开启鼠标支持
         set mouse=a
-        " 命令行补全以增强模式运行
         set wildmenu
-        " 补全时忽略的文件类型
         set wildignore+=*/tmp/*,*.bak,*.bk,*~,*.so,*.swp,*.zip,*.pyc,*.o,*.obj
-        " 竖直新分割的窗口在右侧
         set splitright
-        " 水平新分割的窗口在下面
         set splitbelow
-        "" 共用系统剪贴板
-        "set clipboard=unnamed
 
         " 打开上次编辑位置
         augroup vimrc-remember-cursor-position
@@ -362,25 +274,10 @@ call vundle#end()
 
     "{{{ 编程辅助
 
-        "{{{ neocomplete.vim
-            let g:neocomplete#enable_at_startup = 0
-            let g:neocomplete#enable_smart_case = 1
-            let g:neocomplete#sources#syntax#min_keyword_length = 1
-            let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-        "}}}
-
         "{{{  UltiSnips
-            " augroup vimrc-plugin-ultisnips
-            "     autocmd!
-            "     autocmd FileType * call UltiSnips#FileTypeChanged()
-            " augroup END
             let g:UltiSnipsExpandTrigger = "ii"
             let g:UltiSnipsUsePythonVersion = 2
             let g:UltiSnipsEditSplit = "vertical"
-        "}}}
-
-        "{{{ tasklist.vim
-            let g:tlTokenList = ["FIXME", "TODO", "HACK", "NOTE", "WARN", "MODIFY", "BUG"]
         "}}}
 
         "{{{ quickrun
@@ -501,13 +398,6 @@ call vundle#end()
         "}}}
 
         "{{{ vim-bookmarks
-        " mm    添加/删除书签
-        " mi    带注释的书签
-        " mn    跳转到下一个书签
-        " mp    跳转到前一个书签
-        " ma    显示所有书签(toggle)
-        " mc    清除书签
-        " mx    清除所有书签
             let g:bookmark_sign = '♥'
             let g:bookmark_highlight_lines = 1
             let g:bookmark_auto_save = 1
@@ -553,27 +443,9 @@ call vundle#end()
             let g:gitgutter_eager       = 0
         "}}}
 
-        "{{{ vim-ctrlspace
-        " TODO: workspace
-        " TODO: bookmark
-        "}}}
-
         "{{{ NERDTree
             let g:NERDTreeWinPos = 'left'
             let g:NERDTreeWinSize = 25
-        "}}}
-
-        "{{{ vim-nerdtree-tabs
-            let g:nerdtree_tabs_open_on_console_startup = 0
-            let g:nerdtree_tabs_smart_startup_focus = 2
-        "}}}}
-
-        "{{{ vim-localvimrc
-            let g:localvimrc_persistent = 1
-        "}}}
-
-        "{{{ golden-ratio
-            let g:golden_ratio_exclude_nonmodifiable = 1
         "}}}
     "}}}
 
@@ -589,7 +461,6 @@ call vundle#end()
             autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
-            autocmd FileType go map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
         augroup END
         nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
@@ -603,7 +474,6 @@ call vundle#end()
         "{{{ 基础配置
             " 刷新vim配置
             nnoremap <leader>sv :source $MYVIMRC<cr>
-            nnoremap <leader>ev :edit $MYVIMRC<cr>
 
             " 编辑模式下按jk等价于按ESC键, 非常高效
             inoremap jk <esc>
@@ -618,19 +488,6 @@ call vundle#end()
 
             nnoremap <leader>np :set nopaste<CR>
             nnoremap <leader>sp :set paste<CR>
-        "}}}
-
-        "{{{ 命令更正
-            cnoreabbrev W! w!
-            cnoreabbrev Q! q!
-            cnoreabbrev Qall! qall!
-            cnoreabbrev Wq wq
-            cnoreabbrev Wa wa
-            cnoreabbrev wQ wq
-            cnoreabbrev WQ wq
-            cnoreabbrev W w
-            cnoreabbrev Q q
-            cnoreabbrev Qall qall
         "}}}
 
         "{{{ 移动
@@ -667,7 +524,6 @@ call vundle#end()
         "{{{ 编程辅助
 
             nnoremap <leader>tb :TagbarToggle<CR>
-            nnoremap <leader>td :TaskList<CR>
 
             "{{{ cscope & ctags
                 nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
@@ -711,13 +567,6 @@ call vundle#end()
                 nnoremap <leader>cf :CtrlSF<CR>
             "}}}
 
-        "}}}
-
-        "{{{ 通用
-            nnoremap <leader>b :ConqueTermSplit bash<CR>
-            nnoremap <leader>vb :ConqueTermVSplit bash<CR>
-            vmap v <Plug>(expand_region_expand)
-            vmap <C-v> <Plug>(expand_region_shrink)
         "}}}
 
     "}}}
