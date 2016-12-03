@@ -8,7 +8,6 @@
 "{{{ before
 set nocompatible
 set hidden
-"let mapleader = "\<Space>"
 set shell=bash
 map <space> <leader>
 map <space><space> <leader><leader>
@@ -22,26 +21,11 @@ map <space><space> <leader><leader>
         Plugin 'VundleVim/Vundle.vim'
     "}}}
 
-    "{{{ 前端
-        " Yet Another JavaScript Syntax for Vim
-        Plugin 'othree/yajs.vim'
-        " JavaScript文档生成工具
-        Plugin 'heavenshell/vim-jsdoc'
-        " 快速生成HTML/CSS代码
-        Plugin 'mattn/emmet-vim'
-        " Less
-        Plugin 'groenewege/vim-less'
-        " VueJS
-        Plugin 'posva/vim-vue'
-    "}}}
-
     "{{{ 编程辅助
         " A solid language pack for Vim
         Plugin 'sheerun/vim-polyglot'
         " neocomplete
         Plugin 'Shougo/neocomplete.vim'
-        " 格式化代码
-        Plugin 'Chiel92/vim-autoformat'
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
         " 切换工作目录到项目根目录
@@ -62,8 +46,6 @@ map <space><space> <leader><leader>
         Plugin 'tpope/vim-dispatch'
         " 快速运行代码
         Plugin 'thinca/vim-quickrun'
-        " test wrapper
-        Plugin 'janko-m/vim-test'
     "}}}
 
     "{{{ Go
@@ -80,10 +62,6 @@ map <space><space> <leader><leader>
         Plugin 'szw/vim-tags'
         " 生成scope文件
         Plugin 'brookhong/cscope.vim'
-        " 生成Doxygen注释
-        Plugin 'DoxygenToolkit.vim'
-        " Systemtap syntax
-        Plugin 'schnell18/vim-stap'
     "}}}
 
     "{{{ Python
@@ -96,14 +74,10 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ 通用
-        " 启动页
-        Plugin 'mhinz/vim-startify'
         " 状态栏
         Plugin 'bling/vim-airline'
         " 快速移动
         Plugin 'easymotion/vim-easymotion'
-        " 多光标编辑
-        Plugin 'terryma/vim-multiple-cursors'
         " 简化对称标签编辑
         Plugin 'tpope/vim-surround'
         " 可视化书签
@@ -138,8 +112,6 @@ map <space><space> <leader><leader>
         Plugin 'embear/vim-localvimrc'
         " tmux和vim panel无缝切换
         Plugin 'christoomey/vim-tmux-navigator'
-        " 增强可视化选择
-        Plugin 'terryma/vim-expand-region'
         " enable repeating supported plugin maps with .
         Plugin 'tpope/vim-repeat'
         " automatic resizing
@@ -152,8 +124,6 @@ map <space><space> <leader><leader>
         Plugin 'altercation/vim-colors-solarized'
         Plugin 'w0ng/vim-hybrid'
     "}}}
-
-    Plugin 'file:///Users/mdl/tools/vimconf/vim/bundle/learn_vimscript'
 call vundle#end()
 
 "}}}
@@ -289,34 +259,19 @@ call vundle#end()
         " 开启256色支持
         set t_Co=256
         " 主题
-        if has("gui_running")
-            set background=light
-            colorscheme solarized
-            "colorscheme dracula
-            let g:solarized_contrast = 'low'
-        else
-            "{{{ vim-color-solarized
-                "set background=dark
-                "let g:solarized_termcolors = 256
-                "let g:solarized_underline = 0
-                "let g:solarized_contrast = 'normal'
-                "colorscheme solarized
-            "}}}
+        "{{{ vim-hybrid
+            set background=dark
+            let g:hybrid_reduced_contrast = 1
+            colorscheme hybrid
+        "}}}
 
-            "{{{ vim-hybrid
-                set background=dark
-                let g:hybrid_reduced_contrast = 1
-                colorscheme hybrid
-            "}}}
-
-            "colorscheme dracula
-            "colorscheme jellyx
-            "colorscheme desertEx_256
-            "colorscheme BusyBee
-            "colorscheme jellybeans
-            " 参考线颜色
-            "highlight ColorColumn ctermfg=White ctermbg=Grey
-        endif
+        "colorscheme dracula
+        "colorscheme jellyx
+        "colorscheme desertEx_256
+        "colorscheme BusyBee
+        "colorscheme jellybeans
+        " 参考线颜色
+        "highlight ColorColumn ctermfg=White ctermbg=Grey
     "}}}
 
     "{{{ 杂项
@@ -414,18 +369,6 @@ call vundle#end()
             let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
         "}}}
 
-        "{{{ vim-autoformat
-            let g:autoformat_autoindent = 0
-            let g:autoformat_verbosemode = 1
-            let g:formatdef_jsbeautify_javascript = join(['"',
-                        \' js-beautify -f - ',
-                        \' --indent-size 4 ',
-                        \' --wrap-line-length 80 ',
-                        \' --jslint-happy ',
-                        \' --brace-style collapse',
-                        \'"'])
-        "}}}
-
         "{{{  UltiSnips
             " augroup vimrc-plugin-ultisnips
             "     autocmd!
@@ -476,33 +419,6 @@ call vundle#end()
 
     "}}}
 
-    "{{{ 前端
-
-        "{{{ JavaScript
-
-            "{{{ vim-jsdoc
-                let g:jsdoc_allow_input_prompt = 1
-                let g:jsdoc_input_description = 1
-                let g:jsdoc_param_description_separator = ' - '
-            "}}}
-
-        "}}}
-
-        "{{{ HTML
-
-        "{{{ vim-emmet
-            let g:user_emmet_install_global = 0
-            let g:user_emmet_leader_key='<C-z>'
-            augroup vimrc-plugin-emmet
-                autocmd!
-                autocmd FileType html,css EmmetInstall
-            augroup END
-        "}}}
-
-        "}}}
-
-    "}}}
-
     " {{{ python
 
         "{{{ indent-guides 对齐线插件
@@ -532,31 +448,9 @@ call vundle#end()
             let g:cscope_auto_update = 0
         "}}}
 
-        "{{{ DoxygenToolkit.vim
-            let g:DoxygenToolkit_briefTag_pre = "@brief       "
-            let g:DoxygenToolkit_paramTag_pre = "@params      "
-            let g:DoxygenToolkit_returnTag = "@return      "
-            let g:DoxygenToolkit_authorName = "NsLib"
-            let g:DoxygenToolkit_licenseTag = "MIT"
-        "}}}
-
     "}}}
 
     "{{{ 通用
-
-        "{{{ startify
-            let g:startify_list_order = ['files', 'bookmarks']
-            let g:startify_files_number = 20
-            let g:startify_enable_special = 0
-            let g:startify_skiplist = [
-                        \ '^/tmp',
-                        \ '/project/.*/documentation',
-                        \ $HOME . '/vimwiki/.*',
-                        \ $HOME . '/miwiki/.*',
-                        \ $HOME . '/Code/test/.*',
-                        \ $HOME . '/tools/.*',
-                        \ ]
-        "}}}
 
         "{{{ unite
             call unite#custom#source('neomru/file,file_rec,file_rec/async,file_mru,file,buffer,grep',
@@ -695,7 +589,6 @@ call vundle#end()
             autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
-            autocmd FileType javascript map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType go map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
         augroup END
