@@ -38,9 +38,9 @@ function init_mac_dependeny()
 function init_unix_dependeny()
 {
     if [ -e '/etc/system-release' ]; then
-        local = `cat /etc/system-release | head -n 1 | awk '{print $1}'`
+        local=`cat /etc/system-release | head -n 1 | awk '{print $1}'`
     elif [ -e '/etc/issue' ]; then
-        local = `cat /etc/issue | head -n 1 | awk '{print $1}'`
+        local=`cat /etc/issue | head -n 1 | awk '{print $1}'`
     fi
     echo $os_name
     if [ "${os_name}" = "CentOS" ]; then
