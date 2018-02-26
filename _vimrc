@@ -261,11 +261,22 @@ call vundle#end()
         augroup END
     "}}}
 
+    "{{{ yaml
+        augroup vimrc-lang-yaml
+            autocmd!
+            autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+        augroup END
+    "}}}
+
     "{{{ go
         augroup vimrc-lang-go
             autocmd!
             autocmd BufRead,BufNewFile *.go set filetype=go
         augroup END
+    "}}}
+
+    "{{{ crontab
+        autocmd filetype crontab setlocal nobackup nowritebackup
     "}}}
 
 "}}}
