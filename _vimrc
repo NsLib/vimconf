@@ -26,18 +26,10 @@ map <space><space> <leader><leader>
         Plugin 'scrooloose/syntastic'
         " 切换工作目录到项目根目录
         Plugin 'airblade/vim-rooter'
-        " 代码片段
-        Plugin 'SirVer/ultisnips'
-        " 代码片段
-        Plugin 'NsLib/vim-snippets-mod'
         " 快速注释插件
         Plugin 'scrooloose/NERDCommenter'
         " 代码折叠
         Plugin 'NsLib/vim-fold-mod'
-        " 显示文件中的tag列表
-        Plugin 'majutsushi/tagbar'
-        " 快速运行代码
-        Plugin 'thinca/vim-quickrun'
     "}}}
 
     "{{{ C/C++
@@ -50,12 +42,8 @@ map <space><space> <leader><leader>
     "}}}
 
     "{{{ Python
-        " 对齐参考线
-        Plugin 'nathanaelkane/vim-indent-guides'
         " 语法高亮
         Plugin 'hdima/python-syntax'
-        " 缩进
-        Plugin 'hynek/vim-python-pep8-indent'
     "}}}
 
     "{{{ 通用
@@ -285,17 +273,6 @@ call vundle#end()
 
     "{{{ 编程辅助
 
-        "{{{  UltiSnips
-            let g:UltiSnipsExpandTrigger = "ii"
-            let g:UltiSnipsUsePythonVersion = 2
-            let g:UltiSnipsEditSplit = "vertical"
-        "}}}
-
-        "{{{ quickrun
-            let g:quickrun_config = {}
-            let g:quickrun_config.html = {'command' : 'open'}
-        "}}}
-
         "{{{ syntastic
             let g:syntastic_check_on_open = 0
             let g:syntastic_check_on_wq = 0
@@ -323,24 +300,6 @@ call vundle#end()
                         \ "next": ["<C-J>", "n"],
                         \ "prev": ["<C-K>", "p"]
                         \}
-        "}}}
-
-    "}}}
-
-    " {{{ python
-
-        "{{{ indent-guides 对齐线插件
-            let g:indent_guides_guide_size = 1
-            let g:indent_guides_start_level = 2
-            if !has("gui_running")
-                let g:indent_guides_auto_colors = 0
-                augroup vimrc-plugin-indent-guides
-                    autocmd!
-                    autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=White ctermbg=DarkGray
-                    autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=White ctermbg=Gray
-                augroup END
-            endif
-
         "}}}
 
     "}}}
