@@ -75,6 +75,8 @@ map <space><space> <leader><leader>
         Plugin 'dyng/ctrlsf.vim'
         " Markdown支持
         Plugin 'plasticboy/vim-markdown'
+        " 快速对齐
+        Plugin 'junegunn/vim-easy-align'
         " enable repeating supported plugin maps with .
         Plugin 'tpope/vim-repeat'
         " 支持editorconfig
