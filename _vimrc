@@ -32,15 +32,6 @@ map <space><space> <leader><leader>
         Plugin 'NsLib/vim-fold-mod'
     "}}}
 
-    "{{{ C/C++
-        " c/cpp和.h切换
-        Plugin 'a.vim'
-        " 生成tags文件
-        Plugin 'szw/vim-tags'
-        " 生成scope文件
-        Plugin 'brookhong/cscope.vim'
-    "}}}
-
     "{{{ Python
         " 语法高亮
         Plugin 'hdima/python-syntax'
@@ -65,10 +56,6 @@ map <space><space> <leader><leader>
         Plugin 'scrooloose/nerdtree'
         " 高亮显示空白行
         Plugin 'bronson/vim-trailing-whitespace'
-        " Unite and create user interfaces
-        Plugin 'Shougo/unite.vim'
-        " MRU plugin for unite.vim
-        Plugin 'Shougo/neomru.vim'
         " buffer/file/tab/workspace/bookmark切换
         Plugin 'szw/vim-ctrlspace'
         " 搜索插件
@@ -306,68 +293,7 @@ call vundle#end()
 
     "}}}
 
-    "{{{ c/cpp
-
-        "{{{ vim-tags
-            let g:vim_tags_auto_generate = 0
-            let g:vim_tags_directories = []
-        "}}}
-
-        "{{{ vim-cscope
-            let g:cscope_auto_update = 0
-        "}}}
-
-    "}}}
-
     "{{{ 通用
-
-        "{{{ unite
-            call unite#custom#source('neomru/file,file_rec,file_rec/async,file_mru,file,buffer,grep',
-                        \ 'ignore_pattern', join([
-                        \ '\.git/',
-                        \ 'tmp/',
-                        \ 'node_modules/',
-                        \ 'vendor/',
-                        \ 'Vendor/',
-                        \ 'bower_components/',
-                        \ '.sass-cache',
-                        \ '\.venv',
-                        \ '**\.png',
-                        \ '**\.jpeg',
-                        \ '**\.jpg',
-                        \ '**\.gif',
-                        \ '**\.bpm',
-                        \ '**\.svg',
-                        \ '**\.gliffy',
-                        \ ], '\|'))
-
-            call unite#filters#matcher_default#use(['matcher_fuzzy'])
-            call unite#filters#sorter_default#use(['sorter_rank'])
-            call unite#custom#profile('default', 'context', {
-                        \   'marked_icon': '✓',
-                        \   'start_insert': 1,
-                        \   'winheight': 10,
-                        \   'direction': 'botright',
-                        \   'unite-options-direction': 'botright'
-                        \ })
-			call unite#custom#source(
-                        \ 'neomru/file,file_mru,file', 'matchers',
-						\ ['matcher_project_files', 'matcher_fuzzy'])
-
-            let g:unite_data_directory = '~/.cache/unite'
-            let g:unite_source_history_yank_enable = 1
-            let g:unite_prompt = '» '
-
-            if executable('ack')
-                let g:unite_source_grep_command = 'ack'
-                let g:unite_source_grep_default_opts = '--no-heading --no-color -C4'
-                let g:unite_source_grep_recursive_opt = ''
-            elseif executable('ag')
-                let g:unite_source_grep_command = 'ag'
-                let g:unite_source_grep_default_opts = '--nocolor --line-numbers --nogroup -S -C4'
-                let g:unite_source_grep_recursive_opt = ''
-            endif
-        "}}}
 
         "{{{ vim-bookmarks
             let g:bookmark_sign = '♥'
@@ -430,9 +356,6 @@ call vundle#end()
         nnoremap <F3> :CtrlSF
         augroup vimrc-editor-shortcuts
             autocmd!
-            autocmd FileType cpp map <F5> :call NsLibMakeTags()<CR>
-            autocmd FileType c map <F5> :call NsLibMakeTags()<CR>
-            autocmd FileType python map <F5> :call NsLibMakeTags()<CR>
             autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
         augroup END
         nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
@@ -496,44 +419,6 @@ call vundle#end()
         "{{{ 编程辅助
 
             nnoremap <leader>tb :TagbarToggle<CR>
-
-            "{{{ cscope & ctags
-                nnoremap zvf :vsplit<CR>:exec("tag ".expand("<cword>"))<CR>
-                nnoremap zsf :split<CR>:exec("tag ".expand("<cword>"))<CR>
-                nnoremap zf :split<CR>:exec("tag ".expand("<cword>"))<CR>
-
-				nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>
-				nnoremap <leader>fl :call ToggleLocationList()<CR>
-				" s: Find this C symbol
-				nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>
-				" g: Find this definition
-				nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>
-				" d: Find functions called by this function
-				nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>
-				" c: Find functions calling this function
-				nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>
-				" t: Find this text string
-				nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>
-				" e: Find this egrep pattern
-				nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>
-				" f: Find this file
-				nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>
-				" i: Find files #including this file
-				nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
-            "}}}
-
-            "{{{ unite
-                nnoremap <leader>u/ :Unite grep:.<cr>
-                nnoremap <leader>uy :Unite -buffer-name=yanks history/yank<cr>
-                nnoremap <leader>uo :Unite -buffer-name=outline -vertical outline<cr>
-                nnoremap <leader>um :Unite -buffer-name=mru file_mru
-                nnoremap <leader>us :Unite -quick-match buffer<cr>
-                nnoremap <leader>ub :Unite -buffer-name=buffer buffer<CR>
-                nnoremap <leader>uf :Unite -buffer-name=files file_rec/async<CR>
-                "nnoremap <silent><c-p> :<C-u>Unite -auto-resize file file_mru<cr>
-                nnoremap <silent><c-p> :<C-u>Unite -auto-resize neomru/file file_mru<cr>
-                nnoremap <silent><leader>o :<C-u>Unite -auto-resize file file_mru<cr>
-            "}}}
 
             "{{{ ctrlsf
                 nnoremap <leader>cf :CtrlSF<CR>
