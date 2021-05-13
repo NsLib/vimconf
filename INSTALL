@@ -24,43 +24,11 @@ function init_linux_font()
     mkfontdir
 }
 
-function init_mac_dependeny()
-{
-    brew install ctags
-    brew install ag
-    sudo pip install --upgrade pyflakes
-    sudo pip install --upgrade pylint
-    sudo pip install --upgrade pep8
-    sudo npm install jshint -g
-    sudo npm install jslint -g
-}
-
-function init_unix_dependeny()
-{
-    if [ -e '/etc/system-release' ]; then
-        local os_name=`cat /etc/system-release | head -n 1 | awk '{print $1}'`
-    elif [ -e '/etc/issue' ]; then
-        local os_name=`cat /etc/issue | head -n 1 | awk '{print $1}'`
-    fi
-    echo $os_name
-    if [ "${os_name}" = "CentOS" ]; then
-        sudo yum install -y ctags-etags cscope
-        :
-    elif [ "${os_name}" = "Fedora" ]; then
-        sudo yum install -y ctags-etags cscope
-        :
-    else
-        echo "Unsupported OS type"
-    fi
-}
-
 if [ "${OS_TYPE}" = "Darwin" ]; then
     init_vim_file;
-    init_mac_dependeny;
 elif [ "${OS_TYPE}" = "Linux" ]; then
     init_vim_file;
     init_linux_font;
-    init_unix_dependeny;
 else
     echo "Unsupported OS type"
     exit 1
