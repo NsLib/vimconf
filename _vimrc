@@ -24,8 +24,6 @@ map <space><space> <leader><leader>
     "{{{ 编程辅助
         " 语法检查插件
         Plugin 'scrooloose/syntastic'
-        " 切换工作目录到项目根目录
-        Plugin 'airblade/vim-rooter'
         " 快速注释插件
         Plugin 'scrooloose/NERDCommenter'
         " 代码折叠
@@ -39,33 +37,21 @@ map <space><space> <leader><leader>
 
     "{{{ 通用
         " 状态栏
-        Plugin 'bling/vim-airline'
+        Plugin 'ling/vim-airline'
         " 快速移动
         Plugin 'easymotion/vim-easymotion'
-        " 简化对称标签编辑
-        Plugin 'tpope/vim-surround'
-        " 可视化书签
-        Plugin 'MattesGroeger/vim-bookmarks'
         " 相对行号
         Plugin 'myusuf3/numbers.vim'
-        " Git wrapper
-        Plugin 'tpope/vim-fugitive'
         " 显示Git修改
         Plugin 'airblade/vim-gitgutter'
         " 文件浏览器
         Plugin 'scrooloose/nerdtree'
         " 高亮显示空白行
         Plugin 'bronson/vim-trailing-whitespace'
-        " buffer/file/tab/workspace/bookmark切换
-        Plugin 'szw/vim-ctrlspace'
-        " 搜索插件
-        Plugin 'dyng/ctrlsf.vim'
         " Markdown支持
         Plugin 'plasticboy/vim-markdown'
         " 快速对齐
         Plugin 'junegunn/vim-easy-align'
-        " enable repeating supported plugin maps with .
-        Plugin 'tpope/vim-repeat'
         " 支持editorconfig
         Plugin 'editorconfig/editorconfig-vim'
     "}}}
@@ -136,8 +122,6 @@ call vundle#end()
         set foldlevel=99
         " 折叠线所占的宽度
         set foldcolumn=0
-        " 用空格键开关折叠
-        " nnoremap <silent> <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
     "}}}
 
     "{{{ 状态栏/标尺
@@ -168,7 +152,6 @@ call vundle#end()
         let g:hybrid_reduced_contrast = 1
         colorscheme hybrid
 
-        "colorscheme dracula
         " 参考线颜色
         "highlight ColorColumn ctermfg=White ctermbg=Grey
     "}}}
@@ -190,12 +173,7 @@ call vundle#end()
         augroup END
 
         " 默认加载tags
-        set tags=tags;/
-        " 离开插入模式后自动关闭预览窗口
-        augroup vimrc-editor-insert
-            autocmd!
-            autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-        augroup END
+        " set tags=tags;/
     "}}}
 
 "}}}
@@ -219,8 +197,6 @@ call vundle#end()
     "{{{ shell
         augroup vimrc-lang-shell
             set foldmethod=manual
-            " 开启shell脚本函数折叠支持
-            " let g:sh_fold_enabled = 1
         augroup END
     "}}}
 
@@ -242,13 +218,6 @@ call vundle#end()
         augroup vimrc-lang-yaml
             autocmd!
             autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-        augroup END
-    "}}}
-
-    "{{{ go
-        augroup vimrc-lang-go
-            autocmd!
-            autocmd BufRead,BufNewFile *.go set filetype=go
         augroup END
     "}}}
 
@@ -283,29 +252,9 @@ call vundle#end()
                         \ }
         "}}}
 
-        "{{{ ctrlsf.vim
-            let g:ctrlsf_position = 'right'
-            let g:ctrlsf_mapping = {
-                        \ "next": ["<C-J>", "n"],
-                        \ "prev": ["<C-K>", "p"]
-                        \}
-        "}}}
-
     "}}}
 
     "{{{ 通用
-
-        "{{{ vim-bookmarks
-            let g:bookmark_sign = '♥'
-            let g:bookmark_highlight_lines = 1
-            let g:bookmark_auto_save = 1
-            let g:bookmark_save_per_working_dir = 1
-
-            highlight BookmarkSign ctermbg=NONE ctermfg=blue
-            highlight BookmarkLine ctermbg=237 ctermfg=NONE
-            highlight BookmarkAnnotationSign ctermbg=NONE ctermfg=blue
-            highlight BookmarkAnnotationLine ctermbg=016 ctermfg=NONE
-        "}}}
 
         "{{{ airline
             let g:airline_left_sep = ''
@@ -353,13 +302,11 @@ call vundle#end()
 
     "{{{ F1 ~ F12
         nnoremap <F1> <Esc>
-        nnoremap <F3> :CtrlSF
         augroup vimrc-editor-shortcuts
             autocmd!
             autocmd FileType * map <buffer><F7> :SyntasticCheck<ESC>:Errors<CR>
         augroup END
         nnoremap <S-F7> :call ToggleLineNumberAndNerdTree()<CR>
-        nnoremap <F9> :QuickRun
         nnoremap <F11> :NERDTreeFind<CR>
         nnoremap <F12> :NERDTreeToggle<CR>
     "}}}
@@ -367,9 +314,6 @@ call vundle#end()
     "{{{ vim
 
         "{{{ 基础配置
-            " 刷新vim配置
-            nnoremap <leader>sv :source $MYVIMRC<cr>
-
             " 编辑模式下按jk等价于按ESC键, 非常高效
             inoremap jk <esc>
             " 命令模式下，输入Q，退出Vim
@@ -414,16 +358,6 @@ call vundle#end()
         "{{{ 高亮
             " 高亮当前列
             nnoremap <leader>hc :call SetColorColumn()<CR>
-        "}}}
-
-        "{{{ 编程辅助
-
-            nnoremap <leader>tb :TagbarToggle<CR>
-
-            "{{{ ctrlsf
-                nnoremap <leader>cf :CtrlSF<CR>
-            "}}}
-
         "}}}
 
     "}}}
