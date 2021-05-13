@@ -1,8 +1,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 作者:     凝霜
-" E-mail:   mdl2009@vip.qq.com
+" E-mail:   mdl2009(at)vip.qq.com
 " GitHub:   https://github.com/NsLib
-" Blog:     http://blog.csdn.net/MDL13412
+" Blog:     https://hackers-delight.com/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "{{{ before
