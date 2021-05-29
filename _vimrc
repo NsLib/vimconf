@@ -132,7 +132,7 @@ call vundle#end()
         set showcmd
         set laststatus=2
         set cmdheight=1
-        set textwidth=78
+        set textwidth=1000
         set cc=+1
         set scrolloff=15
     "}}}
