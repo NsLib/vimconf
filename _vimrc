@@ -37,7 +37,7 @@ map <space><space> <leader><leader>
 
     "{{{ 通用
         " 状态栏
-        Plugin 'ling/vim-airline'
+        Plugin 'vim-airline/vim-airline'
         " 快速移动
         Plugin 'easymotion/vim-easymotion'
         " 相对行号
